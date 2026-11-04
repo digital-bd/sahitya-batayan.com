@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#7b1e2b">
+<title>লেখক কর্নার | সাহিত্য বাতায়ন</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--red:#7b1e2b;--navy:#1f3a5f;--gold:#c99b36;--ink:#263238;--muted:#687780;--line:#e6e8eb;--paper:#fff;--bg:#f4f5f7;--green:#16794b}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans Bengali',sans-serif;line-height:1.65}
+header{background:var(--paper);border-bottom:4px solid var(--gold);box-shadow:0 2px 12px #17212b12}
+.head{max-width:1080px;margin:auto;padding:17px 20px;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-size:25px;font-weight:800;color:var(--navy);text-decoration:none}.brand small{display:block;font:10px Arial;letter-spacing:3px;color:var(--red)}
+nav a{color:var(--navy);text-decoration:none;margin-left:16px;font-size:14px;font-weight:600}
+main{max-width:960px;margin:30px auto;padding:0 16px}.intro{background:linear-gradient(120deg,var(--navy),#304f77);color:#fff;padding:26px 28px;border-radius:12px;margin-bottom:20px}.intro h1{margin:0 0 6px;font-size:25px}.intro p{margin:0;color:#e8edf5;font-size:14px}
+.panel{background:#fff;border:1px solid var(--line);border-radius:12px;padding:24px;margin-bottom:18px;box-shadow:0 5px 22px #15233808}
+h2{margin:0 0 14px;color:var(--red);font-size:20px}.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.tab{border:1px solid var(--line);background:#fff;border-radius:8px;padding:9px 15px;cursor:pointer;font:600 14px inherit;color:var(--navy)}.tab.active{background:var(--navy);color:#fff;border-color:var(--navy)}
+label{display:block;font-weight:600;font-size:14px;margin:12px 0 5px}input,select,textarea{width:100%;padding:11px 12px;border:1px solid #cfd5dc;border-radius:8px;font:15px 'Noto Sans Bengali',sans-serif;background:#fff;color:var(--ink)}textarea{min-height:190px;resize:vertical}
+button,.btn{border:0;border-radius:8px;padding:11px 18px;background:var(--red);color:#fff;font:600 14px 'Noto Sans Bengali',sans-serif;cursor:pointer;text-decoration:none;display:inline-block}.btn.secondary,button.secondary{background:#edf0f4;color:var(--navy)}button:disabled{opacity:.55;cursor:wait}
+.actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}.muted{color:var(--muted);font-size:13px}.notice{padding:12px 14px;border-radius:8px;background:#eef4fb;color:var(--navy);margin:12px 0;font-size:14px}.notice.error{background:#fff0ef;color:#a52b24}.notice.success{background:#eaf7ef;color:#17643f}
+.hidden{display:none!important}.article{border:1px solid var(--line);border-radius:9px;padding:15px;margin:10px 0}.article h3{margin:0 0 5px;font-size:17px}.pill{display:inline-block;padding:3px 9px;border-radius:20px;background:#f2edf0;color:var(--red);font-size:12px;margin-right:6px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.footer{text-align:center;color:var(--muted);font-size:12px;padding:25px}
+@media(max-width:650px){.head{padding:13px 15px}.brand{font-size:21px}nav a{margin-left:8px}.panel{padding:17px}.grid{grid-template-columns:1fr}.intro{padding:21px}}
+</style>
+</head>
+<body>
+<header><div class="head"><a class="brand" href="index.html">সাহিত্য বাতায়ন<small>A LITERARY PORTAL</small></a><nav><a href="index.html">প্রচ্ছদ</a><a href="admin.html">সম্পাদক</a></nav></div></header>
+<main>
+<section class="intro"><h1>লেখক কর্নার</h1><p>নিবন্ধন করুন, নিজের লেখা জমা দিন এবং সম্পাদকের পর্যালোচনার অবস্থা দেখুন। অনুমোদন ছাড়া কোনো লেখা প্রকাশিত হবে না।</p></section>
+<div id="message" class="notice hidden" role="status"></div>
+<section class="panel" id="authPanel">
+ <div class="tabs"><button class="tab active" id="loginTab" type="button">লগইন</button><button class="tab" id="signupTab" type="button">নতুন লেখক নিবন্ধন</button></div>
+ <form id="loginForm">
+  <h2>লেখক লগইন</h2><label for="loginEmail">ইমেইল</label><input id="loginEmail" type="email" autocomplete="email" required>
+  <label for="loginPassword">পাসওয়ার্ড</label><input id="loginPassword" type="password" autocomplete="current-password" required>
+  <div class="actions"><button id="loginBtn">লগইন করুন</button></div>
+ </form>
+ <form id="signupForm" class="hidden">
+  <h2>নতুন লেখক নিবন্ধন</h2>
+  <label for="fullName">প্রকাশিত লেখায় যে নাম ব্যবহার করবেন *</label><input id="fullName" maxlength="100" required>
+  <label for="username">ইউজারনেম *</label><input id="username" minlength="3" maxlength="30" pattern="[A-Za-z0-9_]+" placeholder="ইংরেজি অক্ষর, সংখ্যা ও _" required>
+  <label for="signupEmail">ইমেইল *</label><input id="signupEmail" type="email" autocomplete="email" required>
+  <label for="signupPassword">পাসওয়ার্ড (কমপক্ষে ৮ অক্ষর) *</label><input id="signupPassword" type="password" minlength="8" autocomplete="new-password" required>
+  <label for="signupPassword2">পাসওয়ার্ড আবার লিখুন *</label><input id="signupPassword2" type="password" minlength="8" autocomplete="new-password" required>
+  <div class="notice">নিবন্ধনের পর ইমেইল যাচাই করতে হতে পারে। যাচাই সম্পন্ন হলে লেখক হিসেবে নিবন্ধন সক্রিয় হবে।</div>
+  <div class="actions"><button id="signupBtn">নিবন্ধন করুন</button></div>
+ </form>
+</section>
+<section class="panel hidden" id="deskPanel">
+ <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap"><div><h2 style="margin-bottom:2px">আমার লেখালেখি</h2><div class="muted" id="welcome"></div></div><button class="secondary" id="logoutBtn" type="button">লগআউট</button></div>
+ <div class="tabs" style="margin-top:18px"><button class="tab active" id="newArticleTab" type="button">নতুন লেখা জমা</button><button class="tab" id="myArticlesTab" type="button">আমার জমা দেওয়া লেখা</button></div>
+ <form id="articleForm">
+  <h2>লেখা জমা দিন</h2>
+  <label for="articleTitle">লেখার শিরোনাম *</label><input id="articleTitle" maxlength="220" required>
+  <div class="grid"><div><label for="articleCategory">বিভাগ *</label><select id="articleCategory" required><option value="">বিভাগ নির্বাচন</option><option>কবিতা</option><option>গল্প</option><option>অনুগল্প</option><option>প্রবন্ধ</option><option>মতামত</option><option>রম্য</option><option>সাহিত্য</option><option>বই আলোচনা</option><option>অন্যান্য</option></select></div>
+  <div><label for="coverFile">প্রচ্ছদ ছবি (ঐচ্ছিক)</label><input id="coverFile" type="file" accept="image/png,image/jpeg,image/webp"></div></div>
+  <label for="articleExcerpt">সংক্ষিপ্ত পরিচিতি (ঐচ্ছিক)</label><textarea id="articleExcerpt" style="min-height:85px" maxlength="500"></textarea>
+  <label for="articleContent">সম্পূর্ণ লেখা *</label><textarea id="articleContent" required minlength="30" placeholder="এখানে আপনার সম্পূর্ণ লেখা লিখুন..."></textarea>
+  <div class="notice">জমা দেওয়ার পর লেখা সম্পাদকের কাছে যাবে। সম্পাদক অনুমোদন না করা পর্যন্ত এটি Homepage-এ প্রকাশিত হবে না।</div>
+  <div class="actions"><button id="submitArticleBtn">সম্পাদকের কাছে জমা দিন</button></div>
+ </form>
+ <div id="myArticles" class="hidden"><h2>আমার জমা দেওয়া লেখা</h2><div id="articleList"></div></div>
+</section>
+</main>
+<div class="footer">© সাহিত্য বাতায়ন — লেখকের লেখা ও ব্যক্তিগত অ্যাকাউন্ট সুরক্ষিত রাখতে Supabase নিরাপত্তা নীতি ব্যবহৃত হয়।</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL='https://wiaovopnunhdzcjfchkv.supabase.co';
+const SUPABASE_ANON_KEY='sb_publishable_A4bEGZp8sZyRBTC1MmY61A_wFWf6Eld';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY);
+const $=id=>document.getElementById(id);
+let currentUser=null,currentProfile=null;
+function message(t,type=''){const e=$('message');e.textContent=t;e.className='notice'+(type?' '+type:'');e.classList.remove('hidden');}
+function clearMessage(){$('message').classList.add('hidden');}
+function busy(id,on,text){const b=$(id);b.disabled=on;if(on)b.dataset.old=b.textContent,b.textContent=text;else b.textContent=b.dataset.old||b.textContent;}
+function showTab(which){const login=which==='login';$('loginForm').classList.toggle('hidden',!login);$('signupForm').classList.toggle('hidden',login);$('loginTab').classList.toggle('active',login);$('signupTab').classList.toggle('active',!login);clearMessage();}
+$('loginTab').onclick=()=>showTab('login');$('signupTab').onclick=()=>showTab('signup');
+function showDesk(){ $('authPanel').classList.add('hidden');$('deskPanel').classList.remove('hidden');$('welcome').textContent=(currentProfile?.display_name||currentUser.email)+' — লেখক অ্যাকাউন্ট';}
+function showAuth(){ $('deskPanel').classList.add('hidden');$('authPanel').classList.remove('hidden');}
+async function loadProfile(){
+ const {data,error}=await db.from('profiles').select('id,role,display_name,username').eq('id',currentUser.id).single();
+ if(error)throw error;currentProfile=data;
+ if(data.role==='reader'){
+  const {error:regErr}=await db.rpc('register_as_writer',{p_display_name:data.display_name||''});
+  if(regErr){showAuth();throw new Error(regErr.message.includes('verify')?'আপনার ইমেইল যাচাই সম্পন্ন হয়নি। ইমেইলের ইনবক্স/স্প্যাম ফোল্ডার দেখে যাচাই করে আবার লগইন করুন।':regErr.message);}
+  const {data:again,error:againErr}=await db.from('profiles').select('id,role,display_name,username').eq('id',currentUser.id).single();
+  if(againErr)throw againErr;currentProfile=again;
+ }
+ if(!['writer','editor','admin'].includes(currentProfile.role)){throw new Error('এই অ্যাকাউন্টে লেখক পোর্টালের অনুমতি নেই।');}
+ showDesk();await loadArticles();
+}
+$('signupForm').addEventListener('submit',async e=>{
+ e.preventDefault();clearMessage();
+ const name=$('fullName').value.trim(),username=$('username').value.trim(),email=$('signupEmail').value.trim(),password=$('signupPassword').value;
+ if(password!==$('signupPassword2').value){message('দুটি পাসওয়ার্ড এক নয়।','error');return;}
+ busy('signupBtn',true,'নিবন্ধন হচ্ছে...');
+ try{
+  const {data,error}=await db.auth.signUp({email,password,options:{data:{display_name:name,username}}});
+  if(error)throw error;
+  if(data.session){currentUser=data.user;await loadProfile();message('নিবন্ধন সফল। এখন লেখা জমা দিতে পারবেন।','success');}
+  else{message('নিবন্ধন অনুরোধ সফল হয়েছে। আপনার ইমেইলে পাঠানো যাচাইকরণ লিংকে ক্লিক করুন। তারপর এই পেজে ফিরে লগইন করুন।','success');showTab('login');}
+ }catch(err){message(err.message||'নিবন্ধন করা যায়নি।','error');}
+ finally{busy('signupBtn',false);}
+});
+$('loginForm').addEventListener('submit',async e=>{
+ e.preventDefault();clearMessage();busy('loginBtn',true,'যাচাই হচ্ছে...');
+ try{const {data,error}=await db.auth.signInWithPassword({email:$('loginEmail').value.trim(),password:$('loginPassword').value});if(error)throw error;currentUser=data.user;await loadProfile();message('লগইন সফল।','success');}
+ catch(err){message(err.message||'লগইন করা যায়নি।','error');}
+ finally{busy('loginBtn',false);}
+});
+$('logoutBtn').onclick=async()=>{await db.auth.signOut();currentUser=null;currentProfile=null;showAuth();showTab('login');message('আপনি লগআউট করেছেন।','success');};
+$('newArticleTab').onclick=()=>{$('articleForm').classList.remove('hidden');$('myArticles').classList.add('hidden');$('newArticleTab').classList.add('active');$('myArticlesTab').classList.remove('active');};
+$('myArticlesTab').onclick=async()=>{$('articleForm').classList.add('hidden');$('myArticles').classList.remove('hidden');$('newArticleTab').classList.remove('active');$('myArticlesTab').classList.add('active');await loadArticles();};
+async function loadArticles(){
+ const {data,error}=await db.from('articles').select('id,title,category,status,created_at,submitted_at,editorial_note').eq('author_id',currentUser.id).order('created_at',{ascending:false}).limit(100);
+ if(error){$('articleList').textContent='লেখার তালিকা আনা যায়নি: '+error.message;return;}
+ const labels={draft:'খসড়া',pending:'সম্পাদকের অপেক্ষায়',published:'প্রকাশিত',rejected:'বাতিল',revision_requested:'সংশোধন প্রয়োজন',archived:'আর্কাইভ'};
+ $('articleList').innerHTML=data.length?data.map(a=>`<article class="article"><h3>${esc(a.title)}</h3><span class="pill">${esc(a.category)}</span><span class="pill">${labels[a.status]||esc(a.status)}</span><div class="muted">${new Date(a.created_at).toLocaleString('bn-BD')}</div>${a.editorial_note?`<p><b>সম্পাদকের মন্তব্য:</b> ${esc(a.editorial_note)}</p>`:''}</article>`).join(''):'এখনো কোনো লেখা জমা দেননি।';
+}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function slugify(s){return s.toLowerCase().trim().replace(/[^\p{L}\p{N}]+/gu,'-').replace(/^-|-$/g,'').slice(0,100)+'-'+crypto.randomUUID().slice(0,8);}
+$('articleForm').addEventListener('submit',async e=>{
+ e.preventDefault();clearMessage();if(!currentUser||!currentProfile||currentProfile.role!=='writer'){message('লেখা জমা দিতে লেখক হিসেবে লগইন করুন।','error');return;}
+ busy('submitArticleBtn',true,'জমা হচ্ছে...');
+ try{
+  let cover=null;const file=$('coverFile').files[0];
+  if(file){if(file.size>5*1024*1024)throw new Error('ছবির আকার ৫ MB-এর বেশি হতে পারবে না।');const ext=(file.name.split('.').pop()||'jpg').toLowerCase();const path=`${currentUser.id}/${crypto.randomUUID()}.${ext}`;const {error:upErr}=await db.storage.from('site-media').upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});if(upErr)throw upErr;cover=db.storage.from('site-media').getPublicUrl(path).data.publicUrl;}
+  const title=$('articleTitle').value.trim();
+  const row={title,slug:slugify(title),category:$('articleCategory').value,author_id:currentUser.id,author_name:currentProfile.display_name||'নাম উল্লেখ নেই',created_by:currentUser.id,submission_source:'registered_writer',excerpt:$('articleExcerpt').value.trim(),content:$('articleContent').value.trim(),cover_image_url:cover,status:'pending',submitted_at:new Date().toISOString()};
+  const {error}=await db.from('articles').insert(row);if(error)throw error;
+  $('articleForm').reset();message('লেখা সফলভাবে সম্পাদকের কাছে জমা হয়েছে। অনুমোদনের আগে Homepage-এ দেখা যাবে না।','success');await loadArticles();
+ }catch(err){message(err.message||'লেখা জমা দেওয়া যায়নি।','error');}
+ finally{busy('submitArticleBtn',false);}
+});
+(async()=>{
+ const {data:{session}}=await db.auth.getSession();
+ if(session){currentUser=session.user;try{await loadProfile();}catch(err){message(err.message,'error');}}
+ db.auth.onAuthStateChange((event,session)=>{if(event==='SIGNED_OUT'){currentUser=null;currentProfile=null;showAuth();}});
+})();
+</script>
+</body></html>
