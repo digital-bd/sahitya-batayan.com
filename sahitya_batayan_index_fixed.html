@@ -1,0 +1,709 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>সাহিত্য বাতায়ন | অনলাইন সংবাদপত্র</title>
+<meta name="description" content="সাহিত্য বাতায়ন — সাহিত্য, সংবাদ ও মননের দর্পণ।">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --red:#941f2b;
+  --red-dark:#741721;
+  --navy:#172b46;
+  --gold:#b99651;
+  --ink:#20242a;
+  --muted:#73777d;
+  --line:#e6e2dc;
+  --paper:#fff;
+  --soft:#f7f5f1;
+  --max:1200px;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Sans Bengali",sans-serif;
+  line-height:1.7;
+}
+a{color:inherit;text-decoration:none}
+button,input{font:inherit}
+.container{width:min(var(--max),calc(100% - 32px));margin:auto}
+
+/* Top information bar */
+.topbar{background:var(--navy);color:#fff;font-size:12px}
+.topbar .container{
+  min-height:36px;display:flex;justify-content:space-between;
+  align-items:center;gap:12px
+}
+.top-links{display:flex;gap:17px;flex-wrap:wrap}
+.top-links a:hover{color:#e8c77f}
+
+/* Masthead */
+.masthead{border-bottom:1px solid var(--line)}
+.masthead-inner{
+  min-height:128px;display:grid;
+  grid-template-columns:1fr auto 1fr;align-items:center;gap:15px;
+  padding:16px 0
+}
+.mast-left,.mast-right{display:flex;align-items:center;gap:12px}
+.mast-right{justify-content:flex-end}
+.date-box{font-size:12px;color:var(--muted)}
+.brand{text-align:center;line-height:1.2}
+.brand-name{
+  font-family:"Noto Serif Bengali",serif;
+  font-size:clamp(35px,5vw,56px);
+  font-weight:800;letter-spacing:-2px;
+  color:var(--red);white-space:nowrap;
+  text-shadow:0 1px 0 rgba(0,0,0,.04)
+}
+.brand-tag{
+  color:var(--navy);font-size:11px;
+  letter-spacing:2px;margin-top:8px;font-weight:700
+}
+.brand-rule{
+  width:78px;height:3px;background:var(--gold);
+  margin:9px auto 0
+}
+.tool-btn{
+  border:1px solid var(--line);background:white;
+  color:var(--navy);padding:8px 12px;cursor:pointer;
+  font-size:13px;border-radius:3px
+}
+.tool-btn:hover{background:var(--soft);border-color:var(--gold)}
+.search-box{display:none;padding:12px 0;border-top:1px solid var(--line)}
+.search-box.open{display:block}
+.search-box input{
+  width:100%;padding:12px;border:1px solid var(--line);
+  outline:none;border-radius:3px
+}
+
+/* Navigation */
+.nav-wrap{
+  background:#fff;border-bottom:3px solid var(--red);
+  position:sticky;top:0;z-index:50
+}
+.nav-inner{display:flex;align-items:center;gap:10px}
+.menu-toggle{
+  display:none;border:0;background:none;font-size:23px;
+  color:var(--navy);padding:8px;cursor:pointer
+}
+.nav{
+  display:flex;align-items:center;gap:0;
+  overflow-x:auto;scrollbar-width:none;flex:1
+}
+.nav::-webkit-scrollbar{display:none}
+.nav a{
+  white-space:nowrap;padding:12px 13px;
+  font-size:14px;font-weight:700;color:#292d33;
+  border-bottom:3px solid transparent;margin-bottom:-3px
+}
+.nav a:hover,.nav a.active{
+  color:var(--red);border-color:var(--red)
+}
+
+/* সাহিত্য বাতায়ন পরিবার dropdown */
+.family-menu{position:relative;flex:0 0 auto}
+.family-menu>summary{list-style:none;cursor:pointer;white-space:nowrap;padding:12px 13px;font-size:14px;font-weight:700;color:var(--navy);border-bottom:3px solid transparent;margin-bottom:-3px}
+.family-menu>summary::-webkit-details-marker{display:none}
+.family-menu[open]>summary,.family-menu>summary:hover{color:var(--red);border-color:var(--red)}
+.family-dropdown{position:absolute;right:0;top:100%;min-width:220px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.14);padding:7px;z-index:80;display:flex;flex-direction:column}
+/* নির্ভরযোগ্য পরিবার মেনু: বন্ধ থাকলে লুকানো, ক্লিক করলে দৃশ্যমান */
+.family-menu:not([open])>.family-dropdown{display:none}
+.family-menu[open]>.family-dropdown{display:flex}
+.family-menu>summary{position:relative}
+.family-menu>summary::after{content:" ▾";font-size:12px}
+
+.family-dropdown a,.family-dropdown button,.family-dropdown span{display:block;text-align:left;padding:10px 12px;border:0;border-bottom:1px solid var(--line);background:#fff;color:var(--navy);font:inherit;font-size:13px;text-decoration:none;white-space:nowrap;cursor:pointer}
+.family-dropdown a:hover,.family-dropdown button:hover{background:var(--soft);color:var(--red)}
+.family-dropdown .family-future{color:var(--muted);cursor:default;border-bottom:0}
+@media(max-width:600px){
+  .family-menu{width:100%}
+  .family-menu>summary{padding:10px;border-bottom:1px solid var(--line);margin:0}
+  .family-dropdown{position:static;box-shadow:none;border:0;border-left:3px solid var(--gold);margin:0 8px 8px}
+  .family-dropdown a,.family-dropdown button,.family-dropdown span{white-space:normal}
+}
+/* সাহিত্যভিত্তিক নেভিগেশন dropdown */
+.nav-dropdown{position:relative;flex:0 0 auto}
+.nav-dropdown>summary{list-style:none;cursor:pointer;white-space:nowrap;padding:12px 13px;font-size:14px;font-weight:700;color:#292d33;border-bottom:3px solid transparent;margin-bottom:-3px}
+.nav-dropdown>summary::-webkit-details-marker{display:none}
+.nav-dropdown[open]>summary,.nav-dropdown>summary:hover{color:var(--red);border-color:var(--red)}
+.nav-dropdown-panel{position:absolute;left:0;top:100%;min-width:205px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.14);padding:7px;z-index:80;display:flex;flex-direction:column}
+.nav-dropdown-panel a{display:block;padding:9px 11px;border-bottom:1px solid var(--line);font-size:13px;white-space:nowrap}
+.nav-dropdown-panel a:last-child{border-bottom:0}
+.nav-dropdown-panel a:hover{background:var(--soft);color:var(--red)}
+@media(max-width:600px){
+ .nav-dropdown{width:100%}
+ .nav-dropdown>summary{padding:10px;border-bottom:1px solid var(--line);margin:0}
+ .nav-dropdown-panel{position:static;box-shadow:none;border:0;border-left:3px solid var(--gold);margin:0 8px 8px}
+ .nav-dropdown-panel a{white-space:normal}
+}
+/* Breaking */
+.breaking{margin:16px auto 0;border:1px solid #eadfda;
+  display:flex;align-items:center;overflow:hidden;min-height:43px}
+.breaking-label{
+  background:var(--red);color:#fff;padding:8px 15px;
+  font-weight:700;font-size:13px;white-space:nowrap
+}
+.breaking-text{
+  padding:6px 14px;font-size:13px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+}
+
+/* Main layout */
+main{padding:22px 0 50px}
+.section-heading{
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:2px solid var(--red);margin:28px 0 17px
+}
+.section-heading h2{
+  font-size:21px;color:var(--navy);margin:0;
+  padding:0 0 8px;font-weight:800
+}
+.section-heading a{font-size:12px;color:var(--red);font-weight:700}
+
+/* সাহিত্য বাতায়ন সাহিত্য-বিভাগ হাব */
+.literary-hub{border:1px solid var(--line);border-radius:18px;padding:18px;margin:8px 0 28px;background:#fff}
+.hub-brand{background:linear-gradient(135deg,#172b46,#314b67);color:#fff;text-align:center;border-radius:13px;padding:17px 12px;margin-bottom:16px}
+.hub-brand h1{font-family:"Noto Serif Bengali",serif;font-size:clamp(29px,4vw,43px);line-height:1.35;margin:0;font-weight:800}
+.hub-brand p{color:#e8e4dc;margin:4px 0 0;font-size:15px}
+.hub-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.hub-card{display:block;background:#f2f2f2;border-radius:13px;padding:16px 17px;min-height:116px;transition:transform .2s,background .2s}
+.hub-card:hover{background:#eee9e3;transform:translateY(-2px)}
+.hub-card h2{font-family:"Noto Serif Bengali",serif;color:#17191d;font-size:clamp(18px,2vw,24px);margin:0 0 8px;font-weight:800}
+.hub-card p{font-size:14px;line-height:1.65;color:#737373;margin:0}
+.hub-card-wide{grid-column:1/-1;background:#fff;border:1px solid var(--line);min-height:auto}
+@media(max-width:600px){.literary-hub{padding:12px;border-radius:15px;margin-top:4px}.hub-grid{gap:9px}.hub-card{padding:13px 12px;min-height:108px}.hub-card h2{font-size:18px}.hub-card p{font-size:12px}.hub-card-wide{min-height:auto}}
+/* Featured news */
+.featured{
+  display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);
+  gap:22px
+}
+.lead{cursor:pointer}
+.lead-image,.news-image{
+  background:#e9e5df;overflow:hidden;position:relative
+}
+.lead-image{aspect-ratio:16/9}
+.lead-image img,.news-image img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .35s
+}
+.lead:hover img,.news-card:hover img{transform:scale(1.035)}
+.image-placeholder{
+  height:100%;display:flex;align-items:center;justify-content:center;
+  color:#8d8982;font-size:13px
+}
+.category{
+  display:inline-block;color:var(--red);
+  font-size:12px;font-weight:800;margin:10px 0 3px
+}
+.lead h1{
+  font-family:"Noto Serif Bengali",serif;
+  font-size:clamp(25px,3.1vw,38px);
+  line-height:1.45;margin:4px 0 8px;font-weight:800
+}
+.summary{font-size:14px;color:#62666b;margin:0 0 8px}
+.meta{font-size:11px;color:#929292}
+.side-news{display:flex;flex-direction:column}
+.side-card{
+  display:grid;grid-template-columns:112px 1fr;
+  gap:12px;padding:0 0 13px;margin-bottom:13px;
+  border-bottom:1px solid var(--line);cursor:pointer
+}
+.side-card:last-child{border:0}
+.side-card .news-image{aspect-ratio:4/3}
+.side-card h3{font-size:15px;line-height:1.55;margin:2px 0 6px}
+.side-card:hover h3,.news-card:hover h3{color:var(--red)}
+
+/* News grid */
+.news-grid{
+  display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:22px
+}
+.news-card{cursor:pointer;min-width:0}
+.news-card .news-image{aspect-ratio:16/9}
+.news-card h3{
+  font-family:"Noto Serif Bengali",serif;
+  font-size:18px;line-height:1.55;margin:4px 0 7px
+}
+.news-card p{font-size:13px;color:var(--muted);margin:0 0 7px}
+
+/* Category blocks */
+.category-section{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:22px
+}
+.category-block{border-top:3px solid var(--navy);padding-top:10px}
+.category-block h2{font-size:20px;color:var(--red);margin:0 0 12px}
+.category-story{
+  padding:11px 0;border-bottom:1px solid var(--line);
+  font-weight:700;font-size:15px;line-height:1.6
+}
+.category-story:first-of-type{font-size:18px}
+.category-story small{
+  display:block;color:var(--muted);font-weight:400;font-size:11px
+}
+
+/* Quote / literary feature */
+.literary-banner{
+  background:var(--navy);color:#fff;padding:28px;
+  display:grid;grid-template-columns:1.4fr 1fr;gap:20px;
+  align-items:center;margin:35px 0
+}
+.literary-banner h2{
+  font-family:"Noto Serif Bengali",serif;
+  font-size:25px;margin:0 0 8px
+}
+.literary-banner p{color:#e1e5eb;font-size:14px;margin:0}
+.literary-banner a{
+  justify-self:end;background:var(--gold);color:#172b46;
+  padding:10px 17px;font-size:13px;font-weight:800
+}
+
+/* Footer */
+footer{background:#14253c;color:#e8edf4;padding:35px 0 20px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:30px}
+.footer-brand{font-family:"Noto Serif Bengali",serif;
+  font-size:30px;font-weight:800;color:#fff}
+footer h3{font-size:15px;color:#e4c37c}
+footer p,footer a{font-size:13px;color:#c4cbd4}
+.footer-links{display:grid;gap:7px}
+.copyright{
+  border-top:1px solid #34445a;margin-top:25px;
+  padding-top:15px;text-align:center;font-size:11px;color:#aeb8c5
+}
+
+/* Responsive */
+@media(max-width:850px){
+  .masthead-inner{grid-template-columns:1fr auto;min-height:100px}
+  .brand{grid-column:1/-1;grid-row:1}
+  .mast-left{grid-column:1;grid-row:2}
+  .mast-right{grid-column:2;grid-row:2}
+  .brand-name{font-size:39px}
+  .featured{grid-template-columns:1fr}
+  .side-news{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+  .side-card{grid-template-columns:95px 1fr}
+}
+@media(max-width:600px){
+  .container{width:calc(100% - 22px)}
+  .topbar .container{justify-content:center}
+  .top-links{display:none}
+  .masthead-inner{padding:12px 0;min-height:auto}
+  .brand-name{font-size:34px;letter-spacing:-1px}
+  .brand-tag{font-size:9px}
+  .date-box{font-size:10px}
+  .tool-btn{font-size:11px;padding:6px 8px}
+  .menu-toggle{display:block}
+  .nav-inner{align-items:flex-start}
+  .nav{display:none;flex-direction:column;align-items:stretch}
+  .nav.open{display:flex}
+  .nav a{padding:10px;border-bottom:1px solid var(--line)}
+  .nav-inner{flex-wrap:wrap}
+  .menu-toggle{width:100%;text-align:left}
+  .breaking{margin-top:10px}
+  .breaking-label{padding:7px 9px;font-size:11px}
+  .breaking-text{font-size:11px}
+  main{padding-top:12px}
+  .lead h1{font-size:25px}
+  .side-news{grid-template-columns:1fr}
+  .side-card{grid-template-columns:105px 1fr}
+  .news-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+  .news-card h3{font-size:15px}
+  .news-card p{display:none}
+  .category-section{grid-template-columns:1fr;gap:25px}
+  .literary-banner{grid-template-columns:1fr;padding:20px}
+  .literary-banner a{justify-self:start}
+  .footer-grid{grid-template-columns:1fr;gap:15px}
+}
+
+.system-status{margin:14px 0;padding:9px 12px;border:1px solid var(--line);background:var(--soft);font-size:12px;color:var(--muted)}
+.system-status.error{color:#9b2525;background:#fff0f0;border-color:#efcaca}
+.system-status.ok{color:#17643a;background:#eef8f0;border-color:#cce7d1}
+.image-placeholder{min-height:100px;background:#eee9e2}
+.news-card,.side-card,.lead,.category-story{cursor:pointer}
+.category-list .category-story{cursor:pointer}
+.empty-state{padding:22px 12px;color:var(--muted);font-size:13px;border:1px dashed var(--line);text-align:center}
+.all-section{margin-top:32px}
+.article-view{max-width:850px;margin:20px auto;padding:20px;background:#fff;border:1px solid var(--line)}
+.article-view h1{font-family:"Noto Serif Bengali",serif;font-size:clamp(26px,4vw,40px);line-height:1.5;color:var(--navy)}
+.article-view .article-cover{width:100%;max-height:480px;object-fit:cover;margin:12px 0}
+.article-body{font-family:"Noto Serif Bengali",serif;font-size:18px;line-height:2.05;white-space:normal;overflow-wrap:anywhere}
+.article-body p{margin:0 0 1em}
+.article-meta{color:var(--muted);font-size:12px;margin:8px 0 20px}
+.preview-tools{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}
+.preview-tools button{border:1px solid var(--line);background:#fff;color:var(--navy);padding:7px 10px;border-radius:4px;cursor:pointer;font-size:12px}
+.preview-panel{display:none;background:#fffaf0;border:1px solid #e6d6b4;padding:12px;margin:10px 0}
+.preview-panel.open{display:block}
+.preview-panel input{padding:9px;border:1px solid var(--line);margin:4px;max-width:230px}
+.preview-panel button{padding:9px 12px;background:var(--navy);color:white;border:0;cursor:pointer}
+.preview-label{display:inline-block;background:#8a5a00;color:#fff;padding:3px 8px;font-size:11px;border-radius:3px;margin-left:8px}
+[hidden]{display:none!important}
+@media(max-width:600px){.article-view{padding:13px}.article-body{font-size:16px}}
+
+.admin-access{margin-top:14px;font-size:12px}.admin-access a{color:inherit;text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container">
+    <span id="todayDate">আজকের তারিখ</span>
+    <div class="top-links">
+      <a href="#about">আমাদের সম্পর্কে</a>
+      <a href="#contact">যোগাযোগ</a>
+      <a href="#epaper">ই-পেপার</a>
+    </div>
+  </div>
+</div>
+
+<header class="masthead">
+  <div class="container masthead-inner">
+    <div class="mast-left">
+      <span class="date-box">ঢাকা থেকে প্রকাশিত</span>
+    </div>
+    <div class="brand">
+      <a href="#" class="brand-name">সাহিত্য বাতায়ন</a>
+      <div class="brand-tag">সাহিত্য, সংবাদ ও মননের দর্পণ</div>
+      <div class="brand-rule"></div>
+    </div>
+    <div class="mast-right">
+      <button class="tool-btn" onclick="toggleSearch()">⌕ অনুসন্ধান</button>
+      <a class="tool-btn" href="#epaper">ই-পেপার</a>
+      <a class="tool-btn" href="writer.html" id="writerPortalLink">লেখক লগইন</a>
+    </div>
+  </div>
+  <div class="search-box" id="searchBox">
+    <div class="container">
+      <input id="searchInput" type="search" placeholder="আপনার পছন্দের সংবাদ বা লেখা খুঁজুন..." onkeydown="if(event.key==='Enter')searchNews()">
+    </div>
+  </div>
+<div class="container"><div class="preview-panel" id="previewPanel">
+      <strong>সম্পাদকীয় প্রিভিউ</strong>
+      <p class="meta">শুধু অনুমোদিত Admin/Editor লগইন করে Draft ও Pending লেখা দেখতে পারবেন। সাধারণ পাঠকের জন্য এগুলো প্রকাশিত হবে না।</p>
+      <div id="previewLogin">
+        <input id="previewEmail" type="email" placeholder="Admin/Editor ইমেইল" autocomplete="username">
+        <input id="previewPassword" type="password" placeholder="পাসওয়ার্ড" autocomplete="current-password">
+        <button id="previewLoginBtn" type="button">প্রিভিউতে প্রবেশ</button>
+      </div>
+      <div id="previewSession" hidden><span id="previewWho"></span> <button id="previewLogoutBtn" type="button">প্রিভিউ বন্ধ / লগআউট</button></div>
+      <div id="previewMessage" class="meta" aria-live="polite"></div>
+    </div></div>
+</header>
+
+<div class="nav-wrap">
+  <div class="container nav-inner">
+    <button class="menu-toggle" onclick="toggleMenu()">☰　বিভাগসমূহ</button>
+    <nav class="nav" id="mainNav">
+      <a class="active" href="#">প্রচ্ছদ</a>
+      <a href="#latest">সর্বশেষ</a>
+      <details class="nav-dropdown">
+        <summary>সাহিত্য</summary>
+        <div class="nav-dropdown-panel">
+          <a href="#literature">সাহিত্য পরিচিতি</a>
+          <a href="#poetry">কবিতা</a>
+          <a href="#stories">গল্প</a>
+          <a href="#essays">প্রবন্ধ ও সমালোচনা</a>
+          <a href="#books">বই ও প্রকাশনা</a>
+          <a href="#young-writers">তরুণ কলম</a>
+        </div>
+      </details>
+      <details class="nav-dropdown">
+        <summary>ভাষা ও সংস্কৃতি</summary>
+        <div class="nav-dropdown-panel">
+          <a href="#language">ভাষা ও ব্যাকরণ</a>
+          <a href="#culture">সংস্কৃতি ও ঐতিহ্য</a>
+          <a href="#history">ইতিহাস ও গবেষণা</a>
+        </div>
+      </details>
+      <details class="nav-dropdown">
+        <summary>আয়োজন</summary>
+        <div class="nav-dropdown-panel">
+          <a href="#interview">সাক্ষাৎকার ও সংবাদ</a>
+          <a href="#education">শিক্ষা ও পাঠশালা</a>
+          <a href="#special">বিশেষ আয়োজন</a>
+        </div>
+      </details>
+      <a href="#epaper">ই-পেপার</a>
+      <a href="writer.html">লেখক লগইন</a>
+      <details class="family-menu" id="familyMenu" aria-label="সাহিত্য বাতায়ন পরিবারের প্রশাসনিক মেনু">
+        <summary>সাহিত্য বাতায়ন পরিবার</summary>
+        <div class="family-dropdown">
+          <a href="writer.html" id="writerNavLink">লেখক নিবন্ধন / লগইন</a>
+          <button type="button" id="previewToggle">সম্পাদকীয় প্রিভিউ</button>
+          <a href="admin.html" id="adminPanelLink">এডমিন প্যানেল</a>
+          <span class="family-future">এডিটর প্যানেল — শীঘ্রই</span>
+        </div>
+      </details>
+    </nav>
+  </div>
+</div>
+
+<div class="container">
+  <div class="breaking">
+    <div class="breaking-label">সর্বশেষ</div>
+    <div class="breaking-text" id="breakingText">সাহিত্য বাতায়নে আপনাকে স্বাগতম — সর্বশেষ সংবাদ ও সাহিত্য সংবাদ এখানে প্রকাশিত হবে।</div>
+  </div>
+</div>
+
+<main>
+<div class="container">
+
+
+  <div id="connectionStatus" class="system-status" role="status">সাইটের তথ্য আনা হচ্ছে…</div>
+
+  <section class="literary-hub" aria-labelledby="literaryHubTitle">
+    <div class="hub-brand">
+      <h1 id="literaryHubTitle">সাহিত্য বাতায়ন</h1>
+      <p>বাংলা সাহিত্য · সংস্কৃতি · মনন</p>
+    </div>
+    <div class="hub-grid">
+      <a class="hub-card" href="#literature"><h2>সাহিত্য</h2><p>কবিতা · গল্প · প্রবন্ধ · উপন্যাস</p></a>
+      <a class="hub-card" href="#language"><h2>ভাষা ও ব্যাকরণ</h2><p>বানান · ব্যাকরণ · ভাষার ইতিহাস</p></a>
+      <a class="hub-card" href="#culture"><h2>সংস্কৃতি ও ঐতিহ্য</h2><p>লোকসংস্কৃতি · শিল্প · ঐতিহ্য</p></a>
+      <a class="hub-card" href="#history"><h2>ইতিহাস ও গবেষণা</h2><p>ইতিহাস · সাহিত্যতত্ত্ব · সমালোচনা</p></a>
+      <a class="hub-card" href="#books"><h2>বই ও প্রকাশনা</h2><p>বই আলোচনা · বইমেলা · নতুন বই</p></a>
+      <a class="hub-card" href="#young-writers"><h2>তরুণ কলম</h2><p>নবীন লেখক · ক্যাম্পাস · নতুন লেখা</p></a>
+      <a class="hub-card" href="#interview"><h2>সাক্ষাৎকার ও সংবাদ</h2><p>সাক্ষাৎকার · সাহিত্য সংবাদ</p></a>
+      <a class="hub-card" href="#education"><h2>শিক্ষা ও পাঠশালা</h2><p>লেখালেখির পাঠ · সাহিত্য প্রশিক্ষণ</p></a>
+      <a class="hub-card hub-card-wide" href="#special"><h2>বিশেষ আয়োজন</h2><p>স্মরণ · বিশেষ সংখ্যা · পাঠকের চিঠি · সাহিত্য প্রতিযোগিতা</p></a>
+    </div>
+  </section>
+
+  <section class="featured" id="featuredSection">
+    <article class="lead" id="leadStory"><div class="image-placeholder">প্রধান সংবাদ লোড হচ্ছে…</div></article>
+    <aside class="side-news" id="sideStories"></aside>
+  </section>
+
+  <section id="latest">
+    <div class="section-heading"><h2>সর্বশেষ প্রকাশনা</h2><a href="#all">সব লেখা →</a></div>
+    <div class="news-grid" id="latestGrid"></div>
+  </section>
+
+  <section class="literary-banner" id="literature">
+    <div><h2>সাহিত্যের জন্য আলাদা এক বাতায়ন</h2>
+    <p>কবিতা, গল্প, প্রবন্ধ, বই আলোচনা ও নতুন লেখকদের সৃজনশীল কাজ নিয়ে আমাদের বিশেষ আয়োজন।</p></div>
+    <a href="#poetry">সাহিত্য বিভাগে প্রবেশ করুন →</a>
+  </section>
+
+  <section class="category-section">
+    <div class="category-block" id="poetry"><h2>কবিতা</h2><div class="category-list" data-category="কবিতা"></div></div>
+    <div class="category-block" id="stories"><h2>গল্প</h2><div class="category-list" data-category="গল্প,উপন্যাস,অনুগল্প,রম্য"></div></div>
+    <div class="category-block" id="essays"><h2>প্রবন্ধ ও মতামত</h2><div class="category-list" data-category="প্রবন্ধ,মতামত,সাহিত্য"></div></div>
+  </section>
+
+  <section class="category-section" id="hub-extra-categories">
+    <div class="category-block" id="language"><h2>ভাষা ও ব্যাকরণ</h2><div class="category-list" data-category="ভাষা ও ব্যাকরণ,ভাষা,ব্যাকরণ"></div></div>
+    <div class="category-block" id="culture"><h2>সংস্কৃতি ও ঐতিহ্য</h2><div class="category-list" data-category="সংস্কৃতি ও ঐতিহ্য,সংস্কৃতি,ঐতিহ্য"></div></div>
+    <div class="category-block" id="history"><h2>ইতিহাস ও গবেষণা</h2><div class="category-list" data-category="ইতিহাস ও গবেষণা,ইতিহাস,গবেষণা"></div></div>
+    <div class="category-block" id="books"><h2>বই ও প্রকাশনা</h2><div class="category-list" data-category="বই ও প্রকাশনা,বই,প্রকাশনা,বই আলোচনা"></div></div>
+    <div class="category-block" id="young-writers"><h2>তরুণ কলম</h2><div class="category-list" data-category="তরুণ কলম,তরুণ লেখক,ক্যাম্পাস"></div></div>
+    <div class="category-block" id="interview"><h2>সাক্ষাৎকার ও সাহিত্য সংবাদ</h2><div class="category-list" data-category="সাক্ষাৎকার ও সাহিত্য সংবাদ,সাক্ষাৎকার,সাহিত্য সংবাদ"></div></div>
+    <div class="category-block" id="education"><h2>শিক্ষা ও পাঠশালা</h2><div class="category-list" data-category="শিক্ষা ও পাঠশালা,শিক্ষা,প্রশিক্ষণ"></div></div>
+    <div class="category-block" id="special"><h2>বিশেষ আয়োজন</h2><div class="category-list" data-category="বিশেষ আয়োজন,বিশেষ সংখ্যা,স্মরণ"></div></div>
+  </section>
+
+  <section id="all" class="all-section">
+    <div class="section-heading"><h2 id="listingTitle">সকল প্রকাশনা</h2><span id="resultCount" class="meta"></span></div>
+    <div id="allGrid" class="news-grid"></div>
+  </section>
+
+  <section id="articleView" class="article-view" hidden>
+    <button class="tool-btn" id="backHome" type="button">← প্রচ্ছদে ফিরুন</button>
+    <article id="articleContent"></article>
+  </section>
+
+</div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">সাহিত্য বাতায়ন</div>
+        <p>সাহিত্য, সংবাদ ও মননের দর্পণ। সত্য, সৃজনশীলতা ও দায়িত্বশীল প্রকাশনার প্রত্যয়ে।</p>
+      </div>
+      <div>
+        <h3>গুরুত্বপূর্ণ লিংক</h3>
+        <div class="footer-links">
+          <a href="#about">আমাদের সম্পর্কে</a>
+          <a href="#contact">যোগাযোগ</a>
+          <a href="#privacy">গোপনীয়তা নীতি</a>
+          <a href="#epaper">ই-পেপার</a>
+        </div>
+      </div>
+      <div>
+        <h3>বিভাগসমূহ</h3>
+        <div class="footer-links">
+          <a href="#literature">সাহিত্য</a>
+          <a href="#poetry">কবিতা</a>
+          <a href="#stories">গল্প</a>
+          <a href="#essays">প্রবন্ধ</a>
+          <a href="#language">ভাষা ও ব্যাকরণ</a>
+          <a href="#culture">সংস্কৃতি ও ঐতিহ্য</a>
+          <a href="#books">বই ও প্রকাশনা</a>
+        </div>
+      </div>
+    </div>
+    <div class="copyright">© ২০২৬ সাহিত্য বাতায়ন। সর্বস্বত্ব সংরক্ষিত।</div>
+  </div>
+</footer>
+
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://wiaovopnunhdzcjfchkv.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_A4bEGZp8sZyRBTC1MmY61A_wFWf6Eld';
+const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+let allArticles = [];
+let previewMode = false;
+let currentArticle = null;
+
+const $ = id => document.getElementById(id);
+const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const dateBn = value => {
+  if(!value) return "";
+  const d = new Date(value);
+  if(Number.isNaN(d.getTime())) return "";
+  return new Intl.DateTimeFormat("bn-BD",{day:"numeric",month:"long",year:"numeric"}).format(d);
+};
+const cleanText = value => String(value ?? "").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim();
+const status = (msg, kind="") => { const el=$("connectionStatus"); el.textContent=msg; el.className="system-status "+kind; };
+const isPublished = a => a.status === "published";
+const categoryMatch = (article, list) => list.split(",").map(x=>x.trim()).includes(String(article.category||"").trim());
+
+function imageMarkup(url, alt, cls="news-image"){
+  if(url) return `<div class="${cls}"><img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;image-placeholder&quot;>ছবি পাওয়া যায়নি</div>'"></div>`;
+  return `<div class="${cls}"><div class="image-placeholder">ছবি</div></div>`;
+}
+function cardMarkup(a, side=false){
+  const title=esc(a.title), category=esc(a.category||"অন্যান্য"), excerpt=esc(cleanText(a.excerpt||a.content).slice(0,150));
+  const image=imageMarkup(a.cover_image_url,a.title,side?"news-image":"news-image");
+  return side
+    ? `<article class="side-card" data-id="${esc(a.id)}">${image}<div><span class="category">${category}</span><h3>${title}</h3><span class="meta">${dateBn(a.published_at||a.created_at)}</span></div></article>`
+    : `<article class="news-card" data-id="${esc(a.id)}">${image}<span class="category">${category}</span><h3>${title}</h3><p>${excerpt}</p><span class="meta">${esc(a.author_name||"সাহিত্য বাতায়ন")} · ${dateBn(a.published_at||a.created_at)}</span></article>`;
+}
+function leadMarkup(a){
+  if(!a) return `<div class="empty-state">এখনো কোনো প্রধান সংবাদ নির্বাচন করা হয়নি।</div>`;
+  return `<div class="lead-image">${a.cover_image_url?`<img src="${esc(a.cover_image_url)}" alt="${esc(a.title)}" loading="lazy">`:`<div class="image-placeholder">প্রধান সংবাদের ছবি</div>`}</div><span class="category">${esc(a.category||"প্রচ্ছদ সংবাদ")}</span><h1>${esc(a.title)}</h1><p class="summary">${esc(cleanText(a.excerpt||a.content).slice(0,260))}</p><span class="meta">${esc(a.author_name||"সাহিত্য বাতায়ন")} · ${dateBn(a.published_at||a.created_at)}</span>`;
+}
+function emptyMarkup(text){return `<div class="empty-state">${esc(text)}</div>`;}
+function bindArticleClicks(root=document){
+  root.querySelectorAll("[data-id]").forEach(el=>el.addEventListener("click",()=>openArticle(el.dataset.id)));
+}
+function render(){
+  const visible=allArticles.filter(a=>previewMode || isPublished(a));
+  const sorted=[...visible].sort((a,b)=>new Date(b.published_at||b.created_at||0)-new Date(a.published_at||a.created_at||0));
+  const featured=sorted.find(a=>a.featured) || sorted[0] || null;
+  const remaining=sorted.filter(a=>!featured || a.id!==featured.id);
+  $("leadStory").innerHTML=leadMarkup(featured);
+  $("leadStory").onclick=()=>{if(featured)openArticle(featured.id);};
+  $("breakingText").textContent=sorted[0]?("সর্বশেষ প্রকাশনা: "+sorted[0].title):"সাহিত্য বাতায়নে আপনাকে স্বাগতম — নতুন লেখা শিগগিরই প্রকাশিত হবে।";
+  $("sideStories").innerHTML=remaining.slice(0,3).map(a=>cardMarkup(a,true)).join("") || emptyMarkup("আরও লেখা প্রকাশিত হলে এখানে দেখা যাবে।");
+  $("latestGrid").innerHTML=sorted.slice(0,6).map(a=>cardMarkup(a)).join("") || emptyMarkup(previewMode?"প্রিভিউতে দেখানোর মতো কোনো লেখা নেই।":"এখনো কোনো লেখা প্রকাশিত হয়নি।");
+  document.querySelectorAll(".category-list").forEach(el=>{
+    const cats=el.dataset.category;
+    const items=sorted.filter(a=>categoryMatch(a,cats)).slice(0,3);
+    el.innerHTML=items.length?items.map(a=>`<div class="category-story" data-id="${esc(a.id)}">${esc(a.title)}<small>${esc(a.category||"")} · ${dateBn(a.published_at||a.created_at)}</small></div>`).join(""):emptyMarkup("এই বিভাগে এখনো কোনো লেখা প্রকাশিত হয়নি।");
+  });
+  $("allGrid").innerHTML=sorted.map(a=>cardMarkup(a)).join("") || emptyMarkup("এখনো কোনো লেখা নেই।");
+  $("resultCount").textContent=`${sorted.length}টি লেখা`;
+  $("listingTitle").textContent=previewMode?"সব লেখা (প্রিভিউসহ)":"সকল প্রকাশনা";
+  bindArticleClicks();
+  $("featuredSection").hidden=false;
+  $("latest").hidden=false;
+  $("literature").hidden=false;
+  document.querySelector(".category-section").hidden=false;
+  $("all").hidden=false;
+}
+async function loadArticles(){
+  status("Supabase থেকে প্রকাশিত লেখা আনা হচ্ছে…");
+  let query=db.from("articles").select("id,slug,title,category,author_name,excerpt,content,cover_image_url,status,featured,published_at,created_at").order("published_at",{ascending:false,nullsFirst:false}).limit(100);
+  if(!previewMode) query=query.eq("status","published");
+  const {data,error}=await query;
+  if(error){status("লেখা আনা যায়নি: "+error.message,"error");return;}
+  allArticles=data||[];
+  render();
+  status(previewMode?"প্রিভিউ মোড চালু — প্রকাশিত ও অনুমোদিত অভ্যন্তরীণ লেখা দেখানো হচ্ছে।":"সংযোগ সফল — প্রকাশিত লেখা দেখানো হচ্ছে।","ok");
+}
+function openArticle(id){
+  const a=allArticles.find(x=>String(x.id)===String(id));
+  if(!a)return;
+  if(!previewMode && !isPublished(a))return;
+  currentArticle=a;
+  $("featuredSection").hidden=true;$("latest").hidden=true;$("literature").hidden=true;
+  document.querySelector(".category-section").hidden=true;$("all").hidden=true;
+  const content=String(a.content||"").split(/\n{2,}/).map(p=>`<p>${esc(p).replace(/\n/g,"<br>")}</p>`).join("");
+  $("articleContent").innerHTML=`<span class="category">${esc(a.category||"")}</span>${previewMode&&!isPublished(a)?'<span class="preview-label">শুধু সম্পাদকীয় প্রিভিউ</span>':""}<h1>${esc(a.title)}</h1><div class="article-meta">${esc(a.author_name||"সাহিত্য বাতায়ন")} · ${dateBn(a.published_at||a.created_at)}</div>${a.cover_image_url?`<img class="article-cover" src="${esc(a.cover_image_url)}" alt="${esc(a.title)}">`:""}<div class="article-body">${content||"<p>এই লেখার মূল অংশ পাওয়া যায়নি।</p>"}</div>`;
+  $("articleView").hidden=false;
+  location.hash="article-"+encodeURIComponent(a.slug||a.id);
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function closeArticle(){
+  $("articleView").hidden=true;
+  $("featuredSection").hidden=false;$("latest").hidden=false;$("literature").hidden=false;
+  document.querySelector(".category-section").hidden=false;$("all").hidden=false;
+  history.replaceState(null,"",location.pathname+location.search);
+}
+$("backHome").addEventListener("click",closeArticle);
+
+function toggleSearch(){
+  $("searchBox").classList.toggle("open");
+  if($("searchBox").classList.contains("open")) $("searchInput").focus();
+}
+function toggleMenu(){$("mainNav").classList.toggle("open");}
+function searchNews(){
+  const q=$("searchInput").value.trim().toLocaleLowerCase();
+  const matches=allArticles.filter(a=>(previewMode||isPublished(a)) && [a.title,a.excerpt,a.content,a.category,a.author_name].some(v=>String(v||"").toLocaleLowerCase().includes(q)));
+  $("listingTitle").textContent=q?`অনুসন্ধান: ${q}`:"সকল প্রকাশনা";
+  $("allGrid").innerHTML=matches.map(a=>cardMarkup(a)).join("")||emptyMarkup("কোনো লেখা পাওয়া যায়নি।");
+  $("resultCount").textContent=`${matches.length}টি ফলাফল`;
+  $("all").hidden=false;bindArticleClicks($("allGrid"));$("all").scrollIntoView({behavior:"smooth"});
+}
+const now=new Date();
+$("todayDate").textContent=new Intl.DateTimeFormat("bn-BD",{weekday:"long",year:"numeric",month:"long",day:"numeric"}).format(now);
+
+$("previewToggle").addEventListener("click",()=>{
+  $("previewPanel").classList.toggle("open");
+  $("familyMenu").open=false;
+  if($("previewPanel").classList.contains("open")){
+    $("previewPanel").scrollIntoView({behavior:"smooth",block:"center"});
+  }
+});
+$("previewLoginBtn").addEventListener("click",async()=>{
+  const email=$("previewEmail").value.trim(),password=$("previewPassword").value;
+  $("previewMessage").textContent="লগইন যাচাই হচ্ছে…";
+  const {data,error}=await db.auth.signInWithPassword({email,password});
+  if(error){$("previewMessage").textContent="লগইন হয়নি: "+error.message;return;}
+  const user=data.user;
+  const {data:profile,error:profileError}=await db.from("profiles").select("role,display_name").eq("id",user.id).maybeSingle();
+  if(profileError || !profile || !["admin","editor"].includes(String(profile.role||"").toLowerCase())){
+    await db.auth.signOut();$("previewMessage").textContent="এই অ্যাকাউন্টের Admin/Editor অনুমতি নেই।";return;
+  }
+  previewMode=true;
+  $("previewLogin").hidden=true;$("previewSession").hidden=false;
+  $("previewWho").textContent=(profile.display_name||user.email)+" — সম্পাদকীয় প্রিভিউ";
+  $("previewMessage").textContent="Draft/Pending সহ আপনার অনুমতিপ্রাপ্ত লেখা দেখানো হচ্ছে।";
+  await loadArticles();
+});
+$("previewLogoutBtn").addEventListener("click",async()=>{
+  await db.auth.signOut();previewMode=false;
+  $("previewLogin").hidden=false;$("previewSession").hidden=true;
+  $("previewPassword").value="";$("previewMessage").textContent="প্রিভিউ বন্ধ করা হয়েছে।";
+  await loadArticles();
+});
+async function init(){
+  const {data:{session}}=await db.auth.getSession();
+  if(session){
+    const {data:profile}=await db.from("profiles").select("role,display_name").eq("id",session.user.id).maybeSingle();
+    if(profile && ["admin","editor"].includes(String(profile.role||"").toLowerCase())){
+      previewMode=true;$("previewLogin").hidden=true;$("previewSession").hidden=false;
+      $("previewWho").textContent=(profile.display_name||session.user.email)+" — সম্পাদকীয় প্রিভিউ";
+    } else {await db.auth.signOut();}
+  }
+  await loadArticles();
+}
+init();
+</script>
+</body>
+</html>
