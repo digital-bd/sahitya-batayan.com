@@ -104,6 +104,36 @@ button,input{font:inherit}
   color:var(--red);border-color:var(--red)
 }
 
+/* সাহিত্য বাতায়ন পরিবার dropdown */
+.family-menu{position:relative;flex:0 0 auto}
+.family-menu>summary{list-style:none;cursor:pointer;white-space:nowrap;padding:12px 13px;font-size:14px;font-weight:700;color:var(--navy);border-bottom:3px solid transparent;margin-bottom:-3px}
+.family-menu>summary::-webkit-details-marker{display:none}
+.family-menu[open]>summary,.family-menu>summary:hover{color:var(--red);border-color:var(--red)}
+.family-dropdown{position:absolute;right:0;top:100%;min-width:220px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.14);padding:7px;z-index:80;display:flex;flex-direction:column}
+.family-dropdown a,.family-dropdown button,.family-dropdown span{display:block;text-align:left;padding:10px 12px;border:0;border-bottom:1px solid var(--line);background:#fff;color:var(--navy);font:inherit;font-size:13px;text-decoration:none;white-space:nowrap;cursor:pointer}
+.family-dropdown a:hover,.family-dropdown button:hover{background:var(--soft);color:var(--red)}
+.family-dropdown .family-future{color:var(--muted);cursor:default;border-bottom:0}
+@media(max-width:600px){
+  .family-menu{width:100%}
+  .family-menu>summary{padding:10px;border-bottom:1px solid var(--line);margin:0}
+  .family-dropdown{position:static;box-shadow:none;border:0;border-left:3px solid var(--gold);margin:0 8px 8px}
+  .family-dropdown a,.family-dropdown button,.family-dropdown span{white-space:normal}
+}
+/* সাহিত্যভিত্তিক নেভিগেশন dropdown */
+.nav-dropdown{position:relative;flex:0 0 auto}
+.nav-dropdown>summary{list-style:none;cursor:pointer;white-space:nowrap;padding:12px 13px;font-size:14px;font-weight:700;color:#292d33;border-bottom:3px solid transparent;margin-bottom:-3px}
+.nav-dropdown>summary::-webkit-details-marker{display:none}
+.nav-dropdown[open]>summary,.nav-dropdown>summary:hover{color:var(--red);border-color:var(--red)}
+.nav-dropdown-panel{position:absolute;left:0;top:100%;min-width:205px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.14);padding:7px;z-index:80;display:flex;flex-direction:column}
+.nav-dropdown-panel a{display:block;padding:9px 11px;border-bottom:1px solid var(--line);font-size:13px;white-space:nowrap}
+.nav-dropdown-panel a:last-child{border-bottom:0}
+.nav-dropdown-panel a:hover{background:var(--soft);color:var(--red)}
+@media(max-width:600px){
+ .nav-dropdown{width:100%}
+ .nav-dropdown>summary{padding:10px;border-bottom:1px solid var(--line);margin:0}
+ .nav-dropdown-panel{position:static;box-shadow:none;border:0;border-left:3px solid var(--gold);margin:0 8px 8px}
+ .nav-dropdown-panel a{white-space:normal}
+}
 /* Breaking */
 .breaking{margin:16px auto 0;border:1px solid #eadfda;
   display:flex;align-items:center;overflow:hidden;min-height:43px}
@@ -128,6 +158,18 @@ main{padding:22px 0 50px}
 }
 .section-heading a{font-size:12px;color:var(--red);font-weight:700}
 
+/* সাহিত্য বাতায়ন সাহিত্য-বিভাগ হাব */
+.literary-hub{border:1px solid var(--line);border-radius:18px;padding:18px;margin:8px 0 28px;background:#fff}
+.hub-brand{background:linear-gradient(135deg,#172b46,#314b67);color:#fff;text-align:center;border-radius:13px;padding:17px 12px;margin-bottom:16px}
+.hub-brand h1{font-family:"Noto Serif Bengali",serif;font-size:clamp(29px,4vw,43px);line-height:1.35;margin:0;font-weight:800}
+.hub-brand p{color:#e8e4dc;margin:4px 0 0;font-size:15px}
+.hub-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.hub-card{display:block;background:#f2f2f2;border-radius:13px;padding:16px 17px;min-height:116px;transition:transform .2s,background .2s}
+.hub-card:hover{background:#eee9e3;transform:translateY(-2px)}
+.hub-card h2{font-family:"Noto Serif Bengali",serif;color:#17191d;font-size:clamp(18px,2vw,24px);margin:0 0 8px;font-weight:800}
+.hub-card p{font-size:14px;line-height:1.65;color:#737373;margin:0}
+.hub-card-wide{grid-column:1/-1;background:#fff;border:1px solid var(--line);min-height:auto}
+@media(max-width:600px){.literary-hub{padding:12px;border-radius:15px;margin-top:4px}.hub-grid{gap:9px}.hub-card{padding:13px 12px;min-height:108px}.hub-card h2{font-size:18px}.hub-card p{font-size:12px}.hub-card-wide{min-height:auto}}
 /* Featured news */
 .featured{
   display:grid;grid-template-columns:minmax(0,2fr) minmax(260px,1fr);
@@ -322,8 +364,7 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
     <div class="mast-right">
       <button class="tool-btn" onclick="toggleSearch()">⌕ অনুসন্ধান</button>
       <a class="tool-btn" href="#epaper">ই-পেপার</a>
-      <button class="tool-btn" type="button" id="previewToggle">সম্পাদকীয় প্রিভিউ</button>
-      <a class="tool-btn" href="admin.html" id="adminPanelLink">এডমিন প্যানেল</a>
+      <a class="tool-btn" href="writer.html" id="writerPortalLink">লেখক লগইন</a>
     </div>
   </div>
   <div class="search-box" id="searchBox">
@@ -350,15 +391,44 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
     <nav class="nav" id="mainNav">
       <a class="active" href="#">প্রচ্ছদ</a>
       <a href="#latest">সর্বশেষ</a>
-      <a href="#national">জাতীয়</a>
-      <a href="#politics">রাজনীতি</a>
-      <a href="#literature">সাহিত্য</a>
-      <a href="#poetry">কবিতা</a>
-      <a href="#stories">গল্প</a>
-      <a href="#essays">প্রবন্ধ</a>
-      <a href="#opinion">মতামত</a>
-      <a href="#books">বই</a>
-      <a href="#education">শিক্ষা</a>
+      <details class="nav-dropdown">
+        <summary>সাহিত্য</summary>
+        <div class="nav-dropdown-panel">
+          <a href="#literature">সাহিত্য পরিচিতি</a>
+          <a href="#poetry">কবিতা</a>
+          <a href="#stories">গল্প</a>
+          <a href="#essays">প্রবন্ধ ও সমালোচনা</a>
+          <a href="#books">বই ও প্রকাশনা</a>
+          <a href="#young-writers">তরুণ কলম</a>
+        </div>
+      </details>
+      <details class="nav-dropdown">
+        <summary>ভাষা ও সংস্কৃতি</summary>
+        <div class="nav-dropdown-panel">
+          <a href="#language">ভাষা ও ব্যাকরণ</a>
+          <a href="#culture">সংস্কৃতি ও ঐতিহ্য</a>
+          <a href="#history">ইতিহাস ও গবেষণা</a>
+        </div>
+      </details>
+      <details class="nav-dropdown">
+        <summary>আয়োজন</summary>
+        <div class="nav-dropdown-panel">
+          <a href="#interview">সাক্ষাৎকার ও সংবাদ</a>
+          <a href="#education">শিক্ষা ও পাঠশালা</a>
+          <a href="#special">বিশেষ আয়োজন</a>
+        </div>
+      </details>
+      <a href="#epaper">ই-পেপার</a>
+      <a href="writer.html">লেখক লগইন</a>
+      <details class="family-menu" id="familyMenu">
+        <summary>সাহিত্য বাতায়ন পরিবার</summary>
+        <div class="family-dropdown">
+          <a href="writer.html" id="writerNavLink">লেখক নিবন্ধন / লগইন</a>
+          <button type="button" id="previewToggle">সম্পাদকীয় প্রিভিউ</button>
+          <a href="admin.html" id="adminPanelLink">এডমিন প্যানেল</a>
+          <span class="family-future">এডিটর প্যানেল — শীঘ্রই</span>
+        </div>
+      </details>
     </nav>
   </div>
 </div>
@@ -375,6 +445,24 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
 
 
   <div id="connectionStatus" class="system-status" role="status">সাইটের তথ্য আনা হচ্ছে…</div>
+
+  <section class="literary-hub" aria-labelledby="literaryHubTitle">
+    <div class="hub-brand">
+      <h1 id="literaryHubTitle">সাহিত্য বাতায়ন</h1>
+      <p>বাংলা সাহিত্য · সংস্কৃতি · মনন</p>
+    </div>
+    <div class="hub-grid">
+      <a class="hub-card" href="#literature"><h2>সাহিত্য</h2><p>কবিতা · গল্প · প্রবন্ধ · উপন্যাস</p></a>
+      <a class="hub-card" href="#language"><h2>ভাষা ও ব্যাকরণ</h2><p>বানান · ব্যাকরণ · ভাষার ইতিহাস</p></a>
+      <a class="hub-card" href="#culture"><h2>সংস্কৃতি ও ঐতিহ্য</h2><p>লোকসংস্কৃতি · শিল্প · ঐতিহ্য</p></a>
+      <a class="hub-card" href="#history"><h2>ইতিহাস ও গবেষণা</h2><p>ইতিহাস · সাহিত্যতত্ত্ব · সমালোচনা</p></a>
+      <a class="hub-card" href="#books"><h2>বই ও প্রকাশনা</h2><p>বই আলোচনা · বইমেলা · নতুন বই</p></a>
+      <a class="hub-card" href="#young-writers"><h2>তরুণ কলম</h2><p>নবীন লেখক · ক্যাম্পাস · নতুন লেখা</p></a>
+      <a class="hub-card" href="#interview"><h2>সাক্ষাৎকার ও সংবাদ</h2><p>সাক্ষাৎকার · সাহিত্য সংবাদ</p></a>
+      <a class="hub-card" href="#education"><h2>শিক্ষা ও পাঠশালা</h2><p>লেখালেখির পাঠ · সাহিত্য প্রশিক্ষণ</p></a>
+      <a class="hub-card hub-card-wide" href="#special"><h2>বিশেষ আয়োজন</h2><p>স্মরণ · বিশেষ সংখ্যা · পাঠকের চিঠি · সাহিত্য প্রতিযোগিতা</p></a>
+    </div>
+  </section>
 
   <section class="featured" id="featuredSection">
     <article class="lead" id="leadStory"><div class="image-placeholder">প্রধান সংবাদ লোড হচ্ছে…</div></article>
@@ -394,8 +482,19 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
 
   <section class="category-section">
     <div class="category-block" id="poetry"><h2>কবিতা</h2><div class="category-list" data-category="কবিতা"></div></div>
-    <div class="category-block" id="stories"><h2>গল্প</h2><div class="category-list" data-category="গল্প"></div></div>
-    <div class="category-block" id="essays"><h2>প্রবন্ধ ও মতামত</h2><div class="category-list" data-category="প্রবন্ধ,মতামত"></div></div>
+    <div class="category-block" id="stories"><h2>গল্প</h2><div class="category-list" data-category="গল্প,উপন্যাস,অনুগল্প,রম্য"></div></div>
+    <div class="category-block" id="essays"><h2>প্রবন্ধ ও মতামত</h2><div class="category-list" data-category="প্রবন্ধ,মতামত,সাহিত্য"></div></div>
+  </section>
+
+  <section class="category-section" id="hub-extra-categories">
+    <div class="category-block" id="language"><h2>ভাষা ও ব্যাকরণ</h2><div class="category-list" data-category="ভাষা ও ব্যাকরণ,ভাষা,ব্যাকরণ"></div></div>
+    <div class="category-block" id="culture"><h2>সংস্কৃতি ও ঐতিহ্য</h2><div class="category-list" data-category="সংস্কৃতি ও ঐতিহ্য,সংস্কৃতি,ঐতিহ্য"></div></div>
+    <div class="category-block" id="history"><h2>ইতিহাস ও গবেষণা</h2><div class="category-list" data-category="ইতিহাস ও গবেষণা,ইতিহাস,গবেষণা"></div></div>
+    <div class="category-block" id="books"><h2>বই ও প্রকাশনা</h2><div class="category-list" data-category="বই ও প্রকাশনা,বই,প্রকাশনা,বই আলোচনা"></div></div>
+    <div class="category-block" id="young-writers"><h2>তরুণ কলম</h2><div class="category-list" data-category="তরুণ কলম,তরুণ লেখক,ক্যাম্পাস"></div></div>
+    <div class="category-block" id="interview"><h2>সাক্ষাৎকার ও সাহিত্য সংবাদ</h2><div class="category-list" data-category="সাক্ষাৎকার ও সাহিত্য সংবাদ,সাক্ষাৎকার,সাহিত্য সংবাদ"></div></div>
+    <div class="category-block" id="education"><h2>শিক্ষা ও পাঠশালা</h2><div class="category-list" data-category="শিক্ষা ও পাঠশালা,শিক্ষা,প্রশিক্ষণ"></div></div>
+    <div class="category-block" id="special"><h2>বিশেষ আয়োজন</h2><div class="category-list" data-category="বিশেষ আয়োজন,বিশেষ সংখ্যা,স্মরণ"></div></div>
   </section>
 
   <section id="all" class="all-section">
@@ -434,6 +533,9 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
           <a href="#poetry">কবিতা</a>
           <a href="#stories">গল্প</a>
           <a href="#essays">প্রবন্ধ</a>
+          <a href="#language">ভাষা ও ব্যাকরণ</a>
+          <a href="#culture">সংস্কৃতি ও ঐতিহ্য</a>
+          <a href="#books">বই ও প্রকাশনা</a>
         </div>
       </div>
     </div>

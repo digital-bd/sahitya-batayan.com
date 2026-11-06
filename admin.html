@@ -62,7 +62,7 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
       <input id="originalSource" type="hidden">
       <div class="row">
         <div><label>লেখার শিরোনাম *</label><input id="title" required></div>
-        <div><label>বিভাগ *</label><select id="category"><option>কবিতা</option><option>গল্প</option><option>প্রবন্ধ</option><option>অনুগল্প</option><option>রম্য</option><option>সাহিত্য</option><option>সংবাদ</option><option>অন্যান্য</option></select></div>
+        <div><label>বিভাগ *</label><select id="category"><option value="কবিতা">কবিতা</option><option value="গল্প">গল্প</option><option value="উপন্যাস">উপন্যাস</option><option value="অনুগল্প">অনুগল্প</option><option value="রম্য">রম্য</option><option value="প্রবন্ধ">প্রবন্ধ</option><option value="মতামত">মতামত</option><option value="সাহিত্য">সাহিত্য</option><option value="ভাষা ও ব্যাকরণ">ভাষা ও ব্যাকরণ</option><option value="সংস্কৃতি ও ঐতিহ্য">সংস্কৃতি ও ঐতিহ্য</option><option value="ইতিহাস ও গবেষণা">ইতিহাস ও গবেষণা</option><option value="বই ও প্রকাশনা">বই ও প্রকাশনা</option><option value="তরুণ কলম">তরুণ কলম</option><option value="সাক্ষাৎকার ও সাহিত্য সংবাদ">সাক্ষাৎকার ও সাহিত্য সংবাদ</option><option value="শিক্ষা ও পাঠশালা">শিক্ষা ও পাঠশালা</option><option value="বিশেষ আয়োজন">বিশেষ আয়োজন</option><option value="অন্যান্য">অন্যান্য</option></select></div>
       </div>
       <div class="row">
         <div><label>লেখকের নাম / Byline *</label><input id="authorName" placeholder="প্রকৃত লেখকের নাম"></div>
@@ -454,7 +454,13 @@ $("coverUploadMsg").textContent =
     if(nextStatus==="published")payload.published_at=now;
     const {error}=await db.from("articles").update(payload).eq("id",id);
     ["approveBtn","revisionBtn","rejectBtn","saveBtn"].forEach(id=>$(id).disabled=false);
-    if(error){say("appMsg","পর্যালোচনার সিদ্ধান্ত সংরক্ষণ হয়নি: "+error.message,"error");return;}
+    if(error){
+      const dailyLimit = error.code==="23505" && String(error.message||"").includes("articles_one_registered_writer_publication_per_dhaka_day");
+      say("appMsg",dailyLimit
+        ?"এই লেখক আজ ইতিমধ্যে একটি লেখা প্রকাশ করেছেন। একই দিনে তাঁর দ্বিতীয় লেখা অনুমোদন করে প্রকাশ করা যাবে না। লেখাটি অপেক্ষমাণ রাখুন অথবা পরের দিন প্রকাশ করুন।"
+        :"পর্যালোচনার সিদ্ধান্ত সংরক্ষণ হয়নি: "+error.message,"error");
+      return;
+    }
     say("appMsg",nextStatus==="published"?"লেখাটি অনুমোদিত ও প্রকাশিত হয়েছে।":nextStatus==="revision_requested"?"লেখাটি সংশোধনের জন্য লেখকের কাছে ফেরত পাঠানো হয়েছে।":"লেখাটি বাতিল করা হয়েছে।","ok");
     clearForm(); await refreshLists(); switchTab("queue");
   }
