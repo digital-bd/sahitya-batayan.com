@@ -24,19 +24,16 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
 .status{padding:10px 12px;border-radius:8px;background:#f1f5f9;margin:12px 0;white-space:pre-wrap;font-size:14px}.status.error{background:#fff0ef;color:#9f2d25}.status.ok{background:#eaf7ef;color:#17643a}
 .hidden{display:none!important}.muted{color:var(--muted);font-size:13px}.item{border:1px solid var(--line);border-radius:10px;padding:14px;margin:10px 0;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.item strong{display:block}.tag{font-size:12px;background:#eef2f7;border-radius:20px;padding:3px 9px;display:inline-block;margin:5px 4px 0 0}.empty{padding:24px;text-align:center;color:var(--muted)}
 @media(max-width:650px){.row{grid-template-columns:1fr}.panel{padding:15px}.item{display:block}.item .actions{margin-top:10px}}
+
+.header-home{display:inline-flex;align-items:center;gap:6px}
+@media(max-width:650px){header{align-items:flex-start}header>div:last-child{width:100%}}
 </style>
 </head>
 <body>
-<header>
-  <div><h1>সাহিত্য বাতায়ন — সম্পাদকীয় প্যানেল</h1><small>লেখা তৈরি · সম্পাদনা · অনুমোদন · প্রকাশ</small></div>
-  <div class="actions">
-    <a class="btn light" href="index.html" style="text-decoration:none">← প্রচ্ছদে ফিরুন</a>
-    <button id="logoutBtn" class="btn light hidden">লগআউট</button>
-  </div>
-</header>
+<header><div><h1>সাহিত্য বাতায়ন — সম্পাদকীয় প্যানেল</h1><small>লেখা তৈরি · সম্পাদনা · অনুমোদন · প্রকাশ</small></div><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><a class="btn light" href="./index.html" style="text-decoration:none">← প্রচ্ছদে ফিরুন</a><button id="logoutBtn" class="btn light hidden">লগআউট</button></div></header>
 <div class="wrap">
   <section id="loginPanel" class="panel">
-    <h2>সম্পাদক লগইন</h2><p><a href="index.html">← প্রচ্ছদে ফিরে যান</a></p>
+    <h2>সম্পাদক লগইন</h2>
     <p class="muted">আপনার Supabase Auth account দিয়ে প্রবেশ করুন।</p>
     <label>ইমেইল</label><input id="loginEmail" type="email" autocomplete="username" placeholder="আপনার ইমেইল">
     <label>পাসওয়ার্ড</label><input id="loginPassword" type="password" autocomplete="current-password" placeholder="পাসওয়ার্ড">
@@ -299,6 +296,12 @@ coverFileInput.addEventListener("change", async function () {
     ["queue","create","all","notices","ads"].forEach(t=>$("tab-"+t).classList.toggle("hidden",t!==name));
   }
   document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
+  function openRequestedTab(){
+    const requested=(location.hash||"").replace("#","");
+    if(["queue","create","all","notices","ads"].includes(requested))switchTab(requested);
+  }
+  window.addEventListener("hashchange",openRequestedTab);
+  openRequestedTab();
   document.addEventListener("click",async e=>{
     const b=e.target.closest("[data-edit]"); if(b) openEdit(b.dataset.edit);
     const ar=e.target.closest("[data-archive]"); if(ar){const a=allArticles.find(x=>x.id===ar.dataset.archive);if(!a)return;const next=a.status==="archived"?"draft":"archived";if(!confirm(next==="archived"?"লেখাটি আর্কাইভ করবেন?":"লেখাটি খসড়ায় ফিরিয়ে আনবেন?"))return;const {error}=await db.from("articles").update({status:next,updated_at:new Date().toISOString()}).eq("id",a.id);if(error)say("appMsg","পরিবর্তন হয়নি: "+error.message,"error");else{say("appMsg","লেখার অবস্থা পরিবর্তন হয়েছে।","ok");await refreshLists();}}
