@@ -106,16 +106,12 @@ button,input{font:inherit}
 
 /* সাহিত্য বাতায়ন পরিবার dropdown */
 .family-menu{position:relative;flex:0 0 auto}
-.family-menu>summary{list-style:none;cursor:pointer;white-space:nowrap;padding:12px 13px;font-size:14px;font-weight:700;color:var(--navy);border-bottom:3px solid transparent;margin-bottom:-3px}
+.family-menu>summary{list-style:none;cursor:pointer;white-space:nowrap;padding:10px 14px;font-size:22px;line-height:1;color:var(--navy);border:1px solid var(--line);border-radius:50%;margin:4px 0;letter-spacing:1px}
 .family-menu>summary::-webkit-details-marker{display:none}
+.family-menu>summary::marker{content:""}
+.family-menu>summary:hover{background:var(--soft)}
 .family-menu[open]>summary,.family-menu>summary:hover{color:var(--red);border-color:var(--red)}
-.family-dropdown{position:absolute;right:0;top:100%;min-width:220px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.14);padding:7px;z-index:80;display:flex;flex-direction:column}
-/* নির্ভরযোগ্য পরিবার মেনু: বন্ধ থাকলে লুকানো, ক্লিক করলে দৃশ্যমান */
-.family-menu:not([open])>.family-dropdown{display:none}
-.family-menu[open]>.family-dropdown{display:flex}
-.family-menu>summary{position:relative}
-.family-menu>summary::after{content:" ▾";font-size:12px}
-
+.family-dropdown{position:absolute;right:0;top:100%;min-width:240px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 24px rgba(0,0,0,.14);padding:7px;z-index:80;display:flex;flex-direction:column}
 .family-dropdown a,.family-dropdown button,.family-dropdown span{display:block;text-align:left;padding:10px 12px;border:0;border-bottom:1px solid var(--line);background:#fff;color:var(--navy);font:inherit;font-size:13px;text-decoration:none;white-space:nowrap;cursor:pointer}
 .family-dropdown a:hover,.family-dropdown button:hover{background:var(--soft);color:var(--red)}
 .family-dropdown .family-future{color:var(--muted);cursor:default;border-bottom:0}
@@ -149,8 +145,10 @@ button,input{font:inherit}
 }
 .breaking-text{
   padding:6px 14px;font-size:13px;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis
+  white-space:nowrap;overflow:hidden;text-overflow:clip;flex:1;animation:tickerMove 24s linear infinite
 }
+.breaking:hover .breaking-text{animation-play-state:paused}
+@keyframes tickerMove{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
 
 /* Main layout */
 main{padding:22px 0 50px}
@@ -342,6 +340,7 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
 @media(max-width:600px){.article-view{padding:13px}.article-body{font-size:16px}}
 
 .admin-access{margin-top:14px;font-size:12px}.admin-access a{color:inherit;text-decoration:underline}
+@media(prefers-reduced-motion:reduce){.breaking-text{animation:none;transform:none}}
 </style>
 </head>
 <body>
@@ -405,7 +404,8 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
           <a href="#stories">গল্প</a>
           <a href="#essays">প্রবন্ধ ও সমালোচনা</a>
           <a href="#books">বই ও প্রকাশনা</a>
-          <a href="#young-writers">তরুণ কলম</a>
+          <a href="#young-writers">তরুণ উদীয়মান কলম</a>
+          <a href="#legacy-sections">পুরোনো বিভাগসমূহ</a>
         </div>
       </details>
       <details class="nav-dropdown">
@@ -426,8 +426,8 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
       </details>
       <a href="#epaper">ই-পেপার</a>
       <a href="writer.html">লেখক লগইন</a>
-      <details class="family-menu" id="familyMenu" aria-label="সাহিত্য বাতায়ন পরিবারের প্রশাসনিক মেনু">
-        <summary>সাহিত্য বাতায়ন পরিবার</summary>
+      <details class="family-menu" id="familyMenu">
+        <summary aria-label="সাহিত্য বাতায়ন পরিবার মেনু" title="সাহিত্য বাতায়ন পরিবার">⋮</summary>
         <div class="family-dropdown">
           <a href="writer.html" id="writerNavLink">লেখক নিবন্ধন / লগইন</a>
           <button type="button" id="previewToggle">সম্পাদকীয় প্রিভিউ</button>
@@ -487,20 +487,23 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
   </section>
 
   <section class="category-section">
-    <div class="category-block" id="poetry"><h2>কবিতা</h2><div class="category-list" data-category="কবিতা"></div></div>
-    <div class="category-block" id="stories"><h2>গল্প</h2><div class="category-list" data-category="গল্প,উপন্যাস,অনুগল্প,রম্য"></div></div>
-    <div class="category-block" id="essays"><h2>প্রবন্ধ ও মতামত</h2><div class="category-list" data-category="প্রবন্ধ,মতামত,সাহিত্য"></div></div>
+    <div class="category-block" id="poetry"><h2>সাহিত্য</h2><div class="category-list" data-category="কবিতা,ছড়া,গীতিকবিতা,মুক্তছন্দ,সনেট,আধুনিক,ছোটগল্প,গল্প,অনুগল্প,উপন্যাস,প্রবন্ধ সাহিত্য,প্রবন্ধ,নিবন্ধ,রম্যরচনা,রম্য,স্মৃতিকথা,ভ্রমণকাহিনি,অনুবাদ,পত্রসাহিত্য,বুক-রিভিউ,বই আলোচনা"></div></div>
+    <div class="category-block" id="stories"><h2>ছোটগল্প ও অনুগল্প</h2><div class="category-list" data-category="ছোটগল্প,গল্প,অনুগল্প,সামাজিক,মনস্তাত্ত্বিক,প্রেম,জীবনঘনিষ্ঠ গল্প"></div></div>
+    <div class="category-block" id="essays"><h2>প্রবন্ধ ও মতামত</h2><div class="category-list" data-category="প্রবন্ধ সাহিত্য,প্রবন্ধ,নিবন্ধ,মতামত,সম্পাদকীয়,ফিচার"></div></div>
   </section>
 
   <section class="category-section" id="hub-extra-categories">
-    <div class="category-block" id="language"><h2>ভাষা ও ব্যাকরণ</h2><div class="category-list" data-category="ভাষা ও ব্যাকরণ,ভাষা,ব্যাকরণ"></div></div>
-    <div class="category-block" id="culture"><h2>সংস্কৃতি ও ঐতিহ্য</h2><div class="category-list" data-category="সংস্কৃতি ও ঐতিহ্য,সংস্কৃতি,ঐতিহ্য"></div></div>
-    <div class="category-block" id="history"><h2>ইতিহাস ও গবেষণা</h2><div class="category-list" data-category="ইতিহাস ও গবেষণা,ইতিহাস,গবেষণা"></div></div>
-    <div class="category-block" id="books"><h2>বই ও প্রকাশনা</h2><div class="category-list" data-category="বই ও প্রকাশনা,বই,প্রকাশনা,বই আলোচনা"></div></div>
-    <div class="category-block" id="young-writers"><h2>তরুণ কলম</h2><div class="category-list" data-category="তরুণ কলম,তরুণ লেখক,ক্যাম্পাস"></div></div>
+    <div class="category-block" id="language"><h2>ভাষা ও ব্যাকরণ</h2><div class="category-list" data-category="বাংলা বানান ও বানানরীতি,বাংলা ব্যাকরণ,শব্দের উৎপত্তি ও বিবর্তন,বাংলা শব্দভান্ডার,প্রমিত ও আঞ্চলিক ভাষা,বাংলা ভাষার ইতিহাস,ভাষা আন্দোলন ও বাংলা ভাষার অধিকার,বাংলা উচ্চারণ ও ধ্বনিতত্ত্ব,ভাষার অপপ্রয়োগ ও শুদ্ধ প্রয়োগ,বাংলা ভাষার আধুনিক প্রযুক্তিগত ব্যবহার,বাংলা ভাষায় কৃত্রিম বুদ্ধিমত্তার প্রয়োগ,উপভাষা ও আঞ্চলিক শব্দসংগ্রহ,ভাষা ও ব্যাকরণ,ভাষা,ব্যাকরণ"></div></div>
+    <div class="category-block" id="culture"><h2>সংস্কৃতি ও ঐতিহ্য</h2><div class="category-list" data-category="লোকসংস্কৃতি ও লোকজ ঐতিহ্য,বাউল ভাটিয়ালি ভাওয়াইয়া জারি-সারি,লোকসাহিত্য ও লোককথা,পল্লিগীতি ও লোকসংগীত,গ্রামীণ উৎসব ও মেলা,নকশিকাঁথা ও কারুশিল্প,বাংলার খাদ্যসংস্কৃতি,পোশাক ও জীবনযাপন,আঞ্চলিক সংস্কৃতি,ক্ষুদ্র জাতিগোষ্ঠীর সংস্কৃতি ও ঐতিহ্য,বাংলা নববর্ষ ও ঋতুভিত্তিক উৎসব,হারিয়ে যাওয়া ঐতিহ্য ও সংস্কৃতির পুনরাবিষ্কার,সংস্কৃতি ও ঐতিহ্য,সংস্কৃতি,ঐতিহ্য"></div></div>
+    <div class="category-block" id="literary-persons"><h2>সাহিত্যিক ও মনীষী</h2><div class="category-list" data-category="কবি পরিচিতি,কথাসাহিত্যিক পরিচিতি,প্রাবন্ধিক ও গবেষক পরিচিতি,সাহিত্যিকদের জীবন ও কর্ম,সাহিত্যিকদের চিন্তা ও দর্শন,জন্ম ও মৃত্যুবার্ষিকী,সাহিত্যিকদের অজানা তথ্য,নারী সাহিত্যিকদের অবদান"></div></div>
+    <div class="category-block" id="history"><h2>ইতিহাস ও মুক্তচিন্তা</h2><div class="category-list" data-category="বাংলা সাহিত্যের ইতিহাস,বাংলাদেশের ইতিহাস,ভাষা আন্দোলন,মুক্তিযুদ্ধ ও সাহিত্য,বাংলাদেশের গণ-আন্দোলন ও সাহিত্য,ইতিহাসের গুরুত্বপূর্ণ ঘটনা,ঐতিহাসিক স্থাপনা ও প্রত্নতত্ত্ব,ঐতিহাসিক ব্যক্তিত্ব,সমাজ পরিবর্তনে সাহিত্যের ভূমিকা,সাহিত্য ও রাজনীতি,সাহিত্য ও দর্শন,মানবাধিকার মানবতা ও সামাজিক ন্যায়বিচার,ইতিহাস ও গবেষণা,ইতিহাস,গবেষণা"></div></div>
+    <div class="category-block" id="books"><h2>বই পাঠ ও প্রকাশনা</h2><div class="category-list" data-category="নতুন বই পরিচিতি,বইয়ের রিভিউ ও সমালোচনা,বইমেলা সংবাদ,প্রকাশনা জগতের খবর,লেখক ও প্রকাশকের সাক্ষাৎকার,বইয়ের প্রচ্ছদ ও অলংকরণ,পাঠকের চোখে বই,প্রিয় বই প্রিয় লেখক,শতবর্ষী ও কালজয়ী বই,বইপাঠ আন্দোলন,তরুণ লেখকদের বই পরিচিতি,বুক-রিভিউ,বই আলোচনা,বই ও প্রকাশনা,বই,প্রকাশনা"></div></div>
+    <div class="category-block" id="young-writers"><h2>তরুণ উদীয়মান কলম</h2><div class="category-list" data-category="তরুণ কবিদের কবিতা,তরুণ গল্পকারদের গল্প,নবীন প্রাবন্ধিকদের লেখা,শিক্ষার্থীদের সাহিত্যচর্চা,ক্যাম্পাস সাহিত্য,নতুন লেখকের আত্মপ্রকাশ,তরুণ সাহিত্যিক পরিচিতি,নবীন লেখকদের সাক্ষাৎকার,সাহিত্য সংগঠনের কার্যক্রম,দেয়ালপত্রিকা ও লিটল ম্যাগাজিন,তরুণদের সাহিত্য ভাবনা,সৃজনশীল লেখালেখির পরামর্শ,তরুণ উদীয়মান কলম,তরুণ কলম,তরুণ লেখক,ক্যাম্পাস"></div></div>
+    <div class="category-block" id="reader-participation"><h2>পাঠকের অংশগ্রহণ</h2><div class="category-list" data-category="পাঠকের কবিতা,পাঠকের গল্প,পাঠকের চিঠি,পাঠকের প্রিয় বই,পাঠকের মতামত,সাহিত্য কুইজ,সাপ্তাহিক সাহিত্য প্রতিযোগিতা,পাঠকের আলোকচিত্র,পাঠকের লেখা পর্যালোচনা,প্রশ্নোত্তর ও সাহিত্য আলোচনা"></div></div>
+    <div class="category-block" id="special"><h2>স্বতন্ত্র বিভাগ</h2><div class="category-list" data-category="স্বতন্ত্র বিভাগ,স্বতন্ত্র,বিশেষ আয়োজন,বিশেষ সংখ্যা,স্মরণ,ফিচার,সম্পাদকীয়,খেলাধুলা,নারীদের কথা"></div></div>
+    <div class="category-block" id="legacy-sections"><h2>পূর্বপ্রকাশিত ও চলমান বিভাগ</h2><div class="category-list" data-category="কবিতা,ছড়া,ছোটগল্প,অনুগল্প,বুক-রিভিউ,ফিচার,সম্পাদকীয়,খেলাধুলা,তরুণ উদীয়মান কলম,তরুণ কলম,নারীদের কথা"></div></div>
     <div class="category-block" id="interview"><h2>সাক্ষাৎকার ও সাহিত্য সংবাদ</h2><div class="category-list" data-category="সাক্ষাৎকার ও সাহিত্য সংবাদ,সাক্ষাৎকার,সাহিত্য সংবাদ"></div></div>
-    <div class="category-block" id="education"><h2>শিক্ষা ও পাঠশালা</h2><div class="category-list" data-category="শিক্ষা ও পাঠশালা,শিক্ষা,প্রশিক্ষণ"></div></div>
-    <div class="category-block" id="special"><h2>বিশেষ আয়োজন</h2><div class="category-list" data-category="বিশেষ আয়োজন,বিশেষ সংখ্যা,স্মরণ"></div></div>
+    <div class="category-block" id="education"><h2>শিক্ষা ও পাঠশালা</h2><div class="category-list" data-category="শিক্ষা ও পাঠশালা,শিক্ষা,প্রশিক্ষণ,লেখালেখির পাঠ"></div></div>
   </section>
 
   <section id="all" class="all-section">
@@ -570,7 +573,7 @@ const dateBn = value => {
 const cleanText = value => String(value ?? "").replace(/<[^>]*>/g," ").replace(/\s+/g," ").trim();
 const status = (msg, kind="") => { const el=$("connectionStatus"); el.textContent=msg; el.className="system-status "+kind; };
 const isPublished = a => a.status === "published";
-const categoryMatch = (article, list) => list.split(",").map(x=>x.trim()).includes(String(article.category||"").trim());
+const categoryMatch = (article, list) => list.split(",").map(x=>x.trim().toLocaleLowerCase()).includes(String(article.category||"").trim().toLocaleLowerCase());
 
 function imageMarkup(url, alt, cls="news-image"){
   if(url) return `<div class="${cls}"><img src="${esc(url)}" alt="${esc(alt)}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=&quot;image-placeholder&quot;>ছবি পাওয়া যায়নি</div>'"></div>`;
@@ -663,13 +666,7 @@ function searchNews(){
 const now=new Date();
 $("todayDate").textContent=new Intl.DateTimeFormat("bn-BD",{weekday:"long",year:"numeric",month:"long",day:"numeric"}).format(now);
 
-$("previewToggle").addEventListener("click",()=>{
-  $("previewPanel").classList.toggle("open");
-  $("familyMenu").open=false;
-  if($("previewPanel").classList.contains("open")){
-    $("previewPanel").scrollIntoView({behavior:"smooth",block:"center"});
-  }
-});
+$("previewToggle").addEventListener("click",()=> $("previewPanel").classList.toggle("open"));
 $("previewLoginBtn").addEventListener("click",async()=>{
   const email=$("previewEmail").value.trim(),password=$("previewPassword").value;
   $("previewMessage").textContent="লগইন যাচাই হচ্ছে…";
