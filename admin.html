@@ -49,6 +49,7 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
       <button class="tab" data-tab="all">সব লেখা</button>
       <button class="tab" data-tab="notices">নোটিশ ব্যবস্থাপনা</button>
       <button class="tab" data-tab="ads">বিজ্ঞাপন ব্যবস্থাপনা</button>
+      <button class="tab" data-tab="freeapproval">লেখক Free Approval</button>
     </nav>
 
     <section id="tab-queue" class="panel">
@@ -65,7 +66,7 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
       <input id="originalSource" type="hidden">
       <div class="row">
         <div><label>লেখার শিরোনাম *</label><input id="title" required></div>
-        <div><label>বিভাগ *</label><select id="category"><option>কবিতা</option><option>গল্প</option><option>প্রবন্ধ</option><option>অনুগল্প</option><option>রম্য</option><option>সাহিত্য</option><option>সংবাদ</option><option>অন্যান্য</option></select></div>
+        <div><label>বিভাগ *</label><select id="category"><option value="কবিতা">কবিতা</option><option value="ছড়া">ছড়া</option><option value="গীতিকবিতা">গীতিকবিতা</option><option value="মুক্তছন্দ">মুক্তছন্দ</option><option value="সনেট">সনেট</option><option value="ছোটগল্প">ছোটগল্প</option><option value="গল্প">গল্প</option><option value="অনুগল্প">অনুগল্প</option><option value="উপন্যাস">উপন্যাস</option><option value="প্রবন্ধ সাহিত্য">প্রবন্ধ সাহিত্য</option><option value="প্রবন্ধ">প্রবন্ধ</option><option value="নিবন্ধ">নিবন্ধ</option><option value="মতামত">মতামত</option><option value="সম্পাদকীয়">সম্পাদকীয়</option><option value="ফিচার">ফিচার</option><option value="রম্যরচনা">রম্যরচনা</option><option value="রম্য">রম্য</option><option value="স্মৃতিকথা">স্মৃতিকথা</option><option value="ভ্রমণকাহিনি">ভ্রমণকাহিনি</option><option value="অনুবাদ">অনুবাদ</option><option value="পত্রসাহিত্য">পত্রসাহিত্য</option><option value="বুক-রিভিউ">বুক-রিভিউ</option><option value="বই আলোচনা">বই আলোচনা</option><option value="ভাষা ও ব্যাকরণ">ভাষা ও ব্যাকরণ</option><option value="বাংলা বানান ও বানানরীতি">বাংলা বানান ও বানানরীতি</option><option value="বাংলা ব্যাকরণ">বাংলা ব্যাকরণ</option><option value="শব্দের উৎপত্তি ও বিবর্তন">শব্দের উৎপত্তি ও বিবর্তন</option><option value="বাংলা শব্দভান্ডার">বাংলা শব্দভান্ডার</option><option value="প্রমিত ও আঞ্চলিক ভাষা">প্রমিত ও আঞ্চলিক ভাষা</option><option value="বাংলা ভাষার ইতিহাস">বাংলা ভাষার ইতিহাস</option><option value="ভাষা আন্দোলন ও বাংলা ভাষার অধিকার">ভাষা আন্দোলন ও বাংলা ভাষার অধিকার</option><option value="বাংলা উচ্চারণ ও ধ্বনিতত্ত্ব">বাংলা উচ্চারণ ও ধ্বনিতত্ত্ব</option><option value="ভাষার অপপ্রয়োগ ও শুদ্ধ প্রয়োগ">ভাষার অপপ্রয়োগ ও শুদ্ধ প্রয়োগ</option><option value="বাংলা ভাষার আধুনিক প্রযুক্তিগত ব্যবহার">বাংলা ভাষার আধুনিক প্রযুক্তিগত ব্যবহার</option><option value="বাংলা ভাষায় কৃত্রিম বুদ্ধিমত্তার প্রয়োগ">বাংলা ভাষায় কৃত্রিম বুদ্ধিমত্তার প্রয়োগ</option><option value="উপভাষা ও আঞ্চলিক শব্দসংগ্রহ">উপভাষা ও আঞ্চলিক শব্দসংগ্রহ</option><option value="সংস্কৃতি ও ঐতিহ্য">সংস্কৃতি ও ঐতিহ্য</option><option value="লোকসংস্কৃতি ও লোকজ ঐতিহ্য">লোকসংস্কৃতি ও লোকজ ঐতিহ্য</option><option value="বাউল ভাটিয়ালি ভাওয়াইয়া জারি-সারি">বাউল ভাটিয়ালি ভাওয়াইয়া জারি-সারি</option><option value="লোকসাহিত্য ও লোককথা">লোকসাহিত্য ও লোককথা</option><option value="পল্লিগীতি ও লোকসংগীত">পল্লিগীতি ও লোকসংগীত</option><option value="গ্রামীণ উৎসব ও মেলা">গ্রামীণ উৎসব ও মেলা</option><option value="নকশিকাঁথা ও কারুশিল্প">নকশিকাঁথা ও কারুশিল্প</option><option value="বাংলার খাদ্যসংস্কৃতি">বাংলার খাদ্যসংস্কৃতি</option><option value="পোশাক ও জীবনযাপন">পোশাক ও জীবনযাপন</option><option value="আঞ্চলিক সংস্কৃতি">আঞ্চলিক সংস্কৃতি</option><option value="ক্ষুদ্র জাতিগোষ্ঠীর সংস্কৃতি ও ঐতিহ্য">ক্ষুদ্র জাতিগোষ্ঠীর সংস্কৃতি ও ঐতিহ্য</option><option value="বাংলা নববর্ষ ও ঋতুভিত্তিক উৎসব">বাংলা নববর্ষ ও ঋতুভিত্তিক উৎসব</option><option value="হারিয়ে যাওয়া ঐতিহ্য ও সংস্কৃতির পুনরাবিষ্কার">হারিয়ে যাওয়া ঐতিহ্য ও সংস্কৃতির পুনরাবিষ্কার</option><option value="সাহিত্যিক ও মনীষী">সাহিত্যিক ও মনীষী</option><option value="কবি পরিচিতি">কবি পরিচিতি</option><option value="কথাসাহিত্যিক পরিচিতি">কথাসাহিত্যিক পরিচিতি</option><option value="প্রাবন্ধিক ও গবেষক পরিচিতি">প্রাবন্ধিক ও গবেষক পরিচিতি</option><option value="সাহিত্যিকদের জীবন ও কর্ম">সাহিত্যিকদের জীবন ও কর্ম</option><option value="সাহিত্যিকদের চিন্তা ও দর্শন">সাহিত্যিকদের চিন্তা ও দর্শন</option><option value="জন্ম ও মৃত্যুবার্ষিকী">জন্ম ও মৃত্যুবার্ষিকী</option><option value="সাহিত্যিকদের অজানা তথ্য">সাহিত্যিকদের অজানা তথ্য</option><option value="নারী সাহিত্যিকদের অবদান">নারী সাহিত্যিকদের অবদান</option><option value="ইতিহাস ও মুক্তচিন্তা">ইতিহাস ও মুক্তচিন্তা</option><option value="বাংলা সাহিত্যের ইতিহাস">বাংলা সাহিত্যের ইতিহাস</option><option value="বাংলাদেশের ইতিহাস">বাংলাদেশের ইতিহাস</option><option value="মুক্তিযুদ্ধ ও সাহিত্য">মুক্তিযুদ্ধ ও সাহিত্য</option><option value="বাংলাদেশের গণ-আন্দোলন ও সাহিত্য">বাংলাদেশের গণ-আন্দোলন ও সাহিত্য</option><option value="ইতিহাসের গুরুত্বপূর্ণ ঘটনা">ইতিহাসের গুরুত্বপূর্ণ ঘটনা</option><option value="ঐতিহাসিক স্থাপনা ও প্রত্নতত্ত্ব">ঐতিহাসিক স্থাপনা ও প্রত্নতত্ত্ব</option><option value="ঐতিহাসিক ব্যক্তিত্ব">ঐতিহাসিক ব্যক্তিত্ব</option><option value="সমাজ পরিবর্তনে সাহিত্যের ভূমিকা">সমাজ পরিবর্তনে সাহিত্যের ভূমিকা</option><option value="সাহিত্য ও রাজনীতি">সাহিত্য ও রাজনীতি</option><option value="সাহিত্য ও দর্শন">সাহিত্য ও দর্শন</option><option value="মানবাধিকার মানবতা ও সামাজিক ন্যায়বিচার">মানবাধিকার মানবতা ও সামাজিক ন্যায়বিচার</option><option value="ইতিহাস ও গবেষণা">ইতিহাস ও গবেষণা</option><option value="বই পাঠ ও প্রকাশনা">বই পাঠ ও প্রকাশনা</option><option value="নতুন বই পরিচিতি">নতুন বই পরিচিতি</option><option value="বইয়ের রিভিউ ও সমালোচনা">বইয়ের রিভিউ ও সমালোচনা</option><option value="বইমেলা সংবাদ">বইমেলা সংবাদ</option><option value="প্রকাশনা জগতের খবর">প্রকাশনা জগতের খবর</option><option value="লেখক ও প্রকাশকের সাক্ষাৎকার">লেখক ও প্রকাশকের সাক্ষাৎকার</option><option value="বইয়ের প্রচ্ছদ ও অলংকরণ">বইয়ের প্রচ্ছদ ও অলংকরণ</option><option value="পাঠকের চোখে বই">পাঠকের চোখে বই</option><option value="প্রিয় বই প্রিয় লেখক">প্রিয় বই প্রিয় লেখক</option><option value="শতবর্ষী ও কালজয়ী বই">শতবর্ষী ও কালজয়ী বই</option><option value="বইপাঠ আন্দোলন">বইপাঠ আন্দোলন</option><option value="তরুণ উদীয়মান কলম">তরুণ উদীয়মান কলম</option><option value="তরুণ কবিদের কবিতা">তরুণ কবিদের কবিতা</option><option value="তরুণ গল্পকারদের গল্প">তরুণ গল্পকারদের গল্প</option><option value="নবীন প্রাবন্ধিকদের লেখা">নবীন প্রাবন্ধিকদের লেখা</option><option value="শিক্ষার্থীদের সাহিত্যচর্চা">শিক্ষার্থীদের সাহিত্যচর্চা</option><option value="ক্যাম্পাস সাহিত্য">ক্যাম্পাস সাহিত্য</option><option value="নতুন লেখকের আত্মপ্রকাশ">নতুন লেখকের আত্মপ্রকাশ</option><option value="তরুণ সাহিত্যিক পরিচিতি">তরুণ সাহিত্যিক পরিচিতি</option><option value="নবীন লেখকদের সাক্ষাৎকার">নবীন লেখকদের সাক্ষাৎকার</option><option value="সাহিত্য সংগঠনের কার্যক্রম">সাহিত্য সংগঠনের কার্যক্রম</option><option value="দেয়ালপত্রিকা ও লিটল ম্যাগাজিন">দেয়ালপত্রিকা ও লিটল ম্যাগাজিন</option><option value="তরুণদের সাহিত্য ভাবনা">তরুণদের সাহিত্য ভাবনা</option><option value="সৃজনশীল লেখালেখির পরামর্শ">সৃজনশীল লেখালেখির পরামর্শ</option><option value="পাঠকের অংশগ্রহণ">পাঠকের অংশগ্রহণ</option><option value="পাঠকের কবিতা">পাঠকের কবিতা</option><option value="পাঠকের গল্প">পাঠকের গল্প</option><option value="পাঠকের চিঠি">পাঠকের চিঠি</option><option value="পাঠকের প্রিয় বই">পাঠকের প্রিয় বই</option><option value="পাঠকের মতামত">পাঠকের মতামত</option><option value="সাহিত্য কুইজ">সাহিত্য কুইজ</option><option value="সাপ্তাহিক সাহিত্য প্রতিযোগিতা">সাপ্তাহিক সাহিত্য প্রতিযোগিতা</option><option value="পাঠকের আলোকচিত্র">পাঠকের আলোকচিত্র</option><option value="পাঠকের লেখা পর্যালোচনা">পাঠকের লেখা পর্যালোচনা</option><option value="প্রশ্নোত্তর ও সাহিত্য আলোচনা">প্রশ্নোত্তর ও সাহিত্য আলোচনা</option><option value="সাক্ষাৎকার ও সাহিত্য সংবাদ">সাক্ষাৎকার ও সাহিত্য সংবাদ</option><option value="সাক্ষাৎকার">সাক্ষাৎকার</option><option value="সাহিত্য সংবাদ">সাহিত্য সংবাদ</option><option value="শিক্ষা ও পাঠশালা">শিক্ষা ও পাঠশালা</option><option value="শিক্ষা">শিক্ষা</option><option value="প্রশিক্ষণ">প্রশিক্ষণ</option><option value="লেখালেখির পাঠ">লেখালেখির পাঠ</option><option value="বিশেষ আয়োজন">বিশেষ আয়োজন</option><option value="বিশেষ সংখ্যা">বিশেষ সংখ্যা</option><option value="স্মরণ">স্মরণ</option><option value="খেলাধুলা">খেলাধুলা</option><option value="নারীদের কথা">নারীদের কথা</option><option value="স্বতন্ত্র বিভাগ">স্বতন্ত্র বিভাগ</option><option value="অন্যান্য">অন্যান্য</option></select></div>
       </div>
       <div class="row">
         <div><label>লেখকের নাম / Byline *</label><input id="authorName" placeholder="প্রকৃত লেখকের নাম"></div>
@@ -134,6 +135,15 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
       <label><input id="noticeActive" type="checkbox" checked style="width:auto"> নোটিশ সক্রিয়</label>
       <div class="actions"><button id="saveNoticeBtn" class="btn">নোটিশ সংরক্ষণ</button><button id="resetNoticeBtn" class="btn light">ফর্ম পরিষ্কার</button></div>
       <div id="noticeMsg" class="status hidden"></div><hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3>নোটিশ তালিকা</h3><div id="noticeList"><div class="empty">লোড হচ্ছে…</div></div>
+    </section>
+
+    
+    <section id="tab-freeapproval" class="panel hidden">
+      <h2>লেখকের Free Approval নিয়ন্ত্রণ</h2>
+      <p class="muted">পাঁচটি পৃথক লেখা সম্পাদক/Admin কর্তৃক অনুমোদিত ও প্রকাশিত হওয়ার পর Admin Free Approval দিতে পারবেন। চালু, স্থগিত ও বাতিল—সব পরিবর্তনের ইতিহাস সংরক্ষিত হবে। দৈনিক সর্বোচ্চ একটি লেখা সীমা বহাল থাকবে।</p>
+      <div class="row"><div><label>লেখক খুঁজুন (নাম/ইউজারনেম)</label><input id="faSearch" placeholder="লেখকের নাম"></div><div><label>অবস্থা</label><select id="faFilter"><option value="">সব</option><option value="not_granted">চালু নয়</option><option value="active">সক্রিয়</option><option value="suspended">স্থগিত</option><option value="revoked">বাতিল</option></select></div></div>
+      <div id="freeApprovalList"><div class="empty">লেখকের তালিকা লোড হচ্ছে…</div></div>
+      <div id="freeApprovalMsg" class="status hidden"></div>
     </section>
 
     <section id="tab-ads" class="panel hidden">
@@ -293,12 +303,13 @@ coverFileInput.addEventListener("change", async function () {
   }
   function switchTab(name){
     document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===name));
-    ["queue","create","all","notices","ads"].forEach(t=>$("tab-"+t).classList.toggle("hidden",t!==name));
+    ["queue","create","all","notices","ads","freeapproval"].forEach(t=>$("tab-"+t).classList.toggle("hidden",t!==name));
+    if(name==="freeapproval") loadFreeApproval();
   }
   document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
   function openRequestedTab(){
     const requested=(location.hash||"").replace("#","");
-    if(["queue","create","all","notices","ads"].includes(requested))switchTab(requested);
+    if(["queue","create","all","notices","ads","freeapproval"].includes(requested))switchTab(requested);
   }
   window.addEventListener("hashchange",openRequestedTab);
   openRequestedTab();
@@ -380,6 +391,35 @@ coverFileInput.addEventListener("change", async function () {
     const ae=e.target.closest("[data-ad-edit]");if(ae)editAd(ae.dataset.adEdit);
     const ad=e.target.closest("[data-ad-delete]");if(ad)deleteRow("advertisements",ad.dataset.adDelete,"বিজ্ঞাপন",loadAds);
   });
+
+
+  async function loadFreeApproval(){
+    const host=$("freeApprovalList"); if(!host)return;
+    host.innerHTML='<div class="empty">লোড হচ্ছে…</div>';
+    const {data:profiles,error}=await db.from("profiles").select("id,display_name,username,role,free_approval_status,free_approval_granted_at").eq("role","writer").order("display_name");
+    if(error){host.textContent="লেখক তালিকা আনা যায়নি: "+error.message;return;}
+    const {data:articles,aerr}=await db.from("articles").select("id,author_id,status,reviewed_at,reviewed_by").not("author_id","is",null).in("status",["published","archived"]);
+    if(aerr){host.textContent="অনুমোদনের হিসাব আনা যায়নি: "+aerr.message;return;}
+    const counts={};(articles||[]).forEach(a=>{if(a.reviewed_at&&a.reviewed_by)counts[a.author_id]=(counts[a.author_id]||new Set()).add(a.id);});
+    const q=($("faSearch").value||"").toLocaleLowerCase(),f=$("faFilter").value;
+    const rows=(profiles||[]).filter(p=>(!q||[p.display_name,p.username].some(v=>String(v||"").toLocaleLowerCase().includes(q)))&&(!f||(p.free_approval_status||"not_granted")===f));
+    host.innerHTML=rows.map(p=>{
+      const n=counts[p.id]?.size||0,st=p.free_approval_status||"not_granted";
+      const canGrant=n>=5&&st!=="active";
+      const controls=currentRole==="admin"?`<button class="btn secondary" data-fa="${p.id}" data-state="active" ${canGrant?"":"disabled"}>Free Approval চালু</button><button class="btn light" data-fa="${p.id}" data-state="suspended" ${st==="active"?"":"disabled"}>স্থগিত</button><button class="btn danger" data-fa="${p.id}" data-state="revoked" ${st==="active"||st==="suspended"?"":"disabled"}>বাতিল</button>`:'<span class="muted">শুধু Admin পরিবর্তন করতে পারবেন</span>';
+      return `<article class="panel" style="margin:10px 0"><strong>${esc(p.display_name||p.username||p.id)}</strong> <span class="muted">@${esc(p.username||"")}</span><p>অনুমোদিত স্বতন্ত্র লেখা: ${n}/৫ · Free Approval: ${esc(st)}</p>${controls}</article>`;
+    }).join("")||'<div class="empty">কোনো লেখক পাওয়া যায়নি।</div>';
+  }
+  async function setFreeApproval(userId,state){
+    if(currentRole!=="admin"){say("freeApprovalMsg","শুধু Admin Free Approval পরিবর্তন করতে পারবেন।","error");return;}
+    if(!confirm("এই লেখকের Free Approval "+state+" করতে চান?"))return;
+    const {error}=await db.rpc("admin_set_free_approval",{p_writer_id:userId,p_new_status:state,p_note:null});
+    if(error){say("freeApprovalMsg","পরিবর্তন হয়নি: "+error.message,"error");return;}
+    say("freeApprovalMsg","Free Approval-এর অবস্থা পরিবর্তন হয়েছে।","ok");await loadFreeApproval();
+  }
+  $("faSearch").addEventListener("input",loadFreeApproval);
+  $("faFilter").addEventListener("change",loadFreeApproval);
+  document.addEventListener("click",e=>{const b=e.target.closest("[data-fa]");if(b)setFreeApproval(b.dataset.fa,b.dataset.state);});
 
   function clearForm(){
     ["articleId","originalAuthorId","originalSource","title","authorName","excerpt","cover","content","seoTitle","seoDescription","editorialNote"].forEach(id=>$(id).value="");$("coverFile").value = "";
