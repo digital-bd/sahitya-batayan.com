@@ -96,7 +96,13 @@ $('signupForm').addEventListener('submit',async e=>{
  if(password!==$('signupPassword2').value){message('দুটি পাসওয়ার্ড এক নয়।','error');return;}
  busy('signupBtn',true,'নিবন্ধন হচ্ছে...');
  try{
-  const {data,error}=await db.auth.signUp({email,password,options:{data:{display_name:name,username}}});
+  const {data,error}=await db.auth.signUp({
+    email,password,
+    options:{
+      data:{display_name:name,username},
+      emailRedirectTo:'https://digital-bd.github.io/sahitya-batayan.com/writer.html'
+    }
+   });
   if(error)throw error;
   if(data.session){currentUser=data.user;await loadProfile();message('নিবন্ধন সফল। এখন লেখা জমা দিতে পারবেন।','success');}
   else{message('নিবন্ধন অনুরোধ সফল হয়েছে। আপনার ইমেইলে পাঠানো যাচাইকরণ লিংকে ক্লিক করুন। তারপর এই পেজে ফিরে লগইন করুন।','success');showTab('login');}
@@ -120,7 +126,7 @@ async function loadFreeApprovalStatus(){
   if(error)throw error;
   const approved=(rows||[]).filter(a=>a.reviewed_at&&a.reviewed_by).length;
   const state=currentProfile?.free_approval_status||'not_granted';
-  const label=state==='active'?'সক্রিয়':state==='suspended'?'সাময়িক স্থগিত':'চালু নয়';
+  const label=state==='active'?'সক্রিয়':state==='suspended'?'সাময়িক স্থগিত':state==='revoked'?'বাতিল':'চালু নয়';
   box.textContent=`সম্পাদক-অনুমোদিত স্বতন্ত্র লেখা: ${approved}/৫ · Free Approval: ${label} · দৈনিক সীমা: ১টি লেখা।`;
  }catch(e){box.textContent='দৈনিক সীমা ও Free Approval ডেটাবেজে নিয়ন্ত্রিত। অবস্থা আনতে সমস্যা হয়েছে: '+e.message;}
 }
@@ -133,15 +139,30 @@ async function loadArticles(){
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function slugify(s){return s.toLowerCase().trim().replace(/[^\p{L}\p{N}]+/gu,'-').replace(/^-|-$/g,'').slice(0,100)+'-'+crypto.randomUUID().slice(0,8);}
 $('articleForm').addEventListener('submit',async e=>{
- e.preventDefault();clearMessage();if(!currentUser||!currentProfile||currentProfile.role!=='writer'){message('লেখা জমা দিতে লেখক হিসেবে লগইন করুন।','error');return;}
+ e.preventDefault();clearMessage();if(!currentUser||!currentProfile||!['writer','editor','admin'].includes(currentProfile.role)){message('লেখা জমা দিতে অনুমোদিত অ্যাকাউন্টে লগইন করুন।','error');return;}
  busy('submitArticleBtn',true,'জমা হচ্ছে...');
  try{
   let cover=null;const file=$('coverFile').files[0];
   if(file){if(file.size>5*1024*1024)throw new Error('ছবির আকার ৫ MB-এর বেশি হতে পারবে না।');const ext=(file.name.split('.').pop()||'jpg').toLowerCase();const path=`${currentUser.id}/${crypto.randomUUID()}.${ext}`;const {error:upErr}=await db.storage.from('site-media').upload(path,file,{cacheControl:'3600',upsert:false,contentType:file.type});if(upErr)throw upErr;cover=db.storage.from('site-media').getPublicUrl(path).data.publicUrl;}
   const title=$('articleTitle').value.trim();
   const row={title,slug:slugify(title),category:$('articleCategory').value,author_id:currentUser.id,author_name:currentProfile.display_name||'নাম উল্লেখ নেই',created_by:currentUser.id,submission_source:'registered_writer',excerpt:$('articleExcerpt').value.trim(),content:$('articleContent').value.trim(),cover_image_url:cover,status:'pending',submitted_at:new Date().toISOString()};
-  const {data,error}=await db.rpc('submit_writer_article',{p_article:row});if(error)throw error;
-  $('articleForm').reset();message(data?.status==='published'?'Free Approval সক্রিয় থাকায় লেখা স্বয়ংক্রিয়ভাবে প্রকাশিত হয়েছে।':'লেখা সফলভাবে সম্পাদকের কাছে জমা হয়েছে। অনুমোদনের আগে Homepage-এ দেখা যাবে না।','success');await loadFreeApprovalStatus();await loadArticles();
+  let result;
+  if(currentProfile.role==='writer'){
+   const {data,error}=await db.rpc('submit_writer_article',{p_article:row});
+   if(error)throw error;
+   result=data;
+  }else{
+   const editorialRow={...row,status:'published',reviewed_at:new Date().toISOString(),reviewed_by:currentUser.id};
+   const {data,error}=await db.from('articles').insert(editorialRow).select('id,status').single();
+   if(error)throw error;
+   result=data;
+  }
+  $('articleForm').reset();
+  const published=result?.status==='published';
+  message(published
+   ? (currentProfile.role==='writer'?'Free Approval সক্রিয় থাকায় লেখা স্বয়ংক্রিয়ভাবে প্রকাশিত হয়েছে।':'সম্পাদকীয় অ্যাকাউন্ট থেকে লেখা সরাসরি প্রকাশিত হয়েছে।')
+   : 'লেখা সফলভাবে সম্পাদকের কাছে জমা হয়েছে। অনুমোদনের আগে Homepage-এ দেখা যাবে না।','success');
+  await loadFreeApprovalStatus();await loadArticles();
  }catch(err){message(err.message||'লেখা জমা দেওয়া যায়নি।','error');}
  finally{busy('submitArticleBtn',false);}
 });
