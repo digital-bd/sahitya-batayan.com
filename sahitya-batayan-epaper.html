@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>সাহিত্য বাতায়ন | ই-পেপার ডিজাইন স্টুডিও ডেমো</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700;800&display=swap');
+:root{--red:#9e2637;--navy:#1c2e46;--gold:#c39a45;--paper:#fffdf8;--ink:#202124;--line:#d9d4ca}
+*{box-sizing:border-box}body{margin:0;background:#e9ebef;color:#202124;font-family:'Noto Sans Bengali',sans-serif}
+header{background:#18283d;color:white;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.brand{font-family:'Noto Serif Bengali';font-weight:800;font-size:20px}.brand small{display:block;font:11px 'Noto Sans Bengali';opacity:.75}
+.actions{display:flex;gap:7px;flex-wrap:wrap}button,select{font:600 13px 'Noto Sans Bengali';border:1px solid #c9cdd3;border-radius:7px;padding:8px 11px;background:white;color:#202124;cursor:pointer}
+button.primary{background:var(--red);color:#fff;border-color:var(--red)}button.dark{background:#263d59;color:#fff;border-color:#263d59}button.warn{color:#9b2635}
+.layout{display:grid;grid-template-columns:245px minmax(0,1fr) 255px;min-height:calc(100vh - 65px)}
+aside{background:#f8f9fb;padding:14px;border-right:1px solid #d9dde3;overflow:auto}.right{border-right:0;border-left:1px solid #d9dde3}
+h3{font-size:14px;margin:4px 0 12px;color:#263d59}.muted{font-size:11px;color:#687384;line-height:1.6}
+.template{display:flex;gap:10px;align-items:center;padding:9px;border:1px solid #d9dde3;border-radius:9px;margin:8px 0;background:#fff;cursor:pointer}
+.template.active{border:2px solid var(--red);padding:8px}.mini{width:48px;height:61px;background:#fffdf8;border:1px solid #c9c4ba;padding:5px;display:flex;flex-direction:column;gap:3px}
+.mini i{display:block;height:4px;background:#9e2637}.mini b{display:block;height:12px;background:#ddd}.mini em{display:block;flex:1;background:repeating-linear-gradient(#ddd 0 2px,transparent 2px 5px)}
+.pages{display:flex;gap:8px;flex-direction:column;margin-top:12px}.pageitem{display:flex;align-items:center;gap:9px;padding:7px;border:1px solid #ddd;border-radius:8px;background:white;cursor:pointer}.pageitem.active{outline:2px solid var(--red)}.thumb{width:43px;height:56px;border:1px solid #c9c4ba;background:#fffdf8;padding:4px;font-size:5px;overflow:hidden}.thumb strong{color:var(--red);display:block;border-bottom:1px solid #aaa}
+main{padding:18px;overflow:auto}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin:0 auto 14px;max-width:900px}
+.stage{display:flex;justify-content:center;align-items:flex-start;min-height:80vh;padding:4px}
+.paper{width:min(100%,760px);min-height:980px;background:var(--paper);box-shadow:0 5px 25px #1a273522;padding:34px 42px;position:relative;border:1px solid #ddd8cf;color:var(--ink);font-family:'Noto Serif Bengali',serif}
+.paper.cover{background:linear-gradient(180deg,#fffdf8 0%,#f8f0e8 100%);border-top:10px solid var(--red)}
+.masthead{text-align:center;border-bottom:3px double var(--red);padding-bottom:12px;margin-bottom:13px}
+.masthead .name{font-size:38px;font-weight:800;color:var(--red);letter-spacing:1px}
+.masthead .tag{font:12px 'Noto Sans Bengali';color:#555}
+.meta{display:flex;justify-content:space-between;border-bottom:1px solid #aaa;padding:5px 0;font:11px 'Noto Sans Bengali';margin-bottom:16px}
+.kicker{font:700 12px 'Noto Sans Bengali';color:var(--red);letter-spacing:.5px}
+.headline{font-size:31px;line-height:1.35;font-weight:800;margin:7px 0 10px;color:#202124}
+.deck{font-size:16px;line-height:1.7;color:#555;margin:0 0 13px}
+.hero{width:100%;height:245px;object-fit:cover;background:#e6ded2;border:1px solid #cfc7bb}
+.caption{font:11px 'Noto Sans Bengali';color:#777;margin:4px 0 12px}
+.columns{columns:2;column-gap:24px;text-align:justify;font-size:14px;line-height:1.95}
+.columns p{margin:0 0 12px}
+.section-title{font-size:23px;color:var(--red);border-bottom:2px solid var(--gold);padding-bottom:6px;margin:8px 0 14px}
+.story{break-inside:avoid;border-bottom:1px solid #ddd;padding-bottom:10px;margin-bottom:12px}
+.story h2{font-size:21px;margin:3px 0 6px;line-height:1.4}.byline{font:11px 'Noto Sans Bengali';color:#777;margin-bottom:7px}
+.book-ad{display:flex;gap:14px;align-items:center;background:#f2eadb;padding:12px;border:1px solid #d5c5a4;margin:12px 0;break-inside:avoid}
+.book-cover{width:95px;height:135px;background:linear-gradient(145deg,#263d59,#9e2637);color:white;display:flex;align-items:center;justify-content:center;text-align:center;padding:8px;font-size:17px;font-weight:800;box-shadow:3px 4px 6px #777}
+.adbox{border:2px dashed #b58c43;background:#fff8e8;text-align:center;padding:17px;margin:13px 0;font:700 16px 'Noto Sans Bengali';color:#795a24}
+.photo-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin:12px 0}.photo-grid img{width:100%;height:135px;object-fit:cover;background:#eee}
+.editable{outline:none}.editable:focus{box-shadow:0 0 0 2px #c39a4566;border-radius:3px}
+.element{position:relative}.element.selected{outline:2px dashed #2677c9;outline-offset:3px}
+.footer{position:absolute;bottom:18px;left:42px;right:42px;border-top:1px solid #aaa;padding-top:6px;display:flex;justify-content:space-between;font:10px 'Noto Sans Bengali';color:#777}
+.tools button{width:100%;text-align:left;margin:4px 0}.tools .twocol{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+input[type=file]{display:none}.field{width:100%;padding:8px;border:1px solid #ccd1d8;border-radius:7px;margin:5px 0 10px;font:12px 'Noto Sans Bengali'}
+.notice{background:#fff4d8;border:1px solid #e6cf91;border-radius:8px;padding:9px;font-size:11px;line-height:1.6;margin-top:12px}
+@media(max-width:1050px){.layout{grid-template-columns:205px minmax(0,1fr)}.right{display:none}}
+@media(max-width:680px){.layout{display:block}aside.left{border-right:0;border-bottom:1px solid #ddd}.left .pages{display:grid;grid-template-columns:repeat(3,1fr)}.left .template{display:inline-flex;width:100%}main{padding:9px}.paper{padding:20px 17px;min-height:850px}.masthead .name{font-size:29px}.headline{font-size:24px}.hero{height:170px}.footer{left:17px;right:17px}.columns{font-size:12px;column-gap:13px}}
+@media print{header,.left,.right,.toolbar{display:none!important}.layout{display:block}main{padding:0}.stage{display:block}.paper{width:100%;min-height:0;box-shadow:none;border:0;page-break-after:always;margin:0;padding:22mm 18mm}.paper:last-child{page-break-after:auto}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">সাহিত্য বাতায়ন <small>ই-পেপার ডিজাইন স্টুডিও · পরীক্ষামূলক ডেমো</small></div>
+ <div class="actions">
+  <button onclick="saveDraft()">ড্রাফট সংরক্ষণ</button>
+  <button onclick="document.getElementById('loadfile').click()">ছবি আপলোড</button>
+  <button class="dark" onclick="window.print()">PDF / প্রিন্ট</button>
+  <button class="primary" onclick="exportHTML()">HTML এক্সপোর্ট</button>
+  <input id="loadfile" type="file" accept="image/*" multiple onchange="uploadImages(event)">
+ </div>
+</header>
+<div class="layout">
+<aside class="left">
+ <h3>রেডিমেড টেমপ্লেট</h3>
+ <div class="template active" onclick="applyTemplate('cover',this)"><div class="mini"><i></i><b></b><em></em></div><div><b>প্রচ্ছদ</b><div class="muted">মূল শিরোনাম ও প্রধান ছবি</div></div></div>
+ <div class="template" onclick="applyTemplate('editorial',this)"><div class="mini"><i></i><em></em><b></b><em></em></div><div><b>সম্পাদকীয়</b><div class="muted">সম্পাদকীয় ও বক্তব্য</div></div></div>
+ <div class="template" onclick="applyTemplate('poetry',this)"><div class="mini"><i></i><b></b><em></em></div><div><b>কবিতা পাতা</b><div class="muted">কবিতা ও কবির পরিচিতি</div></div></div>
+ <div class="template" onclick="applyTemplate('story',this)"><div class="mini"><i></i><b></b><em></em></div><div><b>গল্প / প্রবন্ধ</b><div class="muted">দুই কলামের লেখা</div></div></div>
+ <div class="template" onclick="applyTemplate('books',this)"><div class="mini"><i></i><b></b><em></em></div><div><b>বই ও সংস্কৃতি</b><div class="muted">বইয়ের প্রচ্ছদ ও আলোচনা</div></div></div>
+ <div class="template" onclick="applyTemplate('ads',this)"><div class="mini"><i></i><b></b><em></em></div><div><b>বিজ্ঞাপন / ফটো ফিচার</b><div class="muted">বিজ্ঞাপন ও ছবির গ্যালারি</div></div></div>
+ <h3 style="margin-top:20px">এই সংখ্যার পাতা</h3>
+ <div class="pages" id="pages"></div>
+ <button class="primary" style="width:100%;margin-top:10px" onclick="addPage()">＋ নতুন পাতা যোগ</button>
+ <div class="notice">নমুনার লেখা, ছবি ও বিজ্ঞাপন সম্পূর্ণ ডেমো কনটেন্ট। প্রকাশের আগে নিজের উপাদান দিয়ে বদলে নেবেন।</div>
+</aside>
+<main>
+ <div class="toolbar">
+  <div><b id="pageTitle">পৃষ্ঠা ১ · প্রচ্ছদ</b><div class="muted">পাতার ভেতরের লেখা ক্লিক করে সম্পাদনা করুন</div></div>
+  <div class="actions"><button onclick="movePage(-1)">← আগের</button><button onclick="movePage(1)">পরের →</button><button class="warn" onclick="deletePage()">পাতা মুছুন</button></div>
+ </div>
+ <div class="stage"><article class="paper cover" id="paper"></article></div>
+</main>
+<aside class="right">
+ <h3>উপাদান যোগ করুন</h3>
+ <div class="tools">
+  <button onclick="addText()">＋ শিরোনাম / লেখা</button>
+  <button onclick="document.getElementById('singleimg').click()">＋ ছবি / ফটোকার্ড</button>
+  <input id="singleimg" type="file" accept="image/*" onchange="addImage(event)">
+  <button onclick="addAd()">＋ বিজ্ঞাপন বক্স</button>
+  <button onclick="addBook()">＋ বইয়ের প্রচ্ছদ</button>
+  <button onclick="addDivider()">＋ বিভাজক রেখা</button>
+  <button onclick="addColumns()">＋ দুই কলামের লেখা</button>
+ </div>
+ <h3 style="margin-top:20px">নির্বাচিত উপাদান</h3>
+ <div class="muted">যে উপাদানটি সম্পাদনা করতে চান, সেটিতে ক্লিক করুন। লেখা সরাসরি বদলাতে পারবেন।</div>
+ <label class="muted">ফন্ট সাইজ</label><input class="field" id="fontSize" type="number" min="10" max="60" value="14" onchange="styleSelected('fontSize',this.value+'px')">
+ <label class="muted">লেখার রং</label><input class="field" id="fontColor" type="color" value="#202124" onchange="styleSelected('color',this.value)">
+ <label class="muted">ব্যাকগ্রাউন্ড</label><input class="field" id="bgColor" type="color" value="#fff8e8" onchange="styleSelected('backgroundColor',this.value)">
+ <button style="width:100%" onclick="deleteElement()">নির্বাচিত উপাদান মুছুন</button>
+ <div class="notice">ডেমোতে লেখা সরাসরি সম্পাদনা, পাতা যোগ-বিয়োগ, টেমপ্লেট বদল, ছবি বসানো, ড্রাফট সংরক্ষণ ও PDF প্রিন্ট পরীক্ষা করা যাবে। পূর্ণ সংস্করণে ড্র্যাগ-এন্ড-ড্রপ, রিসাইজ, আনডু/রিডু ও Supabase সংরক্ষণ যুক্ত হবে।</div>
+</aside>
+</div>
+<script>
+const samplePhoto='https://images.unsplash.com/photo-1455390582262-044c724652c7?w=1200';
+const pages=[
+ {name:'প্রচ্ছদ',type:'cover'},
+ {name:'সম্পাদকীয়',type:'editorial'},
+ {name:'কবিতা',type:'poetry'},
+ {name:'গল্প ও প্রবন্ধ',type:'story'},
+ {name:'বই ও সংস্কৃতি',type:'books'},
+ {name:'বিজ্ঞাপন ও ফটোফিচার',type:'ads'}
+];
+let current=0,selected=null;
+function footer(n){return `<div class="footer"><span>সাহিত্য বাতায়ন · তরুণ উদীয়মান কলম</span><span>পৃষ্ঠা ${n}</span></div>`}
+function mast(){return `<div class="masthead"><div class="name editable" contenteditable="true">সাহিত্য বাতায়ন</div><div class="tag editable" contenteditable="true">সাহিত্য · সংস্কৃতি · মনন · মানবিকতার কাগজ</div></div><div class="meta"><span contenteditable="true" class="editable">বর্ষ ১ · সংখ্যা ১</span><span contenteditable="true" class="editable">বিশেষ সাহিত্য সংখ্যা · নভেম্বর ২০২৬</span><span contenteditable="true" class="editable">মূল্য: ২০ টাকা</span></div>`}
+function content(type,n){
+ let m=mast();
+ if(type==='cover')return `${m}<div class="kicker editable" contenteditable="true">বিশেষ আয়োজন · সাহিত্য ও সমাজ</div><h1 class="headline editable" contenteditable="true">শব্দের ভেতর জেগে থাকুক মানুষের গল্প</h1><p class="deck editable" contenteditable="true">সময়ের কথা, মানুষের কথা, স্বপ্ন ও সম্ভাবনার কথা নিয়ে সাহিত্য বাতায়নের বিশেষ সংখ্যা।</p><img class="hero" src="${samplePhoto}" alt="নমুনা প্রচ্ছদ ছবি"><div class="caption editable" contenteditable="true">প্রচ্ছদ ভাবনা: শব্দ, মানুষ ও সময়ের সম্মিলন</div><div class="columns"><p class="editable" contenteditable="true">সাহিত্য কেবল বিনোদনের বিষয় নয়; মানুষের অভিজ্ঞতা, সমাজের পরিবর্তন এবং সময়ের দলিলও বটে। প্রতিটি শব্দের ভেতর লুকিয়ে থাকে একটি জীবন, একটি প্রশ্ন, একটি নতুন সম্ভাবনা।</p><p class="editable" contenteditable="true">এই সংখ্যায় থাকছে কবিতা, গল্প, প্রবন্ধ, বই আলোচনা, তরুণ লেখকদের ভাবনা এবং সংস্কৃতির নানা আয়োজন।</p></div>${footer(n)}`;
+ if(type==='editorial')return `${m}<div class="kicker">সম্পাদকীয়</div><h1 class="headline editable" contenteditable="true">পাঠের আলোয় গড়ে উঠুক মননশীল সমাজ</h1><p class="deck editable" contenteditable="true">সম্পাদকের কলমে—সাহিত্য, দায়বদ্ধতা ও আগামী দিনের স্বপ্ন।</p><div class="columns"><p class="editable" contenteditable="true">একটি পত্রিকা কেবল কিছু লেখা প্রকাশের মাধ্যম নয়; এটি পাঠক ও লেখকের মধ্যে সেতুবন্ধন। সময়ের অসংগতি, মানুষের আনন্দ-বেদনা, সমাজের সংকট এবং সম্ভাবনাকে সাহিত্যের ভাষায় তুলে ধরাই আমাদের প্রত্যয়।</p><p class="editable" contenteditable="true">আমরা চাই নতুন লেখকেরা সাহস নিয়ে লিখুন, পাঠকেরা মনোযোগ দিয়ে পড়ুন, আর মতের ভিন্নতা সত্ত্বেও সুস্থ সাহিত্যচর্চার পরিসর প্রসারিত হোক।</p><p class="editable" contenteditable="true">এই সংখ্যার প্রতিটি লেখা পাঠকের সঙ্গে নতুন সংলাপ তৈরি করুক—এটাই আমাদের প্রত্যাশা।</p></div><div class="adbox editable" contenteditable="true">সম্পাদকীয় বার্তা / পত্রিকার ঘোষণা / বিশেষ উদ্ধৃতি</div>${footer(n)}`;
+ if(type==='poetry')return `${m}<div class="section-title editable" contenteditable="true">কবিতার পাতা</div><div class="story"><h2 class="editable" contenteditable="true">বৃষ্টির কাছে রেখে এলাম চিঠি</h2><div class="byline editable" contenteditable="true">কবি: অনিরুদ্ধ নীল · ঢাকা</div><div class="columns"><p class="editable" contenteditable="true">জানালার কাচে বৃষ্টি নামে, শহর ধুয়ে যায় নীরবতায়। ভেজা রাস্তায় জমে থাকে কত অনুচ্চারিত কথা—যাদের ঠিকানা কেউ জানে না।</p><p class="editable" contenteditable="true">একটি চিঠি রেখে এলাম মেঘের কাছে, যদি কোনোদিন রোদ হয়ে ফিরে আসে, যদি কোনো বিকেলে তোমার জানালায় কড়া নাড়ে।</p></div></div><div class="story"><h2 class="editable" contenteditable="true">নদীরও একাকিত্ব আছে</h2><div class="byline editable" contenteditable="true">কবি: মেঘলা রহমান</div><p class="editable" contenteditable="true">নদী বয়ে যায়, অথচ তারও কত কথা জমে থাকে দুই তীরের কাছে। মানুষের মতো নদীও কখনো নিজের গভীরতা কাউকে বুঝিয়ে বলতে পারে না।</p></div>${footer(n)}`;
+ if(type==='story')return `${m}<div class="section-title editable" contenteditable="true">গল্প ও মনন</div><h1 class="headline editable" contenteditable="true">নিঃসঙ্গ বেঞ্চের যাত্রী</h1><div class="byline editable" contenteditable="true">গল্প · লেখক: সায়েম আহমেদ</div><img class="hero" src="${samplePhoto}" style="height:190px"><div class="caption editable" contenteditable="true">গল্পের সঙ্গে মানানসই একটি ছবি বা ইলাস্ট্রেশন</div><div class="columns"><p class="editable" contenteditable="true">কলেজের পুরোনো মাঠের পাশে একটি বেঞ্চ। প্রতিদিন বিকেলে সেখানে কেউ না কেউ বসে। কিন্তু বেঞ্চটির এক কোণে বসে থাকা মানুষটির দিকে কারও বিশেষ নজর পড়ে না। তার হাতে বই, চোখে দূরের কোনো পথের অপেক্ষা।</p><p class="editable" contenteditable="true">একদিন হঠাৎ বৃষ্টি নামল। সবাই ছুটে গেল আশ্রয়ের খোঁজে। মানুষটি বই বন্ধ করল না। যেন বৃষ্টির শব্দেই সে খুঁজে পেল বহুদিনের হারানো কোনো বাক্য।</p><p class="editable" contenteditable="true">[এখানে আপনার গল্প বা প্রবন্ধের পূর্ণ লেখা বসান। প্রয়োজনে নতুন পৃষ্ঠা যোগ করুন।]</p></div>${footer(n)}`;
+ if(type==='books')return `${m}<div class="section-title editable" contenteditable="true">বই, পাঠ ও সংস্কৃতি</div><div class="book-ad"><div class="book-cover editable" contenteditable="true">নদীর ওপারে<br>একটি গ্রাম</div><div><h2 class="editable" contenteditable="true">এই মাসের নির্বাচিত বই</h2><p class="editable" contenteditable="true">লেখক: ফারহানা নওরীন</p><p class="editable" contenteditable="true">মানুষ, স্মৃতি ও শেকড়ের গল্প নিয়ে লেখা একটি উপন্যাস। বইয়ের প্রচ্ছদ, লেখকের ছবি, প্রকাশক ও বইয়ের বিবরণ এখানে বসান।</p></div></div><div class="section-title">বই আলোচনা</div><h2 class="editable" contenteditable="true">পাঠের অভ্যাস কেন জরুরি?</h2><div class="columns"><p class="editable" contenteditable="true">বই মানুষের চিন্তার জগৎকে প্রসারিত করে। নিয়মিত পাঠ আমাদের ভাষা, যুক্তি, কল্পনা ও সহমর্মিতাকে সমৃদ্ধ করে।</p><p class="editable" contenteditable="true">[এখানে বই পর্যালোচনা, নতুন বইয়ের খবর, লেখক পরিচিতি অথবা পাঠকের অভিজ্ঞতা যুক্ত করুন।]</p></div>${footer(n)}`;
+ return `${m}<div class="section-title editable" contenteditable="true">বিজ্ঞাপন ও ফটো ফিচার</div><div class="adbox editable" contenteditable="true">এখানে স্পন্সর / প্রকাশনা সংস্থার বিজ্ঞাপন বসান<br><small>বিজ্ঞাপনের ছবি, লোগো, যোগাযোগ ও ওয়েব ঠিকানা</small></div><h2 class="editable" contenteditable="true">ছবিতে সাহিত্য আয়োজন</h2><div class="photo-grid"><img src="${samplePhoto}"><img src="${samplePhoto}"><img src="${samplePhoto}"><img src="${samplePhoto}"></div><p class="editable" contenteditable="true">ছবির ক্যাপশন: বইমেলা, পাঠচক্র, সাহিত্য আড্ডা, পুরস্কার বিতরণী কিংবা সাংস্কৃতিক আয়োজনের ছবি ও বিবরণ এখানে বসান।</p>${footer(n)}`;
+}
+function render(){let p=pages[current];document.getElementById('paper').className='paper '+(p.type==='cover'?'cover':'');document.getElementById('paper').innerHTML=content(p.type,current+1);document.getElementById('pageTitle').textContent=`পৃষ্ঠা ${current+1} · ${p.name}`;renderList();selected=null;document.querySelectorAll('.template').forEach(x=>x.classList.remove('active'))}
+function renderList(){document.getElementById('pages').innerHTML=pages.map((p,i)=>`<div class="pageitem ${i===current?'active':''}" onclick="current=${i};render()"><div class="thumb"><strong>সাহিত্য বাতায়ন</strong><br>${p.name}<hr>লেখা · ছবি · কলাম</div><div><b style="font-size:12px">পৃষ্ঠা ${i+1}</b><div class="muted">${p.name}</div></div></div>`).join('')}
+function applyTemplate(type,el){pages[current].type=type;pages[current].name=({cover:'প্রচ্ছদ',editorial:'সম্পাদকীয়',poetry:'কবিতা',story:'গল্প / প্রবন্ধ',books:'বই ও সংস্কৃতি',ads:'বিজ্ঞাপন / ফটোফিচার'})[type];render()}
+function addPage(){pages.push({name:'নতুন পাতা',type:'story'});current=pages.length-1;render()}
+function deletePage(){if(pages.length===1){alert('কমপক্ষে একটি পাতা রাখতে হবে।');return}if(confirm('এই পাতাটি মুছে ফেলবেন?')){pages.splice(current,1);current=Math.max(0,current-1);render()}}
+function movePage(d){current=Math.min(pages.length-1,Math.max(0,current+d));render()}
+document.getElementById('paper').addEventListener('click',e=>{let el=e.target.closest('.editable,.hero,.book-cover,.adbox');if(selected)selected.classList.remove('selected');selected=el;if(selected)selected.classList.add('selected')});
+function addText(){let el=document.createElement('div');el.className='element editable';el.contentEditable='true';el.style.cssText='font-size:18px;margin:14px 0;padding:8px;border:1px dashed #c39a45';el.textContent='এখানে আপনার শিরোনাম বা লেখা লিখুন';document.getElementById('paper').appendChild(el);select(el)}
+function addAd(){let el=document.createElement('div');el.className='adbox editable';el.contentEditable='true';el.textContent='আপনার বিজ্ঞাপন এখানে বসান';document.getElementById('paper').appendChild(el);select(el)}
+function addBook(){let el=document.createElement('div');el.className='book-ad';el.innerHTML='<div class="book-cover editable" contenteditable="true">বইয়ের নাম</div><div><h2 class="editable" contenteditable="true">বইয়ের শিরোনাম</h2><p class="editable" contenteditable="true">লেখক: নাম</p><p class="editable" contenteditable="true">বইয়ের বিবরণ লিখুন।</p></div>';document.getElementById('paper').appendChild(el);select(el)}
+function addDivider(){let el=document.createElement('hr');el.style.cssText='border:0;border-top:2px solid #c39a45;margin:18px 0';document.getElementById('paper').appendChild(el);select(el)}
+function addColumns(){let el=document.createElement('div');el.className='columns editable';el.contentEditable='true';el.style.margin='14px 0';el.textContent='প্রথম কলামের লেখা এখানে লিখুন। দ্বিতীয় কলামের লেখা এখানে লিখুন।';document.getElementById('paper').appendChild(el);select(el)}
+function addImage(e){let f=e.target.files[0];if(!f)return;let url=URL.createObjectURL(f),img=document.createElement('img');img.src=url;img.style.cssText='max-width:100%;max-height:330px;object-fit:contain;display:block;margin:14px auto';img.className='element';document.getElementById('paper').appendChild(img);select(img);e.target.value=''}
+function uploadImages(e){let files=[...e.target.files];if(!files.length)return;files.forEach(f=>{let img=document.createElement('img');img.src=URL.createObjectURL(f);img.style.cssText='max-width:48%;max-height:180px;object-fit:contain;margin:6px';document.getElementById('paper').appendChild(img)});e.target.value=''}
+function select(el){if(selected)selected.classList.remove('selected');selected=el;selected.classList.add('selected')}
+function styleSelected(k,v){if(selected)selected.style[k]=v}
+function deleteElement(){if(selected){selected.remove();selected=null}}
+function saveDraft(){let data={pages,current,html:pages.map((p,i)=>i===current?document.getElementById('paper').innerHTML:null)};localStorage.setItem('sahitya_epaper_demo',JSON.stringify(data));alert('এই ব্রাউজারে ডেমো ড্রাফট সংরক্ষণ করা হয়েছে।')}
+function exportHTML(){let clone=document.documentElement.cloneNode(true);let paper=document.getElementById('paper');let body=clone.querySelector('body');body.innerHTML='<main style="max-width:900px;margin:20px auto">'+pages.map((p,i)=>`<article class="paper ${p.type==='cover'?'cover':''}">${i===current?paper.innerHTML:content(p.type,i+1)}</article>`).join('')+'</main>';let blob=new Blob(['<!DOCTYPE html>'+clone.outerHTML],{type:'text/html;charset=utf-8'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='sahitya-batayan-epaper-demo.html';a.click();URL.revokeObjectURL(a.href)}
+render();
+</script>
+</body></html>
