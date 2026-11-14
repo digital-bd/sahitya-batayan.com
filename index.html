@@ -544,22 +544,6 @@ footer h3{font-family:"Noto Serif Bengali",serif}
  .footer-grid{grid-template-columns:1fr;gap:13px}
 }
 
-
-/* Digital publications: weekly e-paper + e-book shelves */
-.publication-shelf{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin:28px auto}
-.publication-feature{display:flex;align-items:flex-start;gap:16px;min-height:190px;background:linear-gradient(135deg,#fbf8f1,#fff);border:1px solid var(--line);border-top:3px solid var(--red);padding:18px;border-radius:5px}
-.publication-icon{font-size:34px;color:var(--gold);flex:0 0 42px}
-.publication-content{min-width:0;flex:1}
-.publication-content h3{font-family:"Noto Serif Bengali",serif;font-size:21px;color:var(--navy);margin:0 0 5px}
-.publication-content p{font-size:13px;color:var(--muted);margin:0 0 10px}
-.digital-home-list{display:grid;gap:7px;margin:8px 0}
-.digital-home-item{display:flex;gap:10px;align-items:center;border-bottom:1px solid var(--line);padding:7px 0;font-size:13px}
-.digital-home-item img{width:46px;height:60px;object-fit:cover;border:1px solid var(--line);background:#fff}
-.digital-home-item strong{display:block;color:var(--navy);line-height:1.45}
-.digital-home-item small{color:var(--muted);font-size:11px}
-.digital-more{display:inline-block;color:var(--red);font-weight:800;font-size:13px;margin-top:7px}
-@media(max-width:700px){.publication-shelf{grid-template-columns:1fr}.publication-feature{min-height:0;padding:14px}.publication-content h3{font-size:18px}}
-
 </style>
 </head>
 <body>
@@ -614,8 +598,8 @@ footer h3{font-family:"Noto Serif Bengali",serif}
         <div class="family-menu-heading"><strong>সাহিত্য বাতায়ন পরিবার</strong><small>লেখক, সম্পাদক ও প্রকাশনা-সংশ্লিষ্ট প্রবেশদ্বার</small></div>
         <div class="family-section-label">লেখক ও পাঠক</div>
         <a href="writer.html">লেখক নিবন্ধন / লগইন</a>
-        <a href="epaper.html">ই-পেপার ও সাপ্তাহিক সংখ্যা</a>
-        <a href="ebooks.html">ই-বুক সংগ্রহশালা</a>
+        <a href="#epaper">ই-পেপার — শিগগিরই</a>
+        <a href="#ebooks">ই-বুক — শিগগিরই</a>
         <div class="family-divider"></div>
         <div class="family-section-label">সম্পাদকীয় প্রবেশ</div>
         <button type="button" id="previewLoginOpen">Admin / Editor লগইন</button>
@@ -638,8 +622,6 @@ footer h3{font-family:"Noto Serif Bengali",serif}
           <a href="admin.html" class="privileged-link" id="editorPanelLink" hidden>সম্পাদক প্যানেল</a>
           <a href="admin.html#tab-ads" class="privileged-link" id="adsPanelLink" hidden>বিজ্ঞাপন ব্যবস্থাপনা</a>
           <a href="admin.html#tab-notices" class="privileged-link" id="noticesPanelLink" hidden>নোটিশ বোর্ড</a>
-          <a href="admin.html#tab-epapers" class="privileged-link" id="epaperManageLink" hidden>ই-পেপার প্রকাশনা</a>
-          <a href="admin.html#tab-ebooks" class="privileged-link" id="ebookManageLink" hidden>ই-বুক প্রকাশনা</a>
         </div>
       </div>
     </div>
@@ -743,13 +725,13 @@ footer h3{font-family:"Noto Serif Bengali",serif}
   </section>
 
   <section class="publication-shelf" aria-label="ডিজিটাল প্রকাশনা">
-    <article class="publication-card publication-feature" id="epaper">
+    <article class="publication-card" id="epaper">
       <div class="publication-icon" aria-hidden="true">▤</div>
-      <div class="publication-content"><h3>সাপ্তাহিক ই-পেপার</h3><p>প্রতি সপ্তাহের সাহিত্য বাতায়নের ডিজিটাল সংখ্যা—প্রচ্ছদ, PDF ও HTML পাঠ সংস্করণ।</p><div id="epaperHomeList" class="digital-home-list"><span class="coming-soon">সর্বশেষ সংখ্যা লোড হচ্ছে…</span></div><a class="digital-more" href="epaper.html">সব সংখ্যা ও আর্কাইভ দেখুন →</a></div>
+      <div><h3>ই-পেপার</h3><p>ভবিষ্যতে মুদ্রিত সংস্করণের ডিজিটাল সংখ্যা এখানে পড়া যাবে।</p><span class="coming-soon">প্রস্তুত হচ্ছে</span></div>
     </article>
-    <article class="publication-card publication-feature" id="ebooks">
+    <article class="publication-card" id="ebooks">
       <div class="publication-icon" aria-hidden="true">▣</div>
-      <div class="publication-content"><h3>ই-বুক সংগ্রহশালা</h3><p>কবিতা, গল্প, প্রবন্ধ ও নির্বাচিত সাহিত্যগ্রন্থের ডিজিটাল পাঠাগার।</p><div id="ebookHomeList" class="digital-home-list"><span class="coming-soon">বইয়ের তালিকা লোড হচ্ছে…</span></div><a class="digital-more" href="ebooks.html">সব ই-বুক দেখুন →</a></div>
+      <div><h3>ই-বুক</h3><p>লেখক ও পাঠকের জন্য ডিজিটাল বইয়ের পৃথক সংগ্রহশালা।</p><span class="coming-soon">প্রস্তুত হচ্ছে</span></div>
     </article>
   </section>
 
@@ -947,8 +929,6 @@ function setFamilyAccess(profile,user){
   $("editorPanelLink").hidden=currentRole!=="editor";
   $("adsPanelLink").hidden=!allowed;
   $("noticesPanelLink").hidden=!allowed;
-  $("epaperManageLink").hidden=!allowed;
-  $("ebookManageLink").hidden=!allowed;
   if(allowed){
     $("previewWho").textContent=(profile.display_name||user?.email||"ব্যবহারকারী")+" — "+(currentRole==="admin"?"Admin":"Editor");
     $("previewToggle").textContent=previewMode?"সাধারণ পাঠক ভিউ চালু":"সম্পাদকীয় প্রিভিউ চালু";
@@ -1030,20 +1010,6 @@ $("previewLogoutBtn").addEventListener("click",async()=>{
   await loadArticles();
 });
 
-async function loadDigitalPublications(){
-  const ep=$("epaperHomeList"), eb=$("ebookHomeList");
-  try{
-    const {data,error}=await db.from("epaper_issues").select("id,issue_no,title,subtitle,cover_image_url,edition_date,pdf_url,html_url").eq("is_published",true).order("edition_date",{ascending:false}).limit(2);
-    if(error)throw error;
-    ep.innerHTML=(data||[]).length?(data||[]).map(x=>`<a class="digital-home-item" href="epaper.html?id=${encodeURIComponent(x.id)}">${x.cover_image_url?`<img src="${esc(x.cover_image_url)}" alt="${esc(x.title)}" loading="lazy">`:''}<span><strong>${esc(x.issue_no)} · ${esc(x.title)}</strong><small>${dateBn(x.edition_date)} · ${x.pdf_url?'PDF':''}${x.pdf_url&&x.html_url?' / ':''}${x.html_url?'HTML':''}</small></span></a>`).join(""):'<span class="coming-soon">এখনো কোনো ই-পেপার প্রকাশিত হয়নি।</span>';
-  }catch(e){ep.textContent="ই-পেপার তালিকা প্রস্তুত নয়। Admin Panel থেকে ডেটাবেস সেটআপ যাচাই করুন।";}
-  try{
-    const {data,error}=await db.from("ebooks").select("id,title,author_name,cover_image_url,category").eq("is_published",true).order("published_at",{ascending:false,nullsFirst:false}).limit(2);
-    if(error)throw error;
-    eb.innerHTML=(data||[]).length?(data||[]).map(x=>`<a class="digital-home-item" href="ebooks.html?id=${encodeURIComponent(x.id)}">${x.cover_image_url?`<img src="${esc(x.cover_image_url)}" alt="${esc(x.title)}" loading="lazy">`:''}<span><strong>${esc(x.title)}</strong><small>${esc(x.author_name)} · ${esc(x.category)}</small></span></a>`).join(""):'<span class="coming-soon">এখনো কোনো ই-বুক প্রকাশিত হয়নি।</span>';
-  }catch(e){eb.textContent="ই-বুক সংগ্রহশালা প্রস্তুত নয়। Admin Panel থেকে ডেটাবেস সেটআপ যাচাই করুন।";}
-}
-
 async function init(){
   const {data:{session}}=await db.auth.getSession();
   if(session){
@@ -1056,7 +1022,6 @@ async function init(){
     }
   }
   await loadArticles();
-  await loadDigitalPublications();
 }
 init();
 </script>

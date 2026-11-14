@@ -51,8 +51,6 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
       <button class="tab" data-tab="ads">বিজ্ঞাপন ব্যবস্থাপনা</button>
       <button class="tab" data-tab="comments">মন্তব্য ব্যবস্থাপনা</button>
       <button class="tab" data-tab="media">মিডিয়া লাইব্রেরি</button>
-      <button class="tab" data-tab="epapers">ই-পেপার প্রকাশনা</button>
-      <button class="tab" data-tab="ebooks">ই-বুক প্রকাশনা</button>
       <button class="tab" data-tab="freeapproval" id="freeApprovalTab">লেখক Free Approval</button>
     </nav>
 
@@ -142,42 +140,6 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
     </section>
 
     
-    <section id="tab-epapers" class="panel hidden">
-      <h2>ই-পেপার সংখ্যা প্রকাশনা</h2>
-      <p class="muted">প্রতি সপ্তাহের সংখ্যার জন্য সংখ্যা নম্বর, প্রচ্ছদ, PDF এবং ঐচ্ছিক HTML সংস্করণ যুক্ত করুন। অন্তত একটি PDF/HTML ফাইল দিতে হবে। Publish চালু করলে পাঠকের ই-পেপার পৃষ্ঠায় দেখা যাবে।</p>
-      <input id="epaperId" type="hidden"><input id="epaperPdfUrl" type="hidden"><input id="epaperHtmlUrl" type="hidden">
-      <div class="row"><div><label>সংখ্যা নম্বর *</label><input id="epaperIssueNo" placeholder="যেমন: বর্ষ ১, সংখ্যা ০১ / ২০২৬-০১"></div><div><label>প্রকাশের তারিখ *</label><input id="epaperDate" type="date"></div></div>
-      <label>সংখ্যার শিরোনাম *</label><input id="epaperTitle" placeholder="যেমন: তরুণ উদীয়মান কলম — সাপ্তাহিক সাহিত্য সংখ্যা">
-      <label>উপশিরোনাম</label><input id="epaperSubtitle" placeholder="বিশেষ আয়োজন / বিষয়বস্তু">
-      <label>সংক্ষিপ্ত বিবরণ</label><textarea id="epaperDescription" style="min-height:85px" placeholder="এই সংখ্যায় কী কী থাকছে..."></textarea>
-      <div class="row"><div><label>প্রচ্ছদ ছবি (JPG/PNG/WebP/GIF)</label><input id="epaperCoverFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><input id="epaperCoverUrl" type="url" placeholder="অথবা প্রচ্ছদের URL"></div><div><label>PDF ফাইল (সর্বোচ্চ ৫০ MB)</label><input id="epaperPdfFile" type="file" accept="application/pdf,.pdf"><div id="epaperPdfCurrent" class="muted">PDF যুক্ত নেই।</div></div></div>
-      <div class="row"><div><label>HTML সংস্করণ (সর্বোচ্চ ৫ MB)</label><input id="epaperHtmlFile" type="file" accept=".html,.htm,text/html"><div id="epaperHtmlCurrent" class="muted">HTML যুক্ত নেই।</div></div><div class="actions" style="align-items:end"><label style="margin:0"><input id="epaperPublished" type="checkbox" checked style="width:auto"> প্রকাশিত (Publish)</label></div></div>
-      <img id="epaperCoverPreview" alt="ই-পেপার প্রচ্ছদ" style="display:none;max-width:190px;max-height:240px;object-fit:contain;margin-top:10px;border-radius:8px">
-      <div class="panel" style="background:#fbfaf7;border:1px solid var(--line);margin-top:18px">
-        <h3>নির্বাচিত ওয়েব-লেখা দিয়ে ই-পেপার তৈরি</h3>
-        <p class="muted">ওয়েবসাইটে প্রকাশিত লেখাগুলো নির্বাচন করুন। সিস্টেম প্রচ্ছদ, সূচিপত্র ও প্রতিটি লেখার আলাদা পৃষ্ঠা-রূপসহ HTML ই-পেপার তৈরি করে Storage-এ সংরক্ষণ করবে। পরে HTML খুলে Print → Save as PDF করে PDF ফাইলটি উপরের PDF ঘরে আপলোড করতে পারবেন।</p>
-        <div class="actions"><button id="refreshEpaperArticles" class="btn light">প্রকাশিত লেখা রিফ্রেশ</button><button id="selectAllEpaperArticles" class="btn light">সব নির্বাচন / বাতিল</button><button id="buildEpaperHtmlBtn" class="btn secondary">নির্বাচিত লেখা দিয়ে HTML ই-পেপার তৈরি</button></div>
-        <div id="epaperArticlePicker" style="max-height:300px;overflow:auto;border:1px solid var(--line);background:#fff;border-radius:8px;padding:10px;margin-top:10px"><div class="empty">প্রকাশিত লেখা লোড হচ্ছে…</div></div>
-        <div id="epaperBuilderMsg" class="status hidden"></div>
-      </div>
-      <div class="actions"><button id="saveEpaperBtn" class="btn">ই-পেপার সংরক্ষণ / প্রকাশ</button><button id="resetEpaperBtn" class="btn light">ফর্ম পরিষ্কার</button></div>
-      <div id="epaperMsg" class="status hidden"></div><hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3>প্রকাশিত ও খসড়া ই-পেপার</h3><div id="epaperList"><div class="empty">তালিকা লোড হচ্ছে…</div></div>
-    </section>
-
-    <section id="tab-ebooks" class="panel hidden">
-      <h2>ই-বুক প্রকাশনা</h2>
-      <p class="muted">বইয়ের প্রচ্ছদ, লেখক, বিবরণ এবং PDF/EPUB ফাইল আপলোড করুন। অন্তত একটি ফাইল প্রয়োজন। Publish চালু করলে পাঠক ই-বুক সংগ্রহশালায় বইটি দেখতে পাবেন।</p>
-      <input id="ebookId" type="hidden"><input id="ebookPdfUrl" type="hidden"><input id="ebookEpubUrl" type="hidden">
-      <div class="row"><div><label>বইয়ের নাম *</label><input id="ebookTitle"></div><div><label>লেখকের নাম *</label><input id="ebookAuthor"></div></div>
-      <div class="row"><div><label>উপশিরোনাম</label><input id="ebookSubtitle"></div><div><label>বইয়ের বিভাগ</label><select id="ebookCategory"><option>কবিতা</option><option>গল্প</option><option>প্রবন্ধ</option><option>উপন্যাস</option><option>গবেষণা</option><option>সংকলন</option><option>অন্যান্য</option></select></div></div>
-      <label>বইয়ের পরিচিতি</label><textarea id="ebookDescription" style="min-height:100px" placeholder="বইয়ের বিষয়বস্তু, লেখক পরিচিতি, প্রকাশনা তথ্য..."></textarea>
-      <div class="row"><div><label>বইয়ের প্রচ্ছদ (JPG/PNG/WebP/GIF)</label><input id="ebookCoverFile" type="file" accept="image/jpeg,image/png,image/webp,image/gif"><input id="ebookCoverUrl" type="url" placeholder="অথবা প্রচ্ছদের URL"></div><div><label>PDF বই (সর্বোচ্চ ১০০ MB)</label><input id="ebookPdfFile" type="file" accept="application/pdf,.pdf"><div id="ebookPdfCurrent" class="muted">PDF যুক্ত নেই।</div></div></div>
-      <div class="row"><div><label>EPUB বই (সর্বোচ্চ ১০০ MB)</label><input id="ebookEpubFile" type="file" accept=".epub,application/epub+zip"><div id="ebookEpubCurrent" class="muted">EPUB যুক্ত নেই।</div></div><div class="actions" style="align-items:end"><label style="margin:0"><input id="ebookPublished" type="checkbox" checked style="width:auto"> প্রকাশিত (Publish)</label></div></div>
-      <img id="ebookCoverPreview" alt="ই-বুক প্রচ্ছদ" style="display:none;max-width:190px;max-height:240px;object-fit:contain;margin-top:10px;border-radius:8px">
-      <div class="actions"><button id="saveEbookBtn" class="btn">ই-বুক সংরক্ষণ / প্রকাশ</button><button id="resetEbookBtn" class="btn light">ফর্ম পরিষ্কার</button></div>
-      <div id="ebookMsg" class="status hidden"></div><hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3>প্রকাশিত ও খসড়া ই-বুক</h3><div id="ebookList"><div class="empty">তালিকা লোড হচ্ছে…</div></div>
-    </section>
-
     <section id="tab-freeapproval" class="panel hidden">
       <h2>লেখকের Free Approval নিয়ন্ত্রণ</h2>
       <p class="muted">পাঁচটি পৃথক লেখা সম্পাদক/Admin কর্তৃক অনুমোদিত ও প্রকাশিত হওয়ার পর Admin Free Approval দিতে পারবেন। চালু, স্থগিত ও বাতিল—সব পরিবর্তনের ইতিহাস সংরক্ষিত হবে। দৈনিক সর্বোচ্চ একটি লেখা সীমা বহাল থাকবে।</p>
@@ -211,7 +173,7 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
     <section id="tab-media" class="panel hidden">
       <h2>মিডিয়া লাইব্রেরি</h2>
       <p class="muted">সাইটের ছবি, ব্যক্তিগত ফাইল এবং নোটিশের HTML ফাইল এখানে দেখা যাবে। Editor ফাইল দেখতে পারবেন; স্থায়ীভাবে মুছতে পারবেন শুধু Admin।</p>
-      <div class="row"><div><label>ফাইলের সংগ্রহ</label><select id="mediaBucket"><option value="site-media">সাইটের ছবি (Public)</option><option value="private-files">ব্যক্তিগত ফাইল (Private)</option><option value="notice-html">নোটিশ HTML</option><option value="epaper-files">ই-পেপার PDF/HTML</option><option value="ebook-files">ই-বুক PDF/EPUB</option></select></div><div class="actions" style="align-items:end"><button id="refreshMediaBtn" class="btn secondary">তালিকা রিফ্রেশ</button></div></div>
+      <div class="row"><div><label>ফাইলের সংগ্রহ</label><select id="mediaBucket"><option value="site-media">সাইটের ছবি (Public)</option><option value="private-files">ব্যক্তিগত ফাইল (Private)</option><option value="notice-html">নোটিশ HTML</option></select></div><div class="actions" style="align-items:end"><button id="refreshMediaBtn" class="btn secondary">তালিকা রিফ্রেশ</button></div></div>
       <div id="mediaList"><div class="empty">লোড হচ্ছে…</div></div>
       <div id="mediaMsg" class="status hidden"></div>
     </section>
@@ -334,10 +296,7 @@ coverFileInput.addEventListener("change", async function () {
     $("freeApprovalTab").classList.toggle("hidden",currentRole!=="admin");
     $("whoami").textContent=(profile.display_name||user.email)+" · "+currentRole.toUpperCase();
     $("loginPanel").classList.add("hidden"); $("appPanel").classList.remove("hidden"); $("logoutBtn").classList.remove("hidden");
-    resetEpaper();
-    resetEbook();
     await refreshLists();
-    openRequestedTab();
   }
 
   async function refreshLists(){
@@ -345,7 +304,7 @@ coverFileInput.addEventListener("change", async function () {
     if(error){say("appMsg","লেখার তালিকা আনা যায়নি: "+error.message,"error");return;}
     allArticles=data||[];
     renderQueue(); renderAll();
-    await Promise.all([loadNotices(), loadAds(), loadEpapers(), loadEbooks(), loadEpaperArticlePicker()]);
+    await Promise.all([loadNotices(), loadAds()]);
   }
 
   function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
@@ -367,17 +326,15 @@ coverFileInput.addEventListener("change", async function () {
   }
   function switchTab(name){
     document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("active",b.dataset.tab===name));
-    ["queue","create","all","notices","ads","freeapproval","comments","media","epapers","ebooks"].forEach(t=>$("tab-"+t).classList.toggle("hidden",t!==name));
+    ["queue","create","all","notices","ads","freeapproval","comments","media"].forEach(t=>$("tab-"+t).classList.toggle("hidden",t!==name));
     if(name==="freeapproval" && currentRole==="admin") loadFreeApproval();
     if(name==="comments") loadComments();
     if(name==="media") loadMedia();
-    if(name==="epapers"){loadEpapers();loadEpaperArticlePicker();}
-    if(name==="ebooks") loadEbooks();
   }
   document.querySelectorAll(".tab").forEach(b=>b.addEventListener("click",()=>switchTab(b.dataset.tab)));
   function openRequestedTab(){
     const requested=(location.hash||"").replace("#","");
-    if(currentUser && ["queue","create","all","notices","ads","freeapproval","comments","media","epapers","ebooks"].includes(requested) && (requested!=="freeapproval" || currentRole==="admin"))switchTab(requested);
+    if(currentUser && ["queue","create","all","notices","ads","freeapproval","comments","media"].includes(requested) && (requested!=="freeapproval" || currentRole==="admin"))switchTab(requested);
   }
   window.addEventListener("hashchange",openRequestedTab);
   openRequestedTab();
@@ -563,140 +520,6 @@ coverFileInput.addEventListener("change", async function () {
   document.addEventListener("click",async e=>{
     const copy=e.target.closest("[data-copy-media]");if(copy){try{await navigator.clipboard.writeText(copy.dataset.copyMedia);say("mediaMsg","লিংক কপি হয়েছে।","ok");}catch(err){say("mediaMsg","কপি করা যায়নি: "+err.message,"error");}}
     const del=e.target.closest("[data-media-delete]");if(del){if(currentRole!=="admin"){say("mediaMsg","শুধু Admin ফাইল স্থায়ীভাবে ডিলিট করতে পারবেন।","error");return;}if(!confirm("এই ফাইল স্থায়ীভাবে ডিলিট করবেন?"))return;const {error}=await db.storage.from(del.dataset.mediaBucket).remove([del.dataset.mediaDelete]);if(error)say("mediaMsg","ডিলিট হয়নি: "+error.message,"error");else{say("mediaMsg","ফাইল ডিলিট হয়েছে।","ok");await loadMedia();}}
-  });
-
-  // ই-পেপার ও ই-বুক ব্যবস্থাপনা
-  const safeUrl = value => { try { const u=new URL(String(value||""),location.href); return ["http:","https:"].includes(u.protocol)?u.href:""; } catch(_){ return ""; } };
-  async function uploadPublicationFile(bucket,file,folder,types,maxBytes){
-    if(!file)return null;
-    const ext=(file.name.split(".").pop()||"bin").toLowerCase().replace(/[^a-z0-9]/g,"");
-    const inferred=ext==="pdf"?"application/pdf":ext==="epub"?"application/epub+zip":(ext==="html"||ext==="htm")?"text/html":file.type;
-    const mime=file.type||inferred;
-    if(!types.includes(mime))throw new Error("এই ফাইলের ফরম্যাট গ্রহণযোগ্য নয়: "+file.name+" ("+(mime||"unknown")+")");
-    if(file.size>maxBytes)throw new Error("ফাইলের আকার নির্ধারিত সীমা অতিক্রম করেছে: "+file.name);
-    const uploadFile=file.type===mime?file:new File([file],file.name,{type:mime});
-    const path=folder+"/"+currentUser.id+"/"+(crypto.randomUUID?crypto.randomUUID():Date.now()+"-"+Math.random().toString(36).slice(2))+"."+ext;
-    const {data,error}=await db.storage.from(bucket).upload(path,uploadFile,{cacheControl:"3600",upsert:false,contentType:mime});
-    if(error)throw new Error(bucket+" Bucket-এ আপলোড হয়নি: "+error.message);
-    return db.storage.from(bucket).getPublicUrl(data.path).data.publicUrl;
-  }
-  function showCurrentLink(id,url,label){$(id).innerHTML=safeUrl(url)?label+': <a href="'+safe(safeUrl(url))+'" target="_blank" rel="noopener noreferrer">বর্তমান ফাইল খুলুন</a>':'কোনো ফাইল যুক্ত নেই।';}
-  let epaperBuilderArticles=[];
-  async function loadEpaperArticlePicker(){
-    const host=$("epaperArticlePicker");if(!host)return;host.innerHTML='<div class="empty">প্রকাশিত লেখা লোড হচ্ছে…</div>';
-    const {data,error}=await db.from("articles").select("id,title,category,author_name,excerpt,content,cover_image_url,published_at,created_at").eq("status","published").order("published_at",{ascending:false,nullsFirst:false}).limit(300);
-    if(error){host.textContent="লেখার তালিকা আনা যায়নি: "+error.message;return;}
-    epaperBuilderArticles=data||[];
-    host.innerHTML=epaperBuilderArticles.map(a=>`<label style="display:flex;gap:9px;align-items:flex-start;padding:8px 5px;border-bottom:1px solid var(--line);font-weight:400;margin:0"><input type="checkbox" class="epaper-article-check" value="${a.id}" style="width:auto;margin-top:5px"><span><strong>${safe(a.title)}</strong><span class="muted" style="display:block">${safe(a.author_name)} · ${safe(a.category)} · ${safe(a.published_at||a.created_at||"")}</span></span></label>`).join("")||'<div class="empty">এখনো কোনো প্রকাশিত লেখা নেই। আগে ওয়েবসাইটে লেখা প্রকাশ করুন।</div>';
-  }
-  function makeEpaperHtml(issueNo,title,subtitle,editionDate,description,coverUrl,articles){
-    const escHtml=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-    const paragraphs=a=>String(a.content||a.excerpt||"").split(/\n{2,}/).map(p=>`<p>${escHtml(p).replace(/\n/g,"<br>")}</p>`).join("");
-    const contents=articles.map((a,i)=>`<li><a href="#article-${i+1}">${escHtml(a.title)}</a><small>${escHtml(a.author_name)} · ${escHtml(a.category)}</small></li>`).join("");
-    const pages=articles.map((a,i)=>`<article class="article-page" id="article-${i+1}"><div class="running">সাহিত্য বাতায়ন · ${escHtml(issueNo)}</div><div class="category">${escHtml(a.category)}</div><h2>${escHtml(a.title)}</h2><div class="byline">${escHtml(a.author_name)} · ${new Intl.DateTimeFormat("bn-BD",{day:"numeric",month:"long",year:"numeric"}).format(new Date(a.published_at||a.created_at||Date.now()))}</div>${a.cover_image_url?`<img class="article-image" src="${escHtml(a.cover_image_url)}" alt="">`:""}<div class="article-content">${paragraphs(a)}</div><div class="page-foot">সাহিত্য, সংবাদ ও মননের দর্পণ · ${i+1}</div></article>`).join("");
-    return `<!doctype html><html lang="bn"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escHtml(title)} | সাহিত্য বাতায়ন</title><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700;800&family=Noto+Sans+Bengali:wght@400;500;600;700&display=swap" rel="stylesheet"><style>*{box-sizing:border-box}body{margin:0;background:#e9e9e9;color:#242424;font:16px/1.9 'Noto Serif Bengali',serif}.toolbar{position:sticky;top:0;background:#172b46;color:#fff;padding:10px 4%;display:flex;justify-content:space-between;align-items:center;z-index:5;font:14px 'Noto Sans Bengali',sans-serif}.toolbar button{background:#941f2b;color:#fff;border:0;padding:8px 14px;border-radius:4px;font:inherit;cursor:pointer}.sheet{width:min(850px,calc(100% - 24px));min-height:1100px;margin:22px auto;background:#fff;padding:60px 70px;box-shadow:0 4px 24px #0002;position:relative}.cover-page{text-align:center;display:flex;flex-direction:column;justify-content:center;align-items:center;border-top:10px solid #941f2b}.brand{font:800 24px 'Noto Sans Bengali',sans-serif;color:#941f2b;letter-spacing:2px}.rule{width:110px;height:4px;background:#b99651;margin:22px auto}.issue-no{color:#b99651;font:700 16px 'Noto Sans Bengali',sans-serif}.cover-page h1{font-size:42px;line-height:1.4;color:#172b46;margin:30px 0 12px}.cover-page h2{font-size:22px;font-weight:500}.cover-img{max-width:78%;max-height:480px;object-fit:contain;margin:24px auto}.description{max-width:580px;color:#666}.date{margin-top:35px;font:15px 'Noto Sans Bengali',sans-serif}.toc h2,.article-page h2{font-size:30px;line-height:1.5;color:#172b46}.toc ol{padding-left:24px}.toc li{padding:12px 0;border-bottom:1px solid #ddd}.toc li a{color:#172b46;text-decoration:none}.toc small{display:block;color:#777;font:13px 'Noto Sans Bengali',sans-serif}.article-page{break-before:page;page-break-before:always}.running{font:12px 'Noto Sans Bengali',sans-serif;color:#941f2b;border-bottom:1px solid #b99651;padding-bottom:8px;margin-bottom:30px}.category{font:13px 'Noto Sans Bengali',sans-serif;color:#941f2b}.article-page h2{margin:10px 0}.byline{font:13px 'Noto Sans Bengali',sans-serif;color:#777;margin-bottom:24px}.article-image{max-width:100%;max-height:360px;object-fit:contain;display:block;margin:20px auto}.article-content p{text-align:justify;margin:0 0 16px;white-space:normal}.page-foot{border-top:1px solid #ddd;margin-top:40px;padding-top:8px;color:#888;font:11px 'Noto Sans Bengali',sans-serif;text-align:center}@page{size:A4;margin:18mm 17mm}@media print{body{background:#fff}.toolbar{display:none}.sheet{width:auto;min-height:0;margin:0;padding:0;box-shadow:none}.cover-page{min-height:260mm;break-after:page;page-break-after:always}.toc{break-after:page;page-break-after:always}.article-page{min-height:250mm}.article-page h2{orphans:2;widows:2}a{color:inherit}}@media(max-width:650px){.sheet{padding:25px 20px;min-height:0}.cover-page h1{font-size:30px}.article-page h2,.toc h2{font-size:23px}}</style></head><body><div class="toolbar"><strong>সাহিত্য বাতায়ন · ই-পেপার প্রিভিউ</strong><span>PDF করতে ব্রাউজারের মেনু থেকে Print → Save as PDF নির্বাচন করুন</span></div><section class="sheet cover-page"><div class="brand">সাহিত্য বাতায়ন</div><div class="rule"></div><div class="issue-no">${escHtml(issueNo)}</div><h1>${escHtml(title)}</h1><h2>${escHtml(subtitle||"সাপ্তাহিক সাহিত্য সংখ্যা")}</h2>${coverUrl?`<img class="cover-img" src="${escHtml(coverUrl)}" alt="প্রচ্ছদ">`:""}<p class="description">${escHtml(description||"কবিতা · গল্প · প্রবন্ধ · সংস্কৃতি · বই")}</p><div class="date">প্রকাশ: ${escHtml(editionDate)}</div><div class="rule"></div><div class="brand">সাহিত্য, সংবাদ ও মননের দর্পণ</div></section><section class="sheet toc"><div class="running">সাহিত্য বাতায়ন · সূচিপত্র</div><h2>এই সংখ্যায়</h2><ol>${contents}</ol></section>${pages}</body></html>`;
-  }
-  async function buildEpaperHtml(){
-    const selected=[...document.querySelectorAll(".epaper-article-check:checked")].map(c=>epaperBuilderArticles.find(a=>a.id===c.value)).filter(Boolean);
-    if(!selected.length){say("epaperBuilderMsg","অন্তত একটি প্রকাশিত লেখা নির্বাচন করুন।","error");return;}
-    const issueNo=$("epaperIssueNo").value.trim(),title=$("epaperTitle").value.trim(),date=$("epaperDate").value;
-    if(!issueNo||!title||!date){say("epaperBuilderMsg","আগে সংখ্যা নম্বর, শিরোনাম ও প্রকাশের তারিখ পূরণ করুন।","error");return;}
-    const btn=$("buildEpaperHtmlBtn");btn.disabled=true;
-    try{
-      let cover=$("epaperCoverUrl").value.trim()||null;const coverFile=$("epaperCoverFile").files?.[0];if(coverFile)cover=await uploadMediaFile(coverFile,"epapers/covers");
-      if(cover)$("epaperCoverUrl").value=cover;
-      const html=makeEpaperHtml(issueNo,title,$("epaperSubtitle").value.trim(),date,$("epaperDescription").value.trim(),cover,selected);
-      const slug=issueNo.toLowerCase().replace(/[^a-z0-9\u0980-\u09ff-]+/g,"-").replace(/^-|-$/g,"")||"issue";
-      const file=new File([html],slug+".html",{type:"text/html"});
-      const url=await uploadPublicationFile("epaper-files",file,"generated-html",["text/html"],5*1024*1024);
-      $("epaperHtmlUrl").value=url;showCurrentLink("epaperHtmlCurrent",url,"তৈরি করা HTML");
-      say("epaperBuilderMsg",selected.length+"টি লেখা দিয়ে HTML ই-পেপার তৈরি ও Storage-এ সংরক্ষণ হয়েছে। তৈরি করা HTML লিংক খুলে ব্রাউজারের Print → Save as PDF ব্যবহার করুন।", "ok");
-      window.open(url,"_blank","noopener,noreferrer");
-    }catch(e){say("epaperBuilderMsg","HTML ই-পেপার তৈরি হয়নি: "+e.message,"error");}finally{btn.disabled=false;}
-  }
-  $("refreshEpaperArticles").addEventListener("click",loadEpaperArticlePicker);
-  $("selectAllEpaperArticles").addEventListener("click",()=>{const boxes=[...document.querySelectorAll(".epaper-article-check")],all=boxes.length&&boxes.every(x=>x.checked);boxes.forEach(x=>x.checked=!all);});
-  $("buildEpaperHtmlBtn").addEventListener("click",buildEpaperHtml);
-
-  async function loadEpapers(){
-    const host=$("epaperList"); if(!host)return; host.innerHTML='<div class="empty">ই-পেপার লোড হচ্ছে…</div>';
-    const {data,error}=await db.from("epaper_issues").select("id,issue_no,title,subtitle,description,cover_image_url,pdf_url,html_url,edition_date,is_published,published_at,created_at").order("edition_date",{ascending:false}).limit(300);
-    if(error){host.textContent="ই-পেপার তালিকা পাওয়া যায়নি: "+error.message;return;}
-    const rows=data||[];
-    host.innerHTML=rows.map(x=>`<article class="item"><div><strong>${safe(x.issue_no)} · ${safe(x.title)}</strong><div class="muted">${safe(x.edition_date||"")} · ${x.is_published?"প্রকাশিত":"খসড়া"}</div>${x.cover_image_url?`<img src="${safe(x.cover_image_url)}" alt="" style="width:75px;height:95px;object-fit:cover;margin-top:8px">`:""}<div class="muted">${x.pdf_url?"PDF · ":""}${x.html_url?"HTML":""}</div></div><div class="actions"><button class="btn secondary" data-epaper-edit="${x.id}">সম্পাদনা</button><button class="btn light" data-epaper-publish="${x.id}" data-state="${!x.is_published}">${x.is_published?"Unpublish":"Publish"}</button>${currentRole==="admin"?`<button class="btn danger" data-epaper-delete="${x.id}">স্থায়ীভাবে ডিলিট</button>`:""}</div></article>`).join("")||'<div class="empty">এখনো কোনো ই-পেপার সংখ্যা নেই।</div>';
-    window._epaperRows=rows;
-  }
-  function resetEpaper(){["epaperId","epaperIssueNo","epaperTitle","epaperSubtitle","epaperDescription","epaperCoverUrl","epaperPdfUrl","epaperHtmlUrl","epaperDate"].forEach(id=>$(id).value="");["epaperCoverFile","epaperPdfFile","epaperHtmlFile"].forEach(id=>$(id).value="");$("epaperDate").value=new Date().toISOString().slice(0,10);$("epaperPublished").checked=true;$("epaperCoverPreview").style.display="none";$("epaperPdfCurrent").textContent="PDF যুক্ত নেই।";$("epaperHtmlCurrent").textContent="HTML যুক্ত নেই।";}
-  async function saveEpaper(){
-    const id=$("epaperId").value,issue_no=$("epaperIssueNo").value.trim(),title=$("epaperTitle").value.trim();
-    if(!issue_no||!title||!$("epaperDate").value){say("epaperMsg","সংখ্যা নম্বর, শিরোনাম ও তারিখ আবশ্যক।","error");return;}
-    const btn=$("saveEpaperBtn");btn.disabled=true;
-    try{
-      let cover=$("epaperCoverUrl").value.trim()||null,pdf=$("epaperPdfUrl").value||null,html=$("epaperHtmlUrl").value||null;
-      const cf=$("epaperCoverFile").files?.[0],pf=$("epaperPdfFile").files?.[0],hf=$("epaperHtmlFile").files?.[0];
-      if(cf)cover=await uploadMediaFile(cf,"epapers/covers");
-      if(pf)pdf=await uploadPublicationFile("epaper-files",pf,"epapers",["application/pdf"],50*1024*1024);
-      if(hf){
-        if(hf.size>5*1024*1024)throw new Error("HTML ফাইল ৫ MB-এর বেশি হতে পারবে না।");
-        const source=await hf.text(); if(!source.trim())throw new Error("HTML ফাইলটি খালি।");
-        const doc=new DOMParser().parseFromString(source,"text/html");
-        doc.querySelectorAll("script,iframe,object,embed,form,base,meta[http-equiv],link[rel=import]").forEach(n=>n.remove());
-        doc.querySelectorAll("*").forEach(el=>[...el.attributes].forEach(a=>{const v=a.value.trim().toLowerCase();if(a.name.toLowerCase().startsWith("on")||((a.name==="href"||a.name==="src"||a.name==="xlink:href")&&/^(javascript:|vbscript:|data:text\/html)/i.test(v)))el.removeAttribute(a.name);if(a.name==="style"&&/(expression\s*\(|url\s*\(\s*['\"]?\s*(javascript:|data:))/i.test(v))el.removeAttribute(a.name);}));
-        doc.querySelectorAll("style").forEach(st=>{st.textContent=st.textContent.replace(/@import[^;]+;?/gi,"").replace(/url\s*\(\s*['\"]?\s*(javascript:|data:)[^)]+\)/gi,"none").replace(/expression\s*\([^)]*\)/gi,"");});
-        const clean="<!doctype html>\n"+doc.documentElement.outerHTML;
-        html=await uploadPublicationFile("epaper-files",new File([clean],hf.name,{type:"text/html"}),"epapers-html",["text/html"],5*1024*1024);
-      }
-      if(!pdf&&!html)throw new Error("অন্তত একটি PDF অথবা HTML ফাইল আপলোড করুন।");
-      const published=$("epaperPublished").checked,now=new Date().toISOString();
-      const payload={issue_no,title,subtitle:$("epaperSubtitle").value.trim()||null,description:$("epaperDescription").value.trim()||null,cover_image_url:cover,pdf_url:pdf,html_url:html,edition_date:$("epaperDate").value,is_published:published,published_at:published?now:null,updated_at:now};
-      if(!id)payload.created_by=currentUser.id;
-      const result=id?await db.from("epaper_issues").update(payload).eq("id",id):await db.from("epaper_issues").insert(payload);
-      if(result.error)throw result.error;
-      say("epaperMsg",published?"ই-পেপার সংরক্ষণ ও প্রকাশ হয়েছে।":"ই-পেপার খসড়া হিসেবে সংরক্ষণ হয়েছে।","ok");resetEpaper();await loadEpapers();
-    }catch(e){say("epaperMsg","ই-পেপার সংরক্ষণ হয়নি: "+e.message,"error");}finally{btn.disabled=false;}
-  }
-  function editEpaper(id){const x=(window._epaperRows||[]).find(v=>v.id===id);if(!x)return;$("epaperId").value=x.id;$("epaperIssueNo").value=x.issue_no||"";$("epaperTitle").value=x.title||"";$("epaperSubtitle").value=x.subtitle||"";$("epaperDescription").value=x.description||"";$("epaperDate").value=x.edition_date||"";$("epaperCoverUrl").value=x.cover_image_url||"";$("epaperPdfUrl").value=x.pdf_url||"";$("epaperHtmlUrl").value=x.html_url||"";$("epaperPublished").checked=!!x.is_published;showCurrentLink("epaperPdfCurrent",x.pdf_url,"PDF");showCurrentLink("epaperHtmlCurrent",x.html_url,"HTML");if(x.cover_image_url){$("epaperCoverPreview").src=x.cover_image_url;$("epaperCoverPreview").style.display="block";}window.scrollTo({top:0,behavior:"smooth"});}
-  async function setEpaperPublish(id,state){const {error}=await db.from("epaper_issues").update({is_published:state,published_at:state?new Date().toISOString():null,updated_at:new Date().toISOString()}).eq("id",id);if(error)say("epaperMsg","অবস্থা পরিবর্তন হয়নি: "+error.message,"error");else{say("epaperMsg",state?"ই-পেপার প্রকাশিত হয়েছে।":"ই-পেপার Unpublish হয়েছে।","ok");await loadEpapers();}}
-  async function deletePublication(table,id,label,refresh){if(currentRole!=="admin"){say(label==="ই-পেপার"?"epaperMsg":"ebookMsg","স্থায়ীভাবে ডিলিট শুধু Admin করতে পারবেন।","error");return;}if(!confirm(label+" স্থায়ীভাবে ডিলিট করবেন?"))return;const {error}=await db.from(table).delete().eq("id",id);if(error)say(label==="ই-পেপার"?"epaperMsg":"ebookMsg","ডিলিট হয়নি: "+error.message,"error");else await refresh();}
-  $("saveEpaperBtn").addEventListener("click",saveEpaper);$("resetEpaperBtn").addEventListener("click",resetEpaper);
-  $("epaperCoverFile").addEventListener("change",()=>{const f=$("epaperCoverFile").files?.[0];if(f){$("epaperCoverPreview").src=URL.createObjectURL(f);$("epaperCoverPreview").style.display="block";}});
-  async function loadEbooks(){
-    const host=$("ebookList");if(!host)return;host.innerHTML='<div class="empty">ই-বুক লোড হচ্ছে…</div>';
-    const {data,error}=await db.from("ebooks").select("id,title,subtitle,author_name,category,description,cover_image_url,pdf_url,epub_url,is_published,published_at,created_at").order("created_at",{ascending:false}).limit(300);
-    if(error){host.textContent="ই-বুক তালিকা পাওয়া যায়নি: "+error.message;return;}
-    const rows=data||[];window._ebookRows=rows;
-    host.innerHTML=rows.map(x=>`<article class="item"><div><strong>${safe(x.title)}</strong><div class="muted">${safe(x.author_name)} · ${safe(x.category)} · ${x.is_published?"প্রকাশিত":"খসড়া"}</div>${x.cover_image_url?`<img src="${safe(x.cover_image_url)}" alt="" style="width:75px;height:95px;object-fit:cover;margin-top:8px">`:""}<div class="muted">${x.pdf_url?"PDF · ":""}${x.epub_url?"EPUB":""}</div></div><div class="actions"><button class="btn secondary" data-ebook-edit="${x.id}">সম্পাদনা</button><button class="btn light" data-ebook-publish="${x.id}" data-state="${!x.is_published}">${x.is_published?"Unpublish":"Publish"}</button>${currentRole==="admin"?`<button class="btn danger" data-ebook-delete="${x.id}">স্থায়ীভাবে ডিলিট</button>`:""}</div></article>`).join("")||'<div class="empty">এখনো কোনো ই-বুক নেই।</div>';
-  }
-  function resetEbook(){["ebookId","ebookTitle","ebookAuthor","ebookSubtitle","ebookDescription","ebookCoverUrl","ebookPdfUrl","ebookEpubUrl"].forEach(id=>$(id).value="");["ebookCoverFile","ebookPdfFile","ebookEpubFile"].forEach(id=>$(id).value="");$("ebookCategory").value="কবিতা";$("ebookPublished").checked=true;$("ebookCoverPreview").style.display="none";$("ebookPdfCurrent").textContent="PDF যুক্ত নেই।";$("ebookEpubCurrent").textContent="EPUB যুক্ত নেই।";}
-  async function saveEbook(){
-    const id=$("ebookId").value,title=$("ebookTitle").value.trim(),author=$("ebookAuthor").value.trim();if(!title||!author){say("ebookMsg","বইয়ের নাম ও লেখকের নাম আবশ্যক।","error");return;}
-    const btn=$("saveEbookBtn");btn.disabled=true;
-    try{
-      let cover=$("ebookCoverUrl").value.trim()||null,pdf=$("ebookPdfUrl").value||null,epub=$("ebookEpubUrl").value||null;
-      const cf=$("ebookCoverFile").files?.[0],pf=$("ebookPdfFile").files?.[0],ef=$("ebookEpubFile").files?.[0];
-      if(cf)cover=await uploadMediaFile(cf,"ebooks/covers");
-      if(pf)pdf=await uploadPublicationFile("ebook-files",pf,"ebooks-pdf",["application/pdf"],100*1024*1024);
-      if(ef)epub=await uploadPublicationFile("ebook-files",ef,"ebooks-epub",["application/epub+zip","application/octet-stream"],100*1024*1024);
-      if(!pdf&&!epub)throw new Error("অন্তত একটি PDF অথবা EPUB ফাইল আপলোড করুন।");
-      const published=$("ebookPublished").checked,now=new Date().toISOString();
-      const payload={title,author_name:author,subtitle:$("ebookSubtitle").value.trim()||null,category:$("ebookCategory").value,description:$("ebookDescription").value.trim()||null,cover_image_url:cover,pdf_url:pdf,epub_url:epub,is_published:published,published_at:published?now:null,updated_at:now};
-      if(!id)payload.created_by=currentUser.id;
-      const result=id?await db.from("ebooks").update(payload).eq("id",id):await db.from("ebooks").insert(payload);
-      if(result.error)throw result.error;
-      say("ebookMsg",published?"ই-বুক সংরক্ষণ ও প্রকাশ হয়েছে।":"ই-বুক খসড়া হিসেবে সংরক্ষণ হয়েছে।","ok");resetEbook();await loadEbooks();
-    }catch(e){say("ebookMsg","ই-বুক সংরক্ষণ হয়নি: "+e.message,"error");}finally{btn.disabled=false;}
-  }
-  function editEbook(id){const x=(window._ebookRows||[]).find(v=>v.id===id);if(!x)return;$("ebookId").value=x.id;$("ebookTitle").value=x.title||"";$("ebookAuthor").value=x.author_name||"";$("ebookSubtitle").value=x.subtitle||"";$("ebookCategory").value=x.category||"অন্যান্য";$("ebookDescription").value=x.description||"";$("ebookCoverUrl").value=x.cover_image_url||"";$("ebookPdfUrl").value=x.pdf_url||"";$("ebookEpubUrl").value=x.epub_url||"";$("ebookPublished").checked=!!x.is_published;showCurrentLink("ebookPdfCurrent",x.pdf_url,"PDF");showCurrentLink("ebookEpubCurrent",x.epub_url,"EPUB");if(x.cover_image_url){$("ebookCoverPreview").src=x.cover_image_url;$("ebookCoverPreview").style.display="block";}window.scrollTo({top:0,behavior:"smooth"});}
-  async function setEbookPublish(id,state){const {error}=await db.from("ebooks").update({is_published:state,published_at:state?new Date().toISOString():null,updated_at:new Date().toISOString()}).eq("id",id);if(error)say("ebookMsg","অবস্থা পরিবর্তন হয়নি: "+error.message,"error");else{say("ebookMsg",state?"ই-বুক প্রকাশিত হয়েছে।":"ই-বুক Unpublish হয়েছে।","ok");await loadEbooks();}}
-  $("saveEbookBtn").addEventListener("click",saveEbook);$("resetEbookBtn").addEventListener("click",resetEbook);
-  $("ebookCoverFile").addEventListener("change",()=>{const f=$("ebookCoverFile").files?.[0];if(f){$("ebookCoverPreview").src=URL.createObjectURL(f);$("ebookCoverPreview").style.display="block";}});
-  document.addEventListener("click",e=>{
-    const ee=e.target.closest("[data-epaper-edit]");if(ee)editEpaper(ee.dataset.epaperEdit);
-    const ep=e.target.closest("[data-epaper-publish]");if(ep)setEpaperPublish(ep.dataset.epaperPublish,ep.dataset.state==="true");
-    const ed=e.target.closest("[data-epaper-delete]");if(ed)deletePublication("epaper_issues",ed.dataset.epaperDelete,"ই-পেপার",loadEpapers);
-    const be=e.target.closest("[data-ebook-edit]");if(be)editEbook(be.dataset.ebookEdit);
-    const bp=e.target.closest("[data-ebook-publish]");if(bp)setEbookPublish(bp.dataset.ebookPublish,bp.dataset.state==="true");
-    const bd=e.target.closest("[data-ebook-delete]");if(bd)deletePublication("ebooks",bd.dataset.ebookDelete,"ই-বুক",loadEbooks);
   });
 
   async function loadFreeApproval(){
