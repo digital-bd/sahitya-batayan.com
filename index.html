@@ -455,11 +455,11 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
         <a href="writer.html">লেখক নিবন্ধন / লগইন</a>
         <a href="#epaper">ই-পেপার</a>
         <div class="family-divider"></div>
-        <a href="admin.html" class="privileged-link" id="adminPanelLink" hidden>এডমিন প্যানেল</a>
-        <a href="admin.html" class="privileged-link" id="editorPanelLink" hidden>সম্পাদক প্যানেল</a>
-        <button type="button" class="privileged-link" id="previewToggle" hidden>সম্পাদকীয় প্রিভিউ</button>
-        <a href="admin.html#tab-ads" class="privileged-link" id="adsPanelLink" hidden>বিজ্ঞাপন ব্যবস্থাপনা</a>
-        <a href="admin.html#tab-notices" class="privileged-link" id="noticesPanelLink" hidden>নোটিশ বোর্ড</a>
+        <a href="admin.html" class="privileged-link" id="adminPanelLink">এডমিন প্যানেল</a>
+        <a href="admin.html" class="privileged-link" id="editorPanelLink">সম্পাদক প্যানেল</a>
+        <button type="button" class="privileged-link" id="previewToggle">সম্পাদকীয় প্রিভিউ</button>
+        <a href="admin.html#tab-ads" class="privileged-link" id="adsPanelLink">বিজ্ঞাপন ব্যবস্থাপনা</a>
+        <a href="admin.html#tab-notices" class="privileged-link" id="noticesPanelLink">নোটিশ বোর্ড</a>
       </div>
     </div>
   </div>
@@ -813,7 +813,6 @@ $("previewLoginBtn").addEventListener("click",async()=>{
     await db.auth.signOut();$("previewMessage").textContent="এই অ্যাকাউন্টের Admin/Editor অনুমতি নেই।";return;
   }
   previewMode=true;
-  document.querySelectorAll(".privileged-link").forEach(el=>el.hidden=false);
   $("previewLogin").hidden=true;$("previewSession").hidden=false;
   $("previewWho").textContent=(profile.display_name||user.email)+" — সম্পাদকীয় প্রিভিউ";
   $("previewMessage").textContent="Draft/Pending সহ আপনার অনুমতিপ্রাপ্ত লেখা দেখানো হচ্ছে।";
@@ -821,7 +820,6 @@ $("previewLoginBtn").addEventListener("click",async()=>{
 });
 $("previewLogoutBtn").addEventListener("click",async()=>{
   await db.auth.signOut();previewMode=false;
-  document.querySelectorAll(".privileged-link").forEach(el=>el.hidden=true);
   $("previewLogin").hidden=false;$("previewSession").hidden=true;
   $("previewPassword").value="";$("previewMessage").textContent="প্রিভিউ বন্ধ করা হয়েছে।";
   await loadArticles();
@@ -831,8 +829,7 @@ async function init(){
   if(session){
     const {data:profile}=await db.from("profiles").select("role,display_name").eq("id",session.user.id).maybeSingle();
     if(profile && ["admin","editor"].includes(String(profile.role||"").toLowerCase())){
-      document.querySelectorAll(".privileged-link").forEach(el=>el.hidden=false);
-      previewMode=true;$("previewLogin").hidden=true;$("previewSession").hidden=false;
+          previewMode=true;$("previewLogin").hidden=true;$("previewSession").hidden=false;
       $("previewWho").textContent=(profile.display_name||session.user.email)+" — সম্পাদকীয় প্রিভিউ";
     } else {await db.auth.signOut();}
   }
