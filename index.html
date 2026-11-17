@@ -361,11 +361,18 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
 .system-status.ok{color:#17643a;background:#eef8f0;border-color:#cce7d1}
 .image-placeholder{min-height:100px;background:#eee9e2}
 .news-card,.side-card,.lead,.category-story{cursor:pointer}
+.news-card:hover h3,.side-card:hover h3,.category-story:hover{color:var(--red)}
+.news-card:focus-visible,.side-card:focus-visible,.category-story:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 .category-list .category-story{cursor:pointer}
 .empty-state{padding:22px 12px;color:var(--muted);font-size:13px;border:1px dashed var(--line);text-align:center}
 .all-section{margin-top:32px}
-.article-view{max-width:850px;margin:0 auto;padding:20px;background:#fff;border:1px solid var(--line)}
-.article-view h1{font-family:"Noto Serif Bengali",serif;font-size:clamp(26px,4vw,40px);line-height:1.5;color:var(--navy)}
+.article-view{max-width:920px;margin:0 auto 36px;padding:clamp(16px,3vw,34px);background:#fff;border:1px solid var(--line);box-shadow:0 2px 12px rgba(20,30,45,.05)}
+.article-view .tool-btn{margin-bottom:16px}
+.article-view article{max-width:790px;margin:0 auto}
+.article-view h1{font-family:"Noto Serif Bengali",serif;font-size:clamp(28px,4.3vw,44px);line-height:1.45;color:#172b46;margin:12px 0 10px;font-weight:800}
+.article-view .category{display:inline-block;background:#941f2b;color:#fff;padding:3px 10px;font-size:12px}
+.article-view .article-cover{display:block;width:100%;max-height:560px;object-fit:contain;background:#f4f1ec;margin:20px auto}
+.article-view .article-body{font-family:"Noto Serif Bengali",serif;font-size:clamp(17px,1.45vw,20px);line-height:2.05;color:#24272c}
 .article-view .article-cover{width:100%;max-height:480px;object-fit:cover;margin:12px 0}
 .article-body{font-family:"Noto Serif Bengali",serif;font-size:18px;line-height:2.05;white-space:normal;overflow-wrap:anywhere}
 .article-body p{margin:0 0 1em}
@@ -517,6 +524,12 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
 
 <main>
 <div class="container">
+  <section id="articleView" class="article-view" hidden>
+    <button class="tool-btn" id="backHome" type="button">← প্রচ্ছদে ফিরুন</button>
+    <article id="articleContent"></article>
+  </section>
+
+
 
 
   <div id="connectionStatus" class="system-status" role="status">সাইটের তথ্য আনা হচ্ছে…</div>
@@ -578,11 +591,6 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
   <section id="all" class="all-section">
     <div class="section-heading"><h2 id="listingTitle">সকল প্রকাশনা</h2><span id="resultCount" class="meta"></span></div>
     <div id="allGrid" class="news-grid"></div>
-  </section>
-
-  <section id="articleView" class="article-view" hidden>
-    <button class="tool-btn" id="backHome" type="button">← প্রচ্ছদে ফিরুন</button>
-    <article id="articleContent"></article>
   </section>
 
 </div>
@@ -697,18 +705,25 @@ async function loadArticles(){
   allArticles=data||[];
   render();
   if(location.hash.startsWith("#article-")){
-    const route=decodeURIComponent(location.hash.slice("#article-".length));
+    let route=location.hash.slice("#article-".length);
+    try{route=decodeURIComponent(route);}catch(_e){}
     openArticle(route,false);
   }
   status(previewMode?"প্রিভিউ মোড চালু — প্রকাশিত ও অনুমোদিত অভ্যন্তরীণ লেখা দেখানো হচ্ছে।":"সংযোগ সফল — প্রকাশিত লেখা দেখানো হচ্ছে।","ok");
 }
 function scrollArticleToTop(){
-  // Wait until hidden sections collapse and the article view has entered layout.
+  // Article view sits first in the content flow; force the viewport to its top.
+  document.documentElement.style.scrollBehavior="auto";
+  document.body.style.scrollBehavior="auto";
+  window.scrollTo(0,0);
+  document.documentElement.scrollTop=0;
+  document.body.scrollTop=0;
   requestAnimationFrame(()=>{
-    window.scrollTo({top:0,left:0,behavior:"instant"});
+    window.scrollTo(0,0);
     document.documentElement.scrollTop=0;
     document.body.scrollTop=0;
   });
+  setTimeout(()=>window.scrollTo(0,0),80);
 }
 function openArticle(id, updateHistory=true){
   const key=String(id||"");
@@ -723,6 +738,7 @@ function openArticle(id, updateHistory=true){
   $("articleView").hidden=false;
   const route="article-"+encodeURIComponent(a.slug||a.id);
   if(updateHistory && location.hash!=="#"+route) history.pushState({articleRoute:route},"",location.pathname+location.search+"#"+route);
+  document.title=(a.title||"লেখা")+" | সাহিত্য বাতায়ন";
   scrollArticleToTop();
 }
 function closeArticle(updateHistory=true){
@@ -730,11 +746,13 @@ function closeArticle(updateHistory=true){
   $("featuredSection").hidden=false;$("latest").hidden=false;$("literature").hidden=false;
   document.querySelector(".category-section").hidden=false;$("all").hidden=false;
   currentArticle=null;
+  document.title="সাহিত্য বাতায়ন | অনলাইন সংবাদপত্র";
   if(updateHistory && location.hash.startsWith("#article-")) history.pushState({},"",location.pathname+location.search);
   scrollArticleToTop();
 }
 window.addEventListener("popstate",()=>{
-  const route=decodeURIComponent(location.hash.replace(/^#article-/,""));
+  let route=location.hash.replace(/^#article-/ ,"");
+  try{route=decodeURIComponent(route);}catch(_e){}
   if(location.hash.startsWith("#article-")) openArticle(route,false);
   else if(currentArticle) closeArticle(false);
 });

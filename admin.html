@@ -336,7 +336,7 @@ coverFileInput.addEventListener("change", async function () {
   document.addEventListener("click",async e=>{
     const b=e.target.closest("[data-edit]"); if(b) openEdit(b.dataset.edit);
     const ar=e.target.closest("[data-archive]"); if(ar){const a=allArticles.find(x=>x.id===ar.dataset.archive);if(!a)return;const next=a.status==="archived"?"draft":"archived";if(!confirm(next==="archived"?"লেখাটি আর্কাইভ করবেন?":"লেখাটি খসড়ায় ফিরিয়ে আনবেন?"))return;const {error}=await db.from("articles").update({status:next,updated_at:new Date().toISOString()}).eq("id",a.id);if(error)say("appMsg","পরিবর্তন হয়নি: "+error.message,"error");else{say("appMsg","লেখার অবস্থা পরিবর্তন হয়েছে।","ok");await refreshLists();}}
-    const del=e.target.closest("[data-delete-article]"); if(del){if(!requireAdmin("লেখা স্থায়ীভাবে ডিলিট করার ক্ষমতা শুধু Admin-এর।"))return;const a=allArticles.find(x=>x.id===del.dataset.deleteArticle);if(!a||!confirm("এই লেখা স্থায়ীভাবে ডিলিট করবেন? এটি ফিরিয়ে আনা যাবে না।"))return;const {error}=await db.from("articles").delete().eq("id",a.id);if(error)say("appMsg","ডিলিট হয়নি: "+error.message,"error");else{say("appMsg","লেখা ডিলিট হয়েছে।","ok");await refreshLists();}}
+    const del=e.target.closest("[data-delete-article]"); if(del){if(!requireAdmin("লেখা স্থায়ীভাবে ডিলিট করার ক্ষমতা শুধু Admin-এর।"))return;const a=allArticles.find(x=>x.id===del.dataset.deleteArticle);if(!a||!confirm("এই লেখা স্থায়ীভাবে ডিলিট করবেন? এটি ফিরিয়ে আনা যাবে না।"))return;del.disabled=true;const {error}=await db.from("articles").delete().eq("id",a.id);if(error){del.disabled=false;say("appMsg","ডিলিট হয়নি: "+error.message,"error");}else{say("appMsg","লেখা ডিলিট হয়েছে।","ok");await refreshLists();}}
   });
 
   const MEDIA_MAX = 5 * 1024 * 1024;
@@ -402,7 +402,13 @@ coverFileInput.addEventListener("change", async function () {
   }
   function editNotice(id){const n=allNotices.find(x=>x.id===id);if(!n)return;$("noticeId").value=n.id;$("noticeTitle").value=n.title||"";$("noticeBody").value=n.body||"";$("noticeImageUrl").value=n.image_url||"";$("noticeFileUrl").value=n.file_url||"";$("noticePriority").value=n.priority||0;$("noticeActive").checked=!!n.is_active;$("noticeStarts").value=dtValue(n.starts_at);$("noticeEnds").value=dtValue(n.ends_at);if(n.image_url){$("noticePreview").src=n.image_url;$("noticePreview").style.display="block";}window.scrollTo({top:0,behavior:"smooth"});}
   function editAd(id){const a=allAds.find(x=>x.id===id);if(!a)return;$("adId").value=a.id;$("adTitle").value=a.title||"";$("adLink").value=a.link_url||"";$("adImageUrl").value=a.image_url||"";$("adPlacement").value=a.placement||"feed";$("adActive").checked=!!a.is_active;$("adStarts").value=dtValue(a.starts_at);$("adEnds").value=dtValue(a.ends_at);if(a.image_url){$("adPreview").src=a.image_url;$("adPreview").style.display="block";}window.scrollTo({top:0,behavior:"smooth"});}
-  async function deleteRow(table,id,label,refresh){if(!confirm(label+" স্থায়ীভাবে ডিলিট করবেন? এই কাজ ফিরিয়ে আনা যাবে না।"))return;const {error}=await db.from(table).delete().eq("id",id);if(error){say(table==="notices"?"noticeMsg":"adMsg","ডিলিট হয়নি: "+error.message,"error");return;}await refresh();}
+  async function deleteRow(table,id,label,refresh){
+    if(!["notices","advertisements"].includes(table) || !["admin","editor"].includes(currentRole)){say("appMsg","এই কাজের অনুমতি নেই।","error");return;}
+    if(!confirm(label+" স্থায়ীভাবে ডিলিট করবেন? এই কাজ ফিরিয়ে আনা যাবে না।"))return;
+    const {error}=await db.from(table).delete().eq("id",id);
+    if(error){say(table==="notices"?"noticeMsg":"adMsg","ডিলিট হয়নি: "+error.message,"error");return;}
+    say(table==="notices"?"noticeMsg":"adMsg",label+" ডিলিট হয়েছে।","ok");await refresh();
+  }
   $("saveNoticeBtn").addEventListener("click",saveNotice);$("resetNoticeBtn").addEventListener("click",resetNoticeForm);
   $("saveAdBtn").addEventListener("click",saveAd);$("resetAdBtn").addEventListener("click",resetAdForm);
   document.addEventListener("click",e=>{
@@ -432,6 +438,7 @@ coverFileInput.addEventListener("change", async function () {
     }).join("")||'<div class="empty">কোনো লেখক পাওয়া যায়নি।</div>';
   }
   async function setFreeApproval(userId,state){
+    if(!["active","suspended","revoked"].includes(state)){say("freeApprovalMsg","অবৈধ Free Approval status।","error");return;}
     if(!isAdmin()){say("freeApprovalMsg","শুধু Admin Free Approval পরিবর্তন করতে পারবেন।","error");return;}
     if(!confirm("এই লেখকের Free Approval "+state+" করতে চান?"))return;
     const {error}=await db.rpc("admin_set_free_approval",{p_writer_id:userId,p_new_status:state,p_note:null});
