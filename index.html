@@ -158,7 +158,9 @@ button,input{font:inherit}
 .mega-links a{font-size:13px;color:#505762;padding:4px 0}
 .mega-links a:hover{color:var(--red);text-decoration:underline}
 .family-menu{position:relative;margin-left:auto;flex:0 0 auto}
-.family-trigger{width:40px;height:40px;border:1px solid var(--line);border-radius:50%;background:#fff;color:var(--navy);font-size:26px;line-height:1;cursor:pointer}
+.family-trigger{min-height:40px;display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:4px;background:#fff;color:var(--navy);padding:7px 11px;font:inherit;font-size:13px;font-weight:700;line-height:1.2;cursor:pointer}
+.family-trigger-dots{font-size:25px;line-height:16px;font-weight:400}
+@media(max-width:650px){.family-trigger{max-width:100%;padding:8px 10px}.family-trigger-label{font-size:12px}}
 .family-trigger:hover,.family-trigger[aria-expanded=true]{border-color:var(--red);color:var(--red)}
 .family-dropdown{position:absolute;right:0;top:calc(100% + 8px);width:230px;background:#fff;border:1px solid var(--line);box-shadow:0 10px 25px rgba(0,0,0,.16);z-index:100;padding:7px;display:flex;flex-direction:column}
 .family-dropdown[hidden]{display:none!important}
@@ -448,7 +450,7 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
       <a class="quick-link" href="#all">সকল প্রকাশনা</a>
     </div>
     <div class="family-menu" id="familyMenu">
-      <button class="family-trigger" id="familyMenuToggle" type="button" aria-expanded="false" aria-controls="familyDropdown" aria-label="সাহিত্য বাতায়ন পরিবার">⋮</button>
+      <button class="family-trigger" id="familyMenuToggle" type="button" aria-expanded="false" aria-controls="familyDropdown" aria-label="সাহিত্য বাতায়ন পরিবার"><span class="family-trigger-label">সাহিত্য বাতায়ন পরিবার</span><span class="family-trigger-dots" aria-hidden="true">⋮</span></button>
       <div class="family-dropdown" id="familyDropdown" hidden>
         <a href="writer.html">লেখক নিবন্ধন / লগইন</a>
         <a href="#epaper">ই-পেপার</a>
