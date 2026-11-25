@@ -392,12 +392,16 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
 .admin-access{margin-top:14px;font-size:12px}.admin-access a{color:inherit;text-decoration:underline}
 @media(prefers-reduced-motion:reduce){.breaking-text{animation:none;transform:none}}
 
-.epaper-section{margin:34px 0;padding:22px;background:#fff;border:1px solid var(--line);border-top:4px solid var(--gold)}
-.epaper-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px}
-.epaper-card{border:1px solid var(--line);padding:12px;display:flex;flex-direction:column;gap:8px}
-.epaper-card img{width:100%;height:150px;object-fit:cover;background:var(--soft)}.epaper-card h3{font-family:"Noto Serif Bengali",serif;color:var(--navy);margin:0;font-size:18px}.epaper-card p{margin:0;color:var(--muted);font-size:12px}
-.epaper-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}.epaper-actions a,.article-print-tools button{background:var(--navy);color:#fff;padding:8px 12px;font-size:12px;border:0;border-radius:3px;cursor:pointer}.epaper-actions a.secondary{background:var(--gold);color:#172b46}.article-print-tools{display:flex;gap:8px;margin:14px 0}
-@media print{.topbar,.masthead,.nav-wrap,.breaking,footer,#backHome,.article-print-tools,.system-status{display:none!important}main{padding:0!important}.container{width:100%!important}.article-view{display:block!important;max-width:none!important;margin:0!important;padding:0!important;border:0!important;box-shadow:none!important}.article-view article{max-width:none!important}.article-body{font-size:12pt!important;line-height:1.85!important;color:#000!important}}
+/* Digital e-paper archive */
+.epaper-section{margin:34px 0;padding:22px;background:linear-gradient(135deg,#fbfaf7,#fff);border:1px solid var(--line);border-top:4px solid var(--navy)}
+.epaper-kicker{font-size:12px;color:var(--gold);font-weight:800}.epaper-intro{color:var(--muted);font-size:14px;margin:0 0 12px}
+.epaper-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;margin-top:15px}
+.epaper-card{border:1px solid var(--line);background:#fff;overflow:hidden;box-shadow:0 3px 12px rgba(20,30,45,.06);display:flex;flex-direction:column}
+.epaper-cover{width:100%;aspect-ratio:3/4;object-fit:cover;background:#f0eee9}.epaper-cover-empty{aspect-ratio:3/4;display:grid;place-items:center;background:linear-gradient(145deg,#172b46,#941f2b);color:#f5d98f;font:800 25px 'Noto Serif Bengali',serif;text-align:center;padding:20px}
+.epaper-card-body{padding:13px;display:flex;flex-direction:column;gap:6px;flex:1}.epaper-card h3{font:700 18px 'Noto Serif Bengali',serif;color:var(--navy);margin:0}.epaper-card p{font-size:12px;color:var(--muted);margin:0}.epaper-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto;padding-top:9px}.epaper-actions button,.epaper-actions a{border:1px solid var(--navy);background:var(--navy);color:#fff;padding:7px 10px;font-size:12px;border-radius:3px;cursor:pointer}.epaper-actions .pdf{background:#fff;color:var(--navy)}
+.epaper-reader{margin-top:22px;border:1px solid var(--line);background:#fff}.epaper-reader-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}.epaper-reader-head strong{display:block;color:var(--navy)}.epaper-reader-head span{display:block;color:var(--muted);font-size:12px}.epaper-reader-actions{display:flex;gap:8px;flex-wrap:wrap}.epaper-reader iframe{display:block;width:100%;height:min(82vh,1000px);border:0;background:#fff}.epaper-section .system-status{margin:0;padding:7px 0;font-size:12px}
+@media(max-width:600px){.epaper-section{padding:13px}.epaper-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.epaper-card h3{font-size:15px}.epaper-reader iframe{height:75vh}}
+
 </style>
 </head>
 <body>
@@ -408,7 +412,6 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
     <div class="top-links">
       <a href="#about">আমাদের সম্পর্কে</a>
       <a href="#contact">যোগাযোগ</a>
-      <a href="#epaper">ই-পেপার</a>
     </div>
   </div>
 </div>
@@ -425,7 +428,6 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
     </div>
     <div class="mast-right">
       <button class="tool-btn" onclick="toggleSearch()">⌕ অনুসন্ধান</button>
-      <a class="tool-btn" href="#epaper">ই-পেপার</a>
       <a class="tool-btn" href="writer.html" id="writerPortalLink">লেখক লগইন</a>
     </div>
   </div>
@@ -455,18 +457,18 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
       <a class="quick-link active" href="#">প্রচ্ছদ</a>
       <a class="quick-link" href="#latest">সর্বশেষ</a>
       <a class="quick-link" href="#all">সকল প্রকাশনা</a>
+      <a class="quick-link" href="#epaperArchive">ই-পেপার</a>
     </div>
     <div class="family-menu" id="familyMenu">
       <button class="family-trigger" id="familyMenuToggle" type="button" aria-expanded="false" aria-controls="familyDropdown" aria-label="সাহিত্য বাতায়ন পরিবার"><span class="family-trigger-label">সাহিত্য বাতায়ন পরিবার</span><span class="family-trigger-dots" aria-hidden="true">⋮</span></button>
       <div class="family-dropdown" id="familyDropdown" hidden>
         <a href="writer.html">লেখক নিবন্ধন / লগইন</a>
-        <a href="#epaper">ই-পেপার</a>
-        <div class="family-divider"></div>
-        <a href="admin.html" class="privileged-link" id="adminPanelLink" hidden>এডমিন প্যানেল</a>
-        <a href="admin.html" class="privileged-link" id="editorPanelLink" hidden>সম্পাদক প্যানেল</a>
-        <button type="button" class="privileged-link" id="previewToggle" hidden>সম্পাদকীয় প্রিভিউ</button>
-        <a href="admin.html#tab-ads" class="privileged-link" id="adsPanelLink" hidden>বিজ্ঞাপন ব্যবস্থাপনা</a>
-        <a href="admin.html#tab-notices" class="privileged-link" id="noticesPanelLink" hidden>নোটিশ বোর্ড</a>
+          <div class="family-divider"></div>
+        <a href="admin.html" class="privileged-link" id="adminPanelLink">এডমিন প্যানেল</a>
+        <a href="admin.html" class="privileged-link" id="editorPanelLink">সম্পাদক প্যানেল</a>
+        <button type="button" class="privileged-link" id="previewToggle">সম্পাদকীয় প্রিভিউ</button>
+        <a href="admin.html#tab-ads" class="privileged-link" id="adsPanelLink">বিজ্ঞাপন ব্যবস্থাপনা</a>
+        <a href="admin.html#tab-notices" class="privileged-link" id="noticesPanelLink">নোটিশ বোর্ড</a>
       </div>
     </div>
   </div>
@@ -513,7 +515,7 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
         </details>
         <details class="mega-group">
           <summary>স্বতন্ত্র বিভাগ</summary>
-          <div class="mega-links"><a href="#epaperArchive">ই-পেপার</a><a href="#all">সব ধরনের লেখা — স্বতন্ত্র বিভাগ</a></div>
+          <div class="mega-links"><a href="#all">সব ধরনের লেখা — স্বতন্ত্র বিভাগ</a></div>
         </details>
         <details class="mega-group">
           <summary>পুরোনো বিভাগসমূহ (সংরক্ষিত)</summary>
@@ -566,7 +568,17 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
     <aside class="side-news" id="sideStories"></aside>
   </section>
 
-  <section id="epaperArchive" class="epaper-section"><div class="section-heading"><h2>ডিজিটাল ই-পেপার আর্কাইভ</h2><span class="meta">সর্বশেষ ও পূর্ববর্তী সংখ্যা</span></div><div id="epaperArchiveGrid" class="epaper-grid"><div class="empty-state">ই-পেপার আর্কাইভ লোড হচ্ছে…</div></div></section>
+  <section id="epaperArchive" class="epaper-section" aria-labelledby="epaperTitle">
+    <div class="section-heading"><h2 id="epaperTitle">ডিজিটাল ই-পেপার</h2><span class="epaper-kicker">সাহিত্য বাতায়ন · সংখ্যার আর্কাইভ</span></div>
+    <p class="epaper-intro">প্রকাশিত সংখ্যাগুলো অনলাইনে পড়ুন অথবা PDF ডাউনলোড করুন।</p>
+    <div id="epaperStatus" class="system-status" role="status">ই-পেপার আর্কাইভ লোড হচ্ছে…</div>
+    <div id="epaperGrid" class="epaper-grid"><div class="empty-state">প্রকাশিত সংখ্যা খোঁজা হচ্ছে…</div></div>
+    <div id="epaperReader" class="epaper-reader" hidden>
+      <div class="epaper-reader-head"><div><strong id="epaperReaderTitle">ই-পেপার</strong><span id="epaperReaderMeta"></span></div><div class="epaper-reader-actions"><a id="epaperPdfLink" class="tool-btn" target="_blank" rel="noopener" hidden>PDF ডাউনলোড</a><button id="epaperClose" class="tool-btn" type="button">বন্ধ করুন ×</button></div></div>
+      <iframe id="epaperFrame" title="সাহিত্য বাতায়ন ডিজিটাল ই-পেপার" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" referrerpolicy="no-referrer"></iframe>
+    </div>
+  </section>
+
   <section id="latest">
     <div class="section-heading"><h2>সর্বশেষ প্রকাশনা</h2><a href="#all">সব লেখা →</a></div>
     <div class="news-grid" id="latestGrid"></div>
@@ -619,8 +631,7 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
           <a href="#about">আমাদের সম্পর্কে</a>
           <a href="#contact">যোগাযোগ</a>
           <a href="#privacy">গোপনীয়তা নীতি</a>
-          <a href="#epaper">ই-পেপার</a>
-        </div>
+            </div>
       </div>
       <div>
         <h3>বিভাগসমূহ</h3>
@@ -706,14 +717,6 @@ function render(){
   document.querySelector(".category-section").hidden=false;
   $("all").hidden=false;
 }
-async function loadEpaperArchive(){
- const host=$("epaperArchiveGrid");
- const {data,error}=await db.from("epaper_issues").select("id,issue_no,title,subtitle,description,cover_image_url,pdf_url,html_url,edition_date,is_published").eq("is_published",true).order("edition_date",{ascending:false}).limit(100);
- if(error){host.innerHTML='<div class="empty-state">ই-পেপার আর্কাইভ লোড করা যাচ্ছে না।</div>';return;}
- if(!data?.length){host.innerHTML='<div class="empty-state">এখনো কোনো ই-পেপার প্রকাশিত হয়নি।</div>';return;}
- host.innerHTML=data.map(x=>`<article class="epaper-card">${x.cover_image_url?`<img src="${esc(x.cover_image_url)}" alt="${esc(x.title)}">`:'<div class="image-placeholder">সাহিত্য বাতায়ন</div>'}<h3>${esc(x.title||'ই-পেপার')}</h3><p>${x.issue_no?`সংখ্যা: ${esc(x.issue_no)} · `:''}${dateBn(x.edition_date)}</p>${x.subtitle?`<p>${esc(x.subtitle)}</p>`:''}<div class="epaper-actions">${x.html_url?`<a href="${esc(x.html_url)}" target="_blank" rel="noopener">অনলাইনে পড়ুন</a>`:''}${x.pdf_url?`<a class="secondary" href="${esc(x.pdf_url)}" target="_blank" rel="noopener">PDF পড়ুন</a>`:''}</div></article>`).join('');
-}
-
 async function loadArticles(){
   status("Supabase থেকে প্রকাশিত লেখা আনা হচ্ছে…");
   let query=db.from("articles").select("id,slug,title,category,author_name,excerpt,content,cover_image_url,status,featured,published_at,created_at").order("published_at",{ascending:false,nullsFirst:false}).limit(100);
@@ -752,7 +755,7 @@ function openArticle(id, updateHistory=true){
   $("featuredSection").hidden=true;$("latest").hidden=true;$("literature").hidden=true;
   document.querySelector(".category-section").hidden=true;$("all").hidden=true;
   const content=String(a.content||"").split(/\n{2,}/).map(p=>`<p>${esc(p).replace(/\n/g,"<br>")}</p>`).join("");
-  $("articleContent").innerHTML=`<span class="category">${esc(a.category||"")}</span>${previewMode&&!isPublished(a)?'<span class="preview-label">শুধু সম্পাদকীয় প্রিভিউ</span>':""}<h1>${esc(a.title)}</h1><div class="article-meta">${esc(a.author_name||"সাহিত্য বাতায়ন")} · ${dateBn(a.published_at||a.created_at)}</div><div class="article-print-tools"><button type="button" onclick="window.print()">প্রিন্ট / PDF সংরক্ষণ</button></div>${a.cover_image_url?`<img class="article-cover" src="${esc(a.cover_image_url)}" alt="${esc(a.title)}">`:""}<div class="article-body">${content||"<p>এই লেখার মূল অংশ পাওয়া যায়নি।</p>"}</div>`;
+  $("articleContent").innerHTML=`<span class="category">${esc(a.category||"")}</span>${previewMode&&!isPublished(a)?'<span class="preview-label">শুধু সম্পাদকীয় প্রিভিউ</span>':""}<h1>${esc(a.title)}</h1><div class="article-meta">${esc(a.author_name||"সাহিত্য বাতায়ন")} · ${dateBn(a.published_at||a.created_at)}</div>${a.cover_image_url?`<img class="article-cover" src="${esc(a.cover_image_url)}" alt="${esc(a.title)}">`:""}<div class="article-body">${content||"<p>এই লেখার মূল অংশ পাওয়া যায়নি।</p>"}</div>`;
   $("articleView").hidden=false;
   const route="article-"+encodeURIComponent(a.slug||a.id);
   if(updateHistory && location.hash!=="#"+route) history.pushState({articleRoute:route},"",location.pathname+location.search+"#"+route);
@@ -789,6 +792,37 @@ function searchNews(){
   $("resultCount").textContent=`${matches.length}টি ফলাফল`;
   $("all").hidden=false;bindArticleClicks($("allGrid"));$("all").scrollIntoView({behavior:"smooth"});
 }
+// ই-পেপার আর্কাইভ: epaper_issues টেবিল থেকে শুধু প্রকাশিত সংখ্যা দেখায়।
+let epaperRows=[];
+const epaperEsc = value => esc(value==null?"":String(value));
+function epaperDate(value){if(!value)return "তারিখ উল্লেখ নেই";const d=new Date(value);return Number.isNaN(d.getTime())?epaperEsc(value):new Intl.DateTimeFormat("bn-BD",{year:"numeric",month:"long",day:"numeric"}).format(d);}
+function renderEpaper(){
+  const grid=$("epaperGrid");
+  if(!epaperRows.length){grid.innerHTML=emptyMarkup("এখনো কোনো ই-পেপার সংখ্যা প্রকাশিত হয়নি।");return;}
+  grid.innerHTML=epaperRows.map((issue,i)=>{
+    const cover=issue.cover_image_url?`<img class="epaper-cover" src="${epaperEsc(issue.cover_image_url)}" alt="${epaperEsc(issue.title)} প্রচ্ছদ" loading="lazy">`:`<div class="epaper-cover-empty">${epaperEsc(issue.title||"সাহিত্য বাতায়ন")}</div>`;
+    return `<article class="epaper-card">${cover}<div class="epaper-card-body"><h3>${epaperEsc(issue.title||"ই-পেপার")}</h3><p>${issue.issue_no?"সংখ্যা: "+epaperEsc(issue.issue_no)+" · ":""}${epaperDate(issue.edition_date)}</p>${issue.subtitle?`<p>${epaperEsc(issue.subtitle)}</p>`:""}${issue.description?`<p>${epaperEsc(issue.description).slice(0,150)}</p>`:""}<div class="epaper-actions">${issue.html_url?`<button type="button" data-epaper-read="${i}">অনলাইনে পড়ুন</button>`:""}${issue.pdf_url?`<a class="pdf" href="${epaperEsc(issue.pdf_url)}" target="_blank" rel="noopener">PDF ডাউনলোড</a>`:""}</div></div></article>`;
+  }).join("");
+}
+async function loadEpaper(){
+  const statusEl=$("epaperStatus");
+  try{
+    const {data,error}=await db.from("epaper_issues").select("id,issue_no,title,subtitle,description,cover_image_url,pdf_url,html_url,edition_date,is_published,published_at,created_at").eq("is_published",true).order("edition_date",{ascending:false,nullsFirst:false}).order("created_at",{ascending:false}).limit(60);
+    if(error)throw error;
+    epaperRows=data||[];renderEpaper();statusEl.textContent=epaperRows.length?`${epaperRows.length}টি প্রকাশিত সংখ্যা`:"ই-পেপার আর্কাইভ প্রস্তুত — নতুন সংখ্যা শিগগিরই প্রকাশিত হবে।";
+  }catch(err){statusEl.textContent="ই-পেপার আর্কাইভ এখন লোড করা যাচ্ছে না। Supabase-এ epaper_issues টেবিল ও public read policy সেটআপ প্রয়োজন।";$("epaperGrid").innerHTML=emptyMarkup("আর্কাইভের ডেটাবেজ সংযোগ প্রস্তুত নয়।");console.warn("Epaper archive:",err.message);}
+}
+function openEpaper(index){
+  const issue=epaperRows[Number(index)];if(!issue||!issue.html_url)return;
+  const frame=$("epaperFrame"),reader=$("epaperReader");
+  $("epaperReaderTitle").textContent=issue.title||"ই-পেপার";
+  $("epaperReaderMeta").textContent=[issue.issue_no?"সংখ্যা "+issue.issue_no:"",epaperDate(issue.edition_date)].filter(Boolean).join(" · ");
+  const pdf=$("epaperPdfLink");if(issue.pdf_url){pdf.href=issue.pdf_url;pdf.hidden=false;}else{pdf.hidden=true;pdf.removeAttribute("href");}
+  frame.src=issue.html_url;reader.hidden=false;reader.scrollIntoView({behavior:"smooth",block:"start"});
+}
+$("epaperGrid").addEventListener("click",e=>{const b=e.target.closest("[data-epaper-read]");if(b)openEpaper(b.dataset.epaperRead);});
+$("epaperClose").addEventListener("click",()=>{$("epaperFrame").src="about:blank";$("epaperReader").hidden=true;});
+
 const now=new Date();
 $("todayDate").textContent=new Intl.DateTimeFormat("bn-BD",{weekday:"long",year:"numeric",month:"long",day:"numeric"}).format(now);
 
@@ -829,7 +863,6 @@ $("previewLoginBtn").addEventListener("click",async()=>{
     await db.auth.signOut();$("previewMessage").textContent="এই অ্যাকাউন্টের Admin/Editor অনুমতি নেই।";return;
   }
   previewMode=true;
-  document.querySelectorAll(".privileged-link").forEach(el=>el.hidden=false);
   $("previewLogin").hidden=true;$("previewSession").hidden=false;
   $("previewWho").textContent=(profile.display_name||user.email)+" — সম্পাদকীয় প্রিভিউ";
   $("previewMessage").textContent="Draft/Pending সহ আপনার অনুমতিপ্রাপ্ত লেখা দেখানো হচ্ছে।";
@@ -837,7 +870,6 @@ $("previewLoginBtn").addEventListener("click",async()=>{
 });
 $("previewLogoutBtn").addEventListener("click",async()=>{
   await db.auth.signOut();previewMode=false;
-  document.querySelectorAll(".privileged-link").forEach(el=>el.hidden=true);
   $("previewLogin").hidden=false;$("previewSession").hidden=true;
   $("previewPassword").value="";$("previewMessage").textContent="প্রিভিউ বন্ধ করা হয়েছে।";
   await loadArticles();
@@ -847,12 +879,12 @@ async function init(){
   if(session){
     const {data:profile}=await db.from("profiles").select("role,display_name").eq("id",session.user.id).maybeSingle();
     if(profile && ["admin","editor"].includes(String(profile.role||"").toLowerCase())){
-      document.querySelectorAll(".privileged-link").forEach(el=>el.hidden=false);
-      previewMode=true;$("previewLogin").hidden=true;$("previewSession").hidden=false;
+          previewMode=true;$("previewLogin").hidden=true;$("previewSession").hidden=false;
       $("previewWho").textContent=(profile.display_name||session.user.email)+" — সম্পাদকীয় প্রিভিউ";
     } else {await db.auth.signOut();}
   }
-  await Promise.all([loadArticles(),loadEpaperArchive()]);
+  await loadArticles();
+  await loadEpaper();
 }
 init();
 </script>
