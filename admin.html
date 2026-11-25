@@ -48,7 +48,8 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
       <button class="tab" data-tab="create">নতুন লেখা যোগ</button>
       <button class="tab" data-tab="all">সব লেখা</button>
       <button class="tab" data-tab="notices">নোটিশ ব্যবস্থাপনা</button>
-      <button class="tab" data-tab="ads">বিজ্ঞাপন ব্যবস্থাপনা</button><button class="tab" data-tab="epaper">ই-পেপার আর্কাইভ</button>
+      <button class="tab" data-tab="ads">বিজ্ঞাপন ব্যবস্থাপনা</button>
+      <button class="tab" data-tab="epaper">ই-পেপার আপলোড</button>
       <button class="tab admin-only" data-tab="freeapproval">লেখক Free Approval</button>
     </nav>
 
@@ -138,6 +139,19 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
     </section>
 
     
+    <section id="tab-epaper" class="panel hidden">
+      <h2>ডিজিটাল ই-পেপার প্রকাশ</h2>
+      <p class="muted">একবার HTML ও PDF (ঐচ্ছিক) আপলোড করে প্রকাশ করুন। HTML ফাইলটি text/html MIME type-এ আপলোড হবে, যাতে অনলাইনে পড়ুন বাটনে কোড নয়, ওয়েবপেজ দেখা যায়। আপলোড করা ফাইল epaper-files public bucket-এ থাকবে।</p>
+      <div class="row"><div><label>সংখ্যার শিরোনাম *</label><input id="epTitle" placeholder="যেমন: নারীদের কথা"></div><div><label>সংখ্যা / Issue No. *</label><input id="epNo" required placeholder="যেমন: ১ম বর্ষ, ২য় সংখ্যা"></div></div>
+      <div class="row"><div><label>উপশিরোনাম</label><input id="epSubtitle"></div><div><label>প্রকাশ/সংখ্যার তারিখ *</label><input id="epDate" type="date" required></div></div>
+      <label>সংক্ষিপ্ত বিবরণ</label><textarea id="epDescription" style="min-height:75px"></textarea>
+      <div class="row"><div><label>প্রচ্ছদ ছবি (ঐচ্ছিক)</label><input id="epCover" type="file" accept="image/jpeg,image/png,image/webp"></div><div><label>HTML ই-পেপার ফাইল *</label><input id="epHtml" type="file" accept=".html,.htm,text/html"></div></div>
+      <label>PDF সংস্করণ (ঐচ্ছিক)</label><input id="epPdf" type="file" accept="application/pdf,.pdf">
+      <label><input id="epPublish" type="checkbox" checked style="width:auto"> আপলোডের পর প্রকাশ করুন</label>
+      <div class="actions"><button id="epUploadBtn" class="btn">ই-পেপার আপলোড ও সংরক্ষণ</button></div>
+      <div id="epMsg" class="status hidden"></div><hr style="border:0;border-top:1px solid var(--line);margin:22px 0"><h3>আপলোড করা সংখ্যা</h3><div id="epList"><div class="empty">তালিকা লোড হচ্ছে…</div></div>
+    </section>
+
     <section id="tab-freeapproval" class="panel hidden">
       <h2>লেখকের Free Approval নিয়ন্ত্রণ</h2>
       <p class="muted">পাঁচটি পৃথক লেখা সম্পাদক/Admin কর্তৃক অনুমোদিত ও প্রকাশিত হওয়ার পর Admin Free Approval দিতে পারবেন। চালু, স্থগিত ও বাতিল—সব পরিবর্তনের ইতিহাস সংরক্ষিত হবে। দৈনিক সর্বোচ্চ একটি লেখা সীমা বহাল থাকবে।</p>
@@ -146,13 +160,7 @@ textarea{min-height:150px;resize:vertical}.row{display:grid;grid-template-column
       <div id="freeApprovalMsg" class="status hidden"></div>
     </section>
 
-    <section id="tab-epaper" class="panel hidden"><h2>ডিজিটাল ই-পেপার আপলোড</h2><p class="muted">ব্রাউজারে তৈরি করা HTML ই-পেপার আপলোড করুন। প্রতিটি সংখ্যার আলাদা ফাইল থাকবে; পুরোনো সংখ্যা আর্কাইভে থাকবে।</p>
-<div class="row"><div><label>সংখ্যা / Issue No. *</label><input id="epIssueNo" placeholder="বর্ষ ১ · সংখ্যা ১"></div><div><label>প্রকাশের তারিখ *</label><input id="epEditionDate" type="date"></div></div>
-<label>ই-পেপারের শিরোনাম *</label><input id="epTitle"><label>উপশিরোনাম</label><input id="epSubtitle"><label>সংক্ষিপ্ত বিবরণ</label><textarea id="epDescription"></textarea>
-<div class="row"><div><label>প্রচ্ছদ ছবি</label><input id="epCover" type="file" accept="image/jpeg,image/png,image/webp,image/gif"></div><div><label>HTML ই-পেপার *</label><input id="epHtml" type="file" accept="text/html,.html,.htm"></div></div>
-<label>PDF সংস্করণ (ঐচ্ছিক)</label><input id="epPdf" type="file" accept="application/pdf"><label><input id="epPublish" type="checkbox" checked style="width:auto"> আপলোডের পর প্রকাশ করুন</label>
-<div class="actions"><button id="saveEpaperBtn" class="btn">ই-পেপার আপলোড ও সংরক্ষণ</button><button id="resetEpaperBtn" class="btn light">ফর্ম পরিষ্কার</button></div><div id="epaperMsg" class="status hidden"></div><hr><h3>সংরক্ষিত সংখ্যা</h3><div id="epaperList"></div></section>
-<section id="tab-ads" class="panel hidden">
+    <section id="tab-ads" class="panel hidden">
       <h2>বিজ্ঞাপন ব্যবস্থাপনা</h2>
       <p class="muted">পত্রিকার মতো Top Banner, Feed/In-article, Sidebar, Portrait, Interstitial ও Bottom placement ব্যবহার করুন। অ্যানিমেটেড GIF-ও চলবে।</p>
       <input id="adId" type="hidden">
@@ -308,8 +316,51 @@ coverFileInput.addEventListener("change", async function () {
     if(error){say("appMsg","লেখার তালিকা আনা যায়নি: "+error.message,"error");return;}
     allArticles=data||[];
     renderQueue(); renderAll();
-    await Promise.all([loadNotices(), loadAds(), loadEpapers()]);
+    await Promise.all([loadNotices(), loadAds(), loadEpaperAdmin()]);
   }
+
+  async function uploadEpaperObject(file,folder,forcedType){
+    const clean=file.name.normalize("NFKD").replace(/[^a-zA-Z0-9._-]+/g,"-").replace(/-+/g,"-");
+    const path=`${folder}/${Date.now()}-${crypto.randomUUID()}-${clean}`;
+    const contentType=forcedType||file.type||"application/octet-stream";
+    const {data,error}=await db.storage.from("epaper-files").upload(path,file,{cacheControl:"3600",upsert:false,contentType});
+    if(error)throw error;
+    return db.storage.from("epaper-files").getPublicUrl(data.path).data.publicUrl;
+  }
+  async function saveEpaper(){
+    if(!db||!currentUser||!["admin","editor"].includes(currentRole)){say("epMsg","ই-পেপার আপলোডের অনুমতি নেই।","error");return;}
+    const title=$("epTitle").value.trim(), issueNo=$("epNo").value.trim(), editionDate=$("epDate").value, html=$("epHtml").files?.[0], pdf=$("epPdf").files?.[0], cover=$("epCover").files?.[0];
+    if(!title||!issueNo||!editionDate||!html){say("epMsg","শিরোনাম, সংখ্যা/Issue No., তারিখ ও HTML ফাইল আবশ্যক।","error");return;}
+    if(!/^\d{4}-\d{2}-\d{2}$/.test(editionDate)){say("epMsg","সঠিক প্রকাশের তারিখ নির্বাচন করুন।","error");return;}
+    if(!/\.html?$/i.test(html.name)){say("epMsg","শুধু .html বা .htm ফাইল নির্বাচন করুন।","error");return;}
+    if(html.size>50*1024*1024 || (pdf&&pdf.size>50*1024*1024) || (cover&&cover.size>50*1024*1024)){say("epMsg","HTML/PDF/প্রচ্ছদ ফাইল সর্বোচ্চ ৫০ MB হতে পারবে।","error");return;}
+    if(cover&&!(["image/jpeg","image/png","image/webp"].includes(cover.type))){say("epMsg","প্রচ্ছদ ছবি JPG, PNG অথবা WebP হতে হবে।","error");return;}
+    const btn=$("epUploadBtn");btn.disabled=true;
+    try{
+      say("epMsg","ফাইল আপলোড হচ্ছে…","ok");
+      const htmlUrl=await uploadEpaperObject(html,"issues/html","text/html; charset=utf-8");
+      const pdfUrl=pdf?await uploadEpaperObject(pdf,"issues/pdf","application/pdf"):null;
+      const coverUrl=cover?await uploadEpaperObject(cover,"issues/covers",cover.type):null;
+      const published=$("epPublish").checked;
+      const payload={title,issue_no:issueNo,subtitle:$("epSubtitle").value.trim()||null,description:$("epDescription").value.trim()||null,edition_date:editionDate,html_url:htmlUrl,pdf_url:pdfUrl,cover_image_url:coverUrl,created_by:currentUser.id,is_published:published,published_at:published?new Date().toISOString():null,updated_at:new Date().toISOString()};
+      const {error}=await db.from("epaper_issues").insert(payload);if(error)throw error;
+      ["epTitle","epNo","epSubtitle","epDate","epDescription","epHtml","epPdf","epCover"].forEach(id=>{const el=$(id);el.value="";});
+      say("epMsg","ই-পেপার আপলোড ও সংরক্ষণ হয়েছে।","ok");await loadEpaperAdmin();
+    }catch(e){say("epMsg","আপলোড/সংরক্ষণ ব্যর্থ: "+e.message,"error");}
+    finally{btn.disabled=false;}
+  }
+  async function loadEpaperAdmin(){
+    if(!db||!currentUser)return;
+    const box=$("epList");if(!box)return;
+    const {data,error}=await db.from("epaper_issues").select("id,title,issue_no,edition_date,is_published,html_url,pdf_url,created_at").order("created_at",{ascending:false}).limit(100);
+    if(error){box.innerHTML=`<div class="empty">ই-পেপার তালিকা আনা যায়নি: ${safe(error.message)}</div>`;return;}
+    box.innerHTML=(data||[]).map(x=>`<article class="item"><div><strong>${safe(x.title)}</strong><div class="muted">${safe(x.issue_no||"")} · ${safe(x.edition_date||"")} · ${x.is_published?"প্রকাশিত":"খসড়া"}</div><div class="actions"><a class="btn light" href="${safe(x.html_url||"#")}" target="_blank" rel="noopener">HTML দেখুন</a>${x.pdf_url?`<a class="btn light" href="${safe(x.pdf_url)}" target="_blank" rel="noopener">PDF</a>`:""}</div></div><div class="actions"><button class="btn secondary" data-ep-toggle="${x.id}" data-published="${x.is_published}">${x.is_published?"প্রকাশ বন্ধ":"প্রকাশ করুন"}</button>${isAdmin()?`<button class="btn danger" data-ep-delete="${x.id}">রেকর্ড মুছুন</button>`:""}</div></article>`).join("")||'<div class="empty">এখনো কোনো ই-পেপার আপলোড হয়নি।</div>';
+  }
+  $("epUploadBtn").addEventListener("click",saveEpaper);
+  $("epList").addEventListener("click",async e=>{
+    const toggle=e.target.closest("[data-ep-toggle]");if(toggle){const next=toggle.dataset.published!=="true";const {error}=await db.from("epaper_issues").update({is_published:next,published_at:next?new Date().toISOString():null,updated_at:new Date().toISOString()}).eq("id",toggle.dataset.epToggle);if(error)say("epMsg","পরিবর্তন হয়নি: "+error.message,"error");else await loadEpaperAdmin();}
+    const del=e.target.closest("[data-ep-delete]");if(del){if(!isAdmin()){say("epMsg","শুধু Chief Admin ই-পেপার রেকর্ড মুছতে পারবেন।","error");return;}if(confirm("ই-পেপার রেকর্ড মুছবেন? Storage ফাইল আলাদাভাবে থেকে যাবে।")){const {error}=await db.from("epaper_issues").delete().eq("id",del.dataset.epDelete);if(error)say("epMsg","মুছতে সমস্যা: "+error.message,"error");else await loadEpaperAdmin();}}
+  });
 
   function safe(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
   const statusBn={draft:"খসড়া",pending:"অপেক্ষমাণ",revision_requested:"সংশোধন চাওয়া হয়েছে",published:"প্রকাশিত",rejected:"বাতিল",archived:"আর্কাইভ"};
@@ -353,11 +404,9 @@ coverFileInput.addEventListener("change", async function () {
     if (file.size > MEDIA_MAX) throw new Error("ফাইল ৫ MB-এর বেশি। ছোট ফাইল নির্বাচন করুন।");
     const ext = (file.name.split(".").pop() || "bin").toLowerCase().replace(/[^a-z0-9]/g,"");
     const path = folder + "/" + currentUser.id + "/" + Date.now() + "-" + Math.random().toString(36).slice(2) + "." + ext;
-    const bucket = file.type === "application/pdf" ? "private-files" : "site-media";
-    const {data,error} = await db.storage.from(bucket).upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
+    const {data,error} = await db.storage.from("site-media").upload(path,file,{cacheControl:"3600",upsert:false,contentType:file.type});
     if(error) throw error;
-    if(bucket === "private-files") { const signed=await db.storage.from(bucket).createSignedUrl(data.path,31536000); if(signed.error) throw signed.error; return signed.data.signedUrl; }
-    return db.storage.from(bucket).getPublicUrl(data.path).data.publicUrl;
+    return db.storage.from("site-media").getPublicUrl(data.path).data.publicUrl;
   }
   function dtValue(v){ if(!v)return ""; const d=new Date(v); if(Number.isNaN(d.getTime()))return ""; return new Date(d.getTime()-d.getTimezoneOffset()*60000).toISOString().slice(0,16); }
   function fromDt(v){ return v ? new Date(v).toISOString() : null; }
@@ -388,35 +437,6 @@ coverFileInput.addEventListener("change", async function () {
       say("noticeMsg","নোটিশ সংরক্ষণ হয়েছে।","ok");resetNoticeForm();await loadNotices();
     }catch(e){say("noticeMsg","সংরক্ষণ হয়নি: "+e.message,"error");}finally{btn.disabled=false;}
   }
-
-  async function loadEpapers(){
-    const {data,error}=await db.from("epaper_issues").select("id,issue_no,title,edition_date,is_published").order("edition_date",{ascending:false}).limit(200);
-    if(error){say("epaperMsg","তালিকা আনা যায়নি: "+error.message,"error");return;}
-    $("epaperList").innerHTML=(data||[]).length?data.map(x=>`<article class="item"><div><strong>${safe(x.title)}</strong><div class="muted">${safe(x.issue_no)} · ${safe(x.edition_date||"")} · ${x.is_published?"প্রকাশিত":"খসড়া"}</div></div><div class="actions"><button class="btn light" data-ep-toggle="${x.id}" data-pub="${x.is_published}">${x.is_published?"আর্কাইভ থেকে লুকান":"প্রকাশ করুন"}</button><button class="btn danger" data-ep-delete="${x.id}">ডিলিট</button></div></article>`).join(""):'<div class="empty">কোনো ই-পেপার নেই।</div>';
-  }
-  async function saveEpaper(){
-    const btn=$("saveEpaperBtn");btn.disabled=true;
-    try{
-      const issueNo=$("epIssueNo").value.trim(),title=$("epTitle").value.trim(),date=$("epEditionDate").value,html=$("epHtml").files?.[0],pdf=$("epPdf").files?.[0],cover=$("epCover").files?.[0];
-      if(!issueNo||!title||!date||!html)throw new Error("সংখ্যা, শিরোনাম, তারিখ ও HTML ফাইল আবশ্যক।");
-      if(!/\.html?$/i.test(html.name))throw new Error("শুধু HTML ফাইল আপলোড করুন।");
-      if(html.size>50*1024*1024)throw new Error("HTML ফাইল ৫০ MB-এর বেশি।");
-      const stamp=Date.now(),folder=`issues/${date.slice(0,7)}`;
-      const hu=await db.storage.from("epaper-files").upload(`${folder}/${stamp}-${html.name.replace(/[^a-zA-Z0-9._-]/g,"-")}`,html,{upsert:false,contentType:"text/html"});if(hu.error)throw hu.error;
-      const htmlUrl=db.storage.from("epaper-files").getPublicUrl(hu.data.path).data.publicUrl;
-      let pdfUrl=null,coverUrl=null;
-      if(pdf){if(pdf.size>50*1024*1024)throw new Error("PDF ৫০ MB-এর বেশি।");const pu=await db.storage.from("epaper-files").upload(`${folder}/${stamp}-${pdf.name.replace(/[^a-zA-Z0-9._-]/g,"-")}`,pdf,{upsert:false,contentType:"application/pdf"});if(pu.error)throw pu.error;pdfUrl=db.storage.from("epaper-files").getPublicUrl(pu.data.path).data.publicUrl;}
-      if(cover)coverUrl=await uploadMediaFile(cover,"epaper-covers");
-      const published=$("epPublish").checked;
-      const payload={issue_no:issueNo,title,subtitle:$("epSubtitle").value.trim()||null,description:$("epDescription").value.trim()||null,edition_date:date,is_published:published,published_at:published?new Date().toISOString():null,created_by:currentUser.id,html_url:htmlUrl,pdf_url:pdfUrl,cover_image_url:coverUrl,updated_at:new Date().toISOString()};
-      const {error}=await db.from("epaper_issues").insert(payload);if(error)throw error;
-      say("epaperMsg","ই-পেপার আপলোড ও আর্কাইভে সংরক্ষিত হয়েছে।","ok");["epIssueNo","epTitle","epSubtitle","epDescription","epEditionDate"].forEach(id=>$(id).value="");["epHtml","epPdf","epCover"].forEach(id=>$(id).value="");await loadEpapers();
-    }catch(e){say("epaperMsg","আপলোড হয়নি: "+(e.message||e),"error");}finally{btn.disabled=false;}
-  }
-  $("saveEpaperBtn").addEventListener("click",saveEpaper);
-  $("resetEpaperBtn").addEventListener("click",()=>{["epIssueNo","epTitle","epSubtitle","epDescription","epEditionDate"].forEach(id=>$(id).value="");["epHtml","epPdf","epCover"].forEach(id=>$(id).value="");});
-  document.addEventListener("click",async e=>{const t=e.target.closest("[data-ep-toggle]");if(t){const publish=t.dataset.pub!=="true";const {error}=await db.from("epaper_issues").update({is_published:publish,published_at:publish?new Date().toISOString():null,updated_at:new Date().toISOString()}).eq("id",t.dataset.epToggle);if(error)say("epaperMsg",error.message,"error");else await loadEpapers();}const d=e.target.closest("[data-ep-delete]");if(d){if(!requireAdmin())return;if(!confirm("ই-পেপার রেকর্ড ডিলিট করবেন?"))return;const {error}=await db.from("epaper_issues").delete().eq("id",d.dataset.epDelete);if(error)say("epaperMsg",error.message,"error");else await loadEpapers();}});
-
   async function loadAds(){
     const {data,error}=await db.from("advertisements").select("id,title,image_url,link_url,placement,is_active,starts_at,ends_at,created_at").order("created_at",{ascending:false}).limit(300);
     if(error){say("adMsg","বিজ্ঞাপন আনা যায়নি: "+error.message,"error");return;}
