@@ -399,8 +399,8 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
 .epaper-card{border:1px solid var(--line);background:#fff;overflow:hidden;box-shadow:0 3px 12px rgba(20,30,45,.06);display:flex;flex-direction:column}
 .epaper-cover{width:100%;aspect-ratio:3/4;object-fit:cover;background:#f0eee9}.epaper-cover-empty{aspect-ratio:3/4;display:grid;place-items:center;background:linear-gradient(145deg,#172b46,#941f2b);color:#f5d98f;font:800 25px 'Noto Serif Bengali',serif;text-align:center;padding:20px}
 .epaper-card-body{padding:13px;display:flex;flex-direction:column;gap:6px;flex:1}.epaper-card h3{font:700 18px 'Noto Serif Bengali',serif;color:var(--navy);margin:0}.epaper-card p{font-size:12px;color:var(--muted);margin:0}.epaper-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:auto;padding-top:9px}.epaper-actions button,.epaper-actions a{border:1px solid var(--navy);background:var(--navy);color:#fff;padding:7px 10px;font-size:12px;border-radius:3px;cursor:pointer}.epaper-actions .pdf{background:#fff;color:var(--navy)}
-.epaper-reader{margin-top:22px;border:1px solid var(--line);background:#fff}.epaper-reader-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;border-bottom:1px solid var(--line);flex-wrap:wrap}.epaper-reader-head strong{display:block;color:var(--navy)}.epaper-reader-head span{display:block;color:var(--muted);font-size:12px}.epaper-reader-actions{display:flex;gap:8px;flex-wrap:wrap}.epaper-reader iframe{display:block;width:100%;height:min(82vh,1000px);border:0;background:#fff}.epaper-section .system-status{margin:0;padding:7px 0;font-size:12px}
-@media(max-width:600px){.epaper-section{padding:13px}.epaper-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.epaper-card h3{font-size:15px}.epaper-reader iframe{height:75vh}}
+.epaper-reader{margin-top:22px;border:1px solid var(--line);border-radius:10px;background:#f3f5f8;overflow:hidden;box-shadow:0 8px 28px rgba(20,30,45,.08)}.epaper-reader-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line);background:#fff;flex-wrap:wrap}.epaper-reader-head strong{display:block;color:var(--navy)}.epaper-reader-head span{display:block;color:var(--muted);font-size:12px}.epaper-reader-actions{display:flex;gap:8px;flex-wrap:wrap}.epaper-reader iframe{display:block;width:100%;height:min(86vh,1120px);min-height:620px;border:0;background:#fff}.epaper-section .system-status{margin:0;padding:7px 0;font-size:12px}
+@media(max-width:600px){.epaper-section{padding:13px}.epaper-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.epaper-card h3{font-size:15px}.epaper-reader iframe{height:78vh;min-height:520px}}
 
 </style>
 </head>
@@ -574,8 +574,8 @@ footer p,footer a{font-size:13px;color:#c4cbd4}
     <div id="epaperStatus" class="system-status" role="status">ই-পেপার আর্কাইভ লোড হচ্ছে…</div>
     <div id="epaperGrid" class="epaper-grid"><div class="empty-state">প্রকাশিত সংখ্যা খোঁজা হচ্ছে…</div></div>
     <div id="epaperReader" class="epaper-reader" hidden>
-      <div class="epaper-reader-head"><div><strong id="epaperReaderTitle">ই-পেপার</strong><span id="epaperReaderMeta"></span></div><div class="epaper-reader-actions"><a id="epaperPdfLink" class="tool-btn" target="_blank" rel="noopener" hidden>PDF ডাউনলোড</a><button id="epaperClose" class="tool-btn" type="button">বন্ধ করুন ×</button></div></div>
-      <iframe id="epaperFrame" title="সাহিত্য বাতায়ন ডিজিটাল ই-পেপার" loading="lazy" sandbox="allow-scripts allow-same-origin allow-forms allow-popups" referrerpolicy="no-referrer"></iframe>
+      <div class="epaper-reader-head"><div><strong id="epaperReaderTitle">ই-পেপার</strong><span id="epaperReaderMeta"></span></div><div class="epaper-reader-actions"><a id="epaperHtmlLink" class="tool-btn" target="_blank" rel="noopener" hidden>HTML নতুন ট্যাবে খুলুন</a><a id="epaperPdfLink" class="tool-btn" target="_blank" rel="noopener" hidden>PDF দেখুন / ডাউনলোড</a><button id="epaperClose" class="tool-btn" type="button">বন্ধ করুন ×</button></div></div>
+      <iframe id="epaperFrame" title="সাহিত্য বাতায়ন ডিজিটাল ই-পেপার" loading="lazy" sandbox="allow-same-origin allow-popups" referrerpolicy="no-referrer"></iframe>
     </div>
   </section>
 
@@ -817,6 +817,7 @@ function openEpaper(index){
   const frame=$("epaperFrame"),reader=$("epaperReader");
   $("epaperReaderTitle").textContent=issue.title||"ই-পেপার";
   $("epaperReaderMeta").textContent=[issue.issue_no?"সংখ্যা "+issue.issue_no:"",epaperDate(issue.edition_date)].filter(Boolean).join(" · ");
+  const htmlLink=$("epaperHtmlLink");if(issue.html_url){htmlLink.href=issue.html_url;htmlLink.hidden=false;}else{htmlLink.hidden=true;htmlLink.removeAttribute("href");}
   const pdf=$("epaperPdfLink");if(issue.pdf_url){pdf.href=issue.pdf_url;pdf.hidden=false;}else{pdf.hidden=true;pdf.removeAttribute("href");}
   frame.src=issue.html_url;reader.hidden=false;reader.scrollIntoView({behavior:"smooth",block:"start"});
 }
